@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "automat": "node automat.js name=coffe size=50",
-    "watch": "nodemon src/index.js",
+    "watch": "nodemon src/index.js -e js,json,ejs",
     "css": "npx tailwindcss -i ./src/input.css -o ./public/output.css --watch"
   },
   "author": "",
