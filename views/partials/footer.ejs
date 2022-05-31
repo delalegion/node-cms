@@ -1,23 +1,33 @@
-    
-    <div class="flex py-8 bg-slate-900 text-stone-100 border-t-2 border-slate-800 mt-6">
-        <div class="container grid grid-cols-4 gap-2 m-auto">
-            <div class="col-span-1 flex items-center">
-                2022 © Kruk 
-            </div>
-            <div class="col-span-2 flex items-center">
-                <ul class="flex flex-row">
-                    <li class="no-underline px-4 mx-2"><a href="#" class="hover:text-stone-300">Homepage</a></li>
-                    <li class="no-underline px-4 mx-2"><a href="#" class="hover:text-stone-300">Profiles</a></li>
-                    <li class="no-underline px-4 mx-2"><a href="#" class="hover:text-stone-300">Login page</a></li>
-                </ul>
-            </div>
-            <div class="col-span-1 items-center flex justify-end">
-                <button class="bg-violet-500 hover:bg-violet-600 focus:outline-none focus:ring focus:ring-violet-300 active:bg-violet-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white">
-                    Contact
-                </button>
-            </div>
-        </div>
-    </div>
 
+    <div class="uk-grid-large uk-child-width-expand@s uk-text-center uk-flex-middle uk-margin-top" uk-grid>
+        <div>
+            2022 © Kruk 
+        </div>
+        <div>
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="#">Active</a></li>
+                <li>
+                    <a href="#">Parent</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">Item</a></li>
+            </ul>
+        </div>
+        <div>
+            <button class="uk-button uk-button-primary">
+                Contact
+            </button>
+        </div>
+    </div>    
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit-icons.min.js"></script>
     </body>
 </html>

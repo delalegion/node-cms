@@ -15,6 +15,12 @@ const usersSchema = new Schema(
                 return emailRegex.test(value);
             }), "Wprowadź prawidłowy email"],
         },
+        slug: {
+            type: String,
+            lowercase: true,
+            unique: [true, "Podana wartość istnieje juz w bazie danych."],
+            required: [true, "Wartość slug jest wymagania"]
+        }
     },
     {
         timestamps: true

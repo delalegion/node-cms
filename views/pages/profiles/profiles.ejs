@@ -1,0 +1,16 @@
+
+<div class="uk-container uk-container-small uk-margin-top">
+    <div class="uk-child-width-1-3 uk-grid-medium" uk-grid uk-height-match="target: > div > .uk-card">
+        <% users.forEach((e) => { %>
+            <div>
+                <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover">
+                    <h4 class="uk-margin-remove-bottom"><%- e.name %></h4>
+                    <p class="uk-text-small uk-margin-remove">id: <%- e.id %></p>
+                    <a href="/profile/<%- e.slug %>" class="uk-button uk-button-secondary uk-margin-top uk-flex">Details</a>
+                    <a href="edit/profile/<%- e.slug %>" class="uk-button uk-button-default uk-margin-small-top uk-flex">Edit</a>
+                    <a href="delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>

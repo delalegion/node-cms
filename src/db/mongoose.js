@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/node');
+const { database } = require('../config');
+mongoose.connect(database);
 
 // UTC Timezone
 // const utc = new Date();
@@ -18,6 +19,10 @@ async function newRecord() {
     //     slug: "slug",
     //     age: 19
     // })
+    // await client
+    // .db('node')
+    // .collection('projects')
+    // .insertOne({ client: "prosense",  description: "Lorem ipsum" });
     // await Users.create({
     //     name: "Hubert Kruczek",
     //     email: "hubercik@gmail.com",

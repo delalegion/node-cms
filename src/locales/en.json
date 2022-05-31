@@ -1,0 +1,8 @@
+{
+	"form": {
+		"name": "Full name",
+		"slug": "Slug",
+		"email": "Email"
+	},
+	"greeting": "greeting"
+}
