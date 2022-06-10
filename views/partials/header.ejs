@@ -7,7 +7,51 @@
     <title><%= title %></title>
     <!-- <link href="/output.css" rel="stylesheet"> -->
 
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 1,
+          'wght' 700,
+          'GRAD' 200,
+          'opsz' 48
+        }
+    </style>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link href="/style.css" rel="stylesheet">
+
 </head>
 <body>
+
+    <nav class="uk-navbar-container" id="menu" uk-navbar>
+        <div class="uk-navbar-left">
+    
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a href="/<%- lang %>/profiles"><span class="material-symbols-outlined">group</span> <%= __('navbar.users') %></a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/<%- lang %>/create/profile"><span class="material-symbols-outlined">person_add</span> <%= __('navbar.usersAdd') %></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="/<%- lang %>/"><span class="material-symbols-outlined">wysiwyg</span> <%= __('navbar.projects') %></a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="#"><span class="material-symbols-outlined">add</span> <%= __('navbar.projectsAdd') %></a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+    
+        </div>
+    </nav>

@@ -12,9 +12,9 @@ class UserController {
 
         const { q, sort } = req.query;
         let query = Users.find({ name: { $regex: q || '', $options: 'i' } });
-        
+
         const page = req.query.page || 1;
-        const limitPerPage = 2;
+        const limitPerPage = 6;
 
         const count = await Users.find({ name: { $regex: q || '', $options: 'i' } }).count();
         const pagesCount = count / limitPerPage;
@@ -47,7 +47,9 @@ class UserController {
     }
     async editShowUser(req, res) {
         const data = await Users.findOne({ slug: req.params.slug });
-        res.render('pages/profiles/edit', {title: "Edytuj dane uzytkownika", form: data});
+        if (!data) {
+            res.render('pages/404', {title: "404 - Site no found"});
+        } else { res.render('pages/profiles/edit', {title: "Edytuj dane uzytkownika", form: data}); }
     }
     async editUser(req, res) {
         const data = await Users.findOne({ slug: req.params.slug });

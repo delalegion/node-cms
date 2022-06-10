@@ -1,0 +1,97 @@
+$primary: #635BFF;
+$grey: #EFF3F4;
+$danger: #f0506e;
+$lighBlue: #EFF6FF;
+$text: rgb(15, 20, 25);
+
+body {
+    font-family: 'Readex Pro', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.uk-button {
+    padding: 3px 20px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+
+    span {
+        margin-right: 8px;
+    }
+}
+.uk-button-primary {
+    background: $primary;
+}
+.uk-button-default {
+    border: 2px solid rgba(0,0,0,0.15)
+}
+.uk-alert-close {
+    right: 25px;
+    top: 16px;
+}
+.uk-alert {
+    border-radius: 100px;
+    padding: 12px 20px;
+}
+.uk-input, .uk-select, .uk-textarea {
+    color: $text;
+    border-radius: 100px;
+    padding: 15px;
+    border: 0px;
+    border: 2px solid rgba(0,0,0,0);
+    height: 45px;
+    background-color: $grey;
+
+    &::placeholder {
+        color: rgba(15, 20, 25, 0.417);
+    }
+    &:focus {
+        color: $text;
+        border: 2px solid $primary;
+    }
+}
+.uk-select {
+    padding: 0 10px;
+}
+.uk-form-danger {
+    &::placeholder {
+        color: $danger;
+    }
+}
+.uk-navbar {
+    margin: 20px;
+    display: flex;
+    position: relative;
+    border-radius: 12px;
+    padding: 12px 25px;
+    background: #F7F9F9;
+    color: $text;
+
+    ul {
+        li {
+            a {
+                color: $text;
+                font-size: 1em;
+                font-weight: 600;
+                min-height: 0;
+                padding: 15px 25px;
+                border-radius: 100px;
+                
+                span {
+                    margin-right: 6px;
+                    color: $primary;
+                }
+                &:hover {
+                    background: white;
+                }
+            }
+        }
+    }
+}
+.uk-navbar-dropdown {
+    padding: 12px;
+    width: 250px;
+}

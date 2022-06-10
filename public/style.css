@@ -1,0 +1,127 @@
+body {
+  font-family: 'Readex Pro', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.uk-button {
+  padding: 3px 20px;
+  border-radius: 100px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.uk-button span {
+  margin-right: 8px;
+}
+
+.uk-button-primary {
+  background: #635BFF;
+}
+
+.uk-button-default {
+  border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.uk-alert-close {
+  right: 25px;
+  top: 16px;
+}
+
+.uk-alert {
+  border-radius: 100px;
+  padding: 12px 20px;
+}
+
+.uk-input, .uk-select, .uk-textarea {
+  color: #0f1419;
+  border-radius: 100px;
+  padding: 15px;
+  border: 0px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  height: 45px;
+  background-color: #EFF3F4;
+}
+
+.uk-input::-webkit-input-placeholder, .uk-select::-webkit-input-placeholder, .uk-textarea::-webkit-input-placeholder {
+  color: rgba(15, 20, 25, 0.417);
+}
+
+.uk-input:-ms-input-placeholder, .uk-select:-ms-input-placeholder, .uk-textarea:-ms-input-placeholder {
+  color: rgba(15, 20, 25, 0.417);
+}
+
+.uk-input::-ms-input-placeholder, .uk-select::-ms-input-placeholder, .uk-textarea::-ms-input-placeholder {
+  color: rgba(15, 20, 25, 0.417);
+}
+
+.uk-input::placeholder, .uk-select::placeholder, .uk-textarea::placeholder {
+  color: rgba(15, 20, 25, 0.417);
+}
+
+.uk-input:focus, .uk-select:focus, .uk-textarea:focus {
+  color: #0f1419;
+  border: 2px solid #635BFF;
+}
+
+.uk-select {
+  padding: 0 10px;
+}
+
+.uk-form-danger::-webkit-input-placeholder {
+  color: #f0506e;
+}
+
+.uk-form-danger:-ms-input-placeholder {
+  color: #f0506e;
+}
+
+.uk-form-danger::-ms-input-placeholder {
+  color: #f0506e;
+}
+
+.uk-form-danger::placeholder {
+  color: #f0506e;
+}
+
+.uk-navbar {
+  margin: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  border-radius: 12px;
+  padding: 12px 25px;
+  background: #F7F9F9;
+  color: #0f1419;
+}
+
+.uk-navbar ul li a {
+  color: #0f1419;
+  font-size: 1em;
+  font-weight: 600;
+  min-height: 0;
+  padding: 15px 25px;
+  border-radius: 100px;
+}
+
+.uk-navbar ul li a span {
+  margin-right: 6px;
+  color: #635BFF;
+}
+
+.uk-navbar ul li a:hover {
+  background: white;
+}
+
+.uk-navbar-dropdown {
+  padding: 12px;
+  width: 250px;
+}
+/*# sourceMappingURL=style.css.map */

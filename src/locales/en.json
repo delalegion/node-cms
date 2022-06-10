@@ -1,5 +1,11 @@
 {
 	"homepage": "Reservations online",
+	"navbar": {
+		"users": "Users",
+		"usersAdd": "Add user",
+		"projects": "Projects",
+		"projectsAdd": "Add project"
+	},
 	"form": {
 		"name": "Full name",
 		"slug": "Slug",

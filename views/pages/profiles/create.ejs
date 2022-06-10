@@ -14,7 +14,7 @@
                 <!-- Using form state modifers, the classes can be identical for every input -->
                 <input value="<%= form.name %>" type="text" placeholder="Imię i nazwisko..." name="name" class="uk-input <% if (errors?.name) { %>  uk-form-danger  <% } %>"/>
                 <% if (errors?.name) { %>
-                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                    <div class="uk-alert-danger uk-margin-small-top"" uk-alert>
                         <p><%= errors?.name.message %></p>
                     </div>
                 <% } %>
@@ -26,7 +26,7 @@
                 <!-- Using form state modifers, the classes can be identical for every input -->
                 <input value="<%= form.slug %>" type="text" placeholder="Slug..." name="slug" class="uk-input <% if (errors?.slug) { %>  uk-form-danger  <% } %>"/>
                 <% if (errors?.slug) { %>
-                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                    <div class="uk-alert-danger uk-margin-small-top"" uk-alert>
                         <p><%= errors?.slug.message %></p>
                     </div>
                 <% } %>
@@ -38,13 +38,14 @@
                 <!-- Using form state modifers, the classes can be identical for every input -->
                 <input value="<%= form.email %>" type="email" placeholder="email@gmail.com" name="email" class="uk-input" />
                 <% if (errors?.email) { %>
-                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                    <div class="uk-alert-danger uk-margin-small-top" uk-alert>
                         <p><%= errors.email.message %></p>
                     </div>
                 <% } %>
             </label>
         </div>
         <button type="submit" class="uk-button uk-button-primary uk-margin-top">
+            <span class="material-symbols-outlined">supervisor_account</span>
             Create new user
         </button>
     </form>

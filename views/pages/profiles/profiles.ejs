@@ -1,26 +1,27 @@
 
 <form method="GET">
-    <%- include('search') %>
-
     <div class="uk-container uk-margin-large-top">
         <% if (users.length === 0) { %>
             <h1>Nie znaleziono profilu zgodnego z frazą szukania.</h1>
         <% } %>
         <div class="uk-flex">
             <div class="uk-width-1-4">
-                <label for="sort" class="uk-form-label">Sortuj wg</label>
-                <div class="uk-form-controls uk-margin-large-right">
-                    <select name="sort" id="sort" class="uk-select">
-                        <option value="">Domyślne</option>
-                        <option value="name|asc" <%- query.sort === 'name|asc' ? 'selected' : '' %>>A-z</option>
-                        <option value="name|desc" <%- query.sort === 'name|desc' ? 'selected' : '' %>>Z-a</option>
-                        <option value="createdAt|asc" <%- query.sort === 'createdAt|asc' ? 'selected' : '' %>>Data utworzenia (malejąco)</option>
-                        <option value="createdAt|desc" <%- query.sort === 'createdAt|desc' ? 'selected' : '' %>>Data utworzenia (rosnąco)</option>
-                    </select>
+                <%- include('search') %>
+                <div class="uk-margin-top">
+                    <label for="sort" class="uk-form-label">Sortuj wg</label>
+                    <div class="uk-form-controls uk-margin-medium-right">
+                        <select name="sort" id="sort" class="uk-select">
+                            <option value="">Domyślne</option>
+                            <option value="name|asc" <%- query.sort === 'name|asc' ? 'selected' : '' %>>A-z</option>
+                            <option value="name|desc" <%- query.sort === 'name|desc' ? 'selected' : '' %>>Z-a</option>
+                            <option value="createdAt|asc" <%- query.sort === 'createdAt|asc' ? 'selected' : '' %>>Data utworzenia (malejąco)</option>
+                            <option value="createdAt|desc" <%- query.sort === 'createdAt|desc' ? 'selected' : '' %>>Data utworzenia (rosnąco)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="uk-button uk-button-primary uk-margin-small-top">
+                        Zastosuj
+                    </button>
                 </div>
-                <button type="submit" class="uk-button uk-button-primary uk-margin-top">
-                    Zastosuj
-                </button>
             </div>
             <div class="uk-width-3-4">
                 <div class="uk-child-width-1-3 uk-grid-medium" uk-grid uk-height-match="target: > div > .uk-card">
@@ -29,26 +30,38 @@
                             <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover">
                                 <h4 class="uk-margin-remove-bottom"><%- e.name %></h4>
                                 <p class="uk-text-small uk-margin-remove">id: <%- e.id %></p>
-                                <a href="/<%- lang %>/profile/<%- e.slug %>" class="uk-button uk-button-secondary uk-margin-top uk-flex">Details</a>
-                                <a href="/edit/profile/<%- e.slug %>" class="uk-button uk-button-default uk-margin-small-top uk-flex">Edit</a>
-                                <a href="/delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a>
+                                <div class="uk-flex uk-flex-middle uk-margin-top">
+                                    <a href="/<%- lang %>/profile/<%- e.slug %>" class="uk-button uk-button-secondary uk-flex" uk-toggle="target: #modal-example">Details</a>
+                                    <a href="/edit/profile/<%- e.slug %>" class="uk-button uk-button-default uk-margin-small-left uk-flex">Edit</a>
+                                </div>
+                                <!-- <a href="/delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a> -->
                             </div>
                         </div>
                     <% }) %>
                 </div>
+                <ul class="uk-pagination uk-margin-medium-top" uk-margin>
+                    <li><a href="#"><span uk-pagination-previous></span></a></li>
+                    <% for (let i=0;i < pagesCount;i++) { %>
+                        <li><a href="#" data-page="<%- i+1 %>"><%- i+1 %></a></li>
+                    <% } %>
+                    <li><a href="#"><span uk-pagination-next></span></a></li>
+                </ul>
             </div>
         </div>
-        <ul class="uk-pagination" uk-margin>
-            <li><a href="#"><span uk-pagination-previous></span></a></li>
-            <% for (let i=0;i < pagesCount;i++) { %>
-                <li><a href="#" data-page="<%- i+1 %>"><%- i+1 %></a></li>
-            <% } %>
-            <li><a href="#"><span uk-pagination-next></span></a></li>
-        </ul>
     </div>
 </form>
 
-<h1><%= __('greetings') %></h1>
+<!-- This is the modal -->
+<div id="modal-example" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Headline</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="uk-text-right uk-flex">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary uk-margin-small-left" type="button">Save</button>
+        </p>
+    </div>
+</div>
 
 <script>
     const changePage = e => {
