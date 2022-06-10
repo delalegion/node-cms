@@ -1,16 +1,66 @@
 
-<div class="uk-container uk-container-small uk-margin-top">
-    <div class="uk-child-width-1-3 uk-grid-medium" uk-grid uk-height-match="target: > div > .uk-card">
-        <% users.forEach((e) => { %>
-            <div>
-                <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover">
-                    <h4 class="uk-margin-remove-bottom"><%- e.name %></h4>
-                    <p class="uk-text-small uk-margin-remove">id: <%- e.id %></p>
-                    <a href="/profile/<%- e.slug %>" class="uk-button uk-button-secondary uk-margin-top uk-flex">Details</a>
-                    <a href="edit/profile/<%- e.slug %>" class="uk-button uk-button-default uk-margin-small-top uk-flex">Edit</a>
-                    <a href="delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a>
+<form method="GET">
+    <%- include('search') %>
+
+    <div class="uk-container uk-margin-large-top">
+        <% if (users.length === 0) { %>
+            <h1>Nie znaleziono profilu zgodnego z frazą szukania.</h1>
+        <% } %>
+        <div class="uk-flex">
+            <div class="uk-width-1-4">
+                <label for="sort" class="uk-form-label">Sortuj wg</label>
+                <div class="uk-form-controls uk-margin-large-right">
+                    <select name="sort" id="sort" class="uk-select">
+                        <option value="">Domyślne</option>
+                        <option value="name|asc" <%- query.sort === 'name|asc' ? 'selected' : '' %>>A-z</option>
+                        <option value="name|desc" <%- query.sort === 'name|desc' ? 'selected' : '' %>>Z-a</option>
+                        <option value="createdAt|asc" <%- query.sort === 'createdAt|asc' ? 'selected' : '' %>>Data utworzenia (malejąco)</option>
+                        <option value="createdAt|desc" <%- query.sort === 'createdAt|desc' ? 'selected' : '' %>>Data utworzenia (rosnąco)</option>
+                    </select>
+                </div>
+                <button type="submit" class="uk-button uk-button-primary uk-margin-top">
+                    Zastosuj
+                </button>
+            </div>
+            <div class="uk-width-3-4">
+                <div class="uk-child-width-1-3 uk-grid-medium" uk-grid uk-height-match="target: > div > .uk-card">
+                    <% users.forEach((e) => { %>
+                        <div>
+                            <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover">
+                                <h4 class="uk-margin-remove-bottom"><%- e.name %></h4>
+                                <p class="uk-text-small uk-margin-remove">id: <%- e.id %></p>
+                                <a href="/<%- lang %>/profile/<%- e.slug %>" class="uk-button uk-button-secondary uk-margin-top uk-flex">Details</a>
+                                <a href="/edit/profile/<%- e.slug %>" class="uk-button uk-button-default uk-margin-small-top uk-flex">Edit</a>
+                                <a href="/delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a>
+                            </div>
+                        </div>
+                    <% }) %>
                 </div>
             </div>
-        <% }) %>
+        </div>
+        <ul class="uk-pagination" uk-margin>
+            <li><a href="#"><span uk-pagination-previous></span></a></li>
+            <% for (let i=0;i < pagesCount;i++) { %>
+                <li><a href="#" data-page="<%- i+1 %>"><%- i+1 %></a></li>
+            <% } %>
+            <li><a href="#"><span uk-pagination-next></span></a></li>
+        </ul>
     </div>
-</div>
+</form>
+
+<h1><%= __('greetings') %></h1>
+
+<script>
+    const changePage = e => {
+        e.preventDefault();
+        const page = e.target.dataset.page;
+        const url = new URLSearchParams(window.location.search);
+        url.set('page', page);
+        console.log(url.toString());
+        window.location.href = window.location.origin + window.location.pathname + '?' + url.toString();
+    }
+
+    document.querySelectorAll('.uk-pagination a').forEach(a => {
+        a.addEventListener("click", changePage);
+    })
+</script>

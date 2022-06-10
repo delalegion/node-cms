@@ -10,9 +10,25 @@ class UserController {
     }
     async showUsers(req, res) {
 
-        const data = await Users.find({});
+        const { q, sort } = req.query;
+        let query = Users.find({ name: { $regex: q || '', $options: 'i' } });
+        
+        const page = req.query.page || 1;
+        const limitPerPage = 2;
 
-        res.render('pages/profiles/profiles', {users: data, title: "CO", details: 0});
+        const count = await Users.find({ name: { $regex: q || '', $options: 'i' } }).count();
+        const pagesCount = count / limitPerPage;
+
+        query = query.skip((page-1) * limitPerPage); 
+        query = query.limit(limitPerPage);
+
+        if (sort) {
+            const a = sort.split('|');
+            query = query.sort({ [a[0]]: a[1]})
+        }
+        const data = await query.exec();
+
+        res.render('pages/profiles/profiles', {users: data, title: "CO", details: 0, pagesCount, page});
     }
     showCreateUser(req, res) {
         res.render('pages/profiles/create', {title: "Stwórz nowego uzytkownika"});

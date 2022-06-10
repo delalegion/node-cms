@@ -1,8 +1,11 @@
 {
+	"homepage": "Reservations online",
 	"form": {
 		"name": "Full name",
 		"slug": "Slug",
 		"email": "Email"
 	},
-	"greeting": "greeting"
+	"greeting": "greeting",
+	"greetings": "greetingsen",
+	"form.name": "form.name"
 }
