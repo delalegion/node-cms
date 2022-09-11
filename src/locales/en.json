@@ -1,17 +1,44 @@
 {
-	"homepage": "Reservations online",
+	"homepage": "Welcome back",
 	"navbar": {
 		"users": "Users",
-		"usersAdd": "Add user",
 		"projects": "Projects",
-		"projectsAdd": "Add project"
+		"projectsAdd": "Add project",
+		"login": "Sign in",
+		"register": "Create a user",
+		"language": "Change language",
+		"english": "English",
+		"polish": "Polish",
+		"logout": "Logout",
+		"help": "Help"
 	},
 	"form": {
 		"name": "Full name",
 		"slug": "Slug",
-		"email": "Email"
+		"email": "Email",
+		"emailText": "Your email",
+		"password": "Password",
+		"passwordText": "Your password",
+		"error": "Error occured. Check the entered data.",
+		"backToSite": "Back to site",
+		"logIn": "Have you got an account? Log in",
+		"signUp": "Don't have an account? Sign up"
 	},
-	"greeting": "greeting",
-	"greetings": "greetingsen",
-	"form.name": "form.name"
+	"profiles": {
+		"searchUser": "Search user",
+		"search": "Search",
+		"sort": "Sort by",
+		"userSearchError": "No profiles were found matched to searching queries",
+		"sortBy": {
+			"default": "Default",
+			"desc": "Creation date (descending)",
+			"asc": "Creation date (ascending)"
+		},
+		"apply": "Apply",
+		"details": "Details",
+		"edit": "Edit"
+	},
+	"from": {
+		"password": "from.password"
+	}
 }

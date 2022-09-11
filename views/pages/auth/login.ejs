@@ -1,0 +1,69 @@
+<div class="uk-container uk-container-xsmall">
+
+    <div class="login-logo uk-flex uk-flex-center uk-margin-large-top uk-margin-large-bottom">
+        <img src="/img/cms-logo.svg" alt="Logo of KRUK CMS" />
+    </div>
+    <% if (errors) { %>
+        <div class="uk-alert-danger" uk-alert>
+            <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
+            <p><%= __('form.error') %></p>
+        </div>
+    <% } %>
+    <div class="login-box uk-margin-top">
+        <h3><%= __('navbar.login') %></h3>
+        <form method="POST">
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label">Email</span>
+                    <input value="<%= form.email %>" type="email" placeholder="<%= __('form.emailText') %>..." name="email" class="uk-input <% if (errors?.password) { %>uk-input-danger<% } %>" />
+                    <% if (errors?.email) { %>
+                        <div class="uk-alert-danger uk-margin-small-top" uk-alert>
+                            <p><%= errors.email.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label"><%= __('form.password') %></span>
+                    <div class="uk-position-relative">
+                        <input value="<%= form.password %>" type="password" placeholder="<%= __('form.passwordText') %>..." name="password" class="uk-input form-password <% if (errors?.password) { %>uk-input-danger<% } %>"/>
+                        <span class="material-symbols-outlined password-toggler" toggle=".form-password">visibility</span>
+                    </div>
+                    <% if (errors?.password) { %>
+                        <div class="uk-alert-danger uk-margin-small-top"" uk-alert>
+                            <p><%= errors?.password.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <button type="submit" class="uk-button uk-button-primary uk-margin-top uk-width-100 uk-flex-center">
+                <%= __('navbar.login') %>
+            </button>
+        </form>
+    </div>
+    <div class="row uk-flex uk-flex-center uk-margin-top">
+        <a href="#" class="uk-button uk-button-border uk-flex-center uk-margin-right">
+            <%= __('form.backToSite') %>
+        </a>
+        <!-- <a href="#" class="uk-button uk-button-secondary uk-flex-center">
+            <%= __('form.logIn') %>
+        </a> -->
+    </div>
+   
+</div>
+
+<script>
+    $(".password-toggler").click(function() {
+
+    $(this).text(function(i, oldText) {
+        return oldText === 'visibility' ? 'visibility_off' : 'visibility';
+    });
+    const input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+    });
+</script>

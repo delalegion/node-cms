@@ -1,16 +1,41 @@
 {
-	"homepage": "Rezerwacja online",
+	"homepage": "Witaj spowrotem",
 	"navbar": {
 		"users": "Użytkownicy",
-		"usersAdd": "Dodaj użytkownika",
 		"projects": "Projekty",
-		"projectsAdd": "Dodaj projekt"
+		"projectsAdd": "Dodaj projekt",
+		"login": "Zaloguj się",
+		"register": "Stwórz użytkownika",
+		"language": "Zmień język",
+		"english": "Angielski",
+		"polish": "Polski",
+		"logout": "Wyloguj się",
+		"help": "Pomoc"
 	},
 	"form": {
 		"name": "Imię i nazwisko",
 		"slug": "Slug",
-		"email": "Email"
+		"email": "Email",
+		"emailText": "Wpisz email",
+		"password": "Hasło",
+		"passwordText": "Wpisz hasło",
+		"error": "Wystąpił błąd. Sprawdź wszystkie wprowadzone dane.",
+		"backToSite": "Wróć do strony",
+		"logIn": "Posiadasz konto? Zaloguj się",
+		"signUp": "Nie posiadasz konta? Zarejestruj się"
 	},
-	"greetings": "greetingspl",
-	"greeting": "greeting"
+	"profiles": {
+		"searchUser": "Szukaj użytkownika",
+		"search": "Szukaj",
+		"sort": "Sortuj wg",
+		"userSearchError": "Nie znaleziono profilu zgodnego z frazą szukania",
+		"sortBy": {
+			"default": "Domyślne",
+			"desc": "Data utworzenia (malejąco)",
+			"asc": "Data utworzenia (rosnąco)"
+		},
+		"apply": "Zastosuj",
+		"details": "Szczegóły",
+		"edit": "Edytuj"
+	}
 }

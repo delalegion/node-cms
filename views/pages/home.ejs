@@ -1,7 +1,47 @@
 
-    <div class="uk-container uk-container-small uk-margin-top">
-        <h1 class="uk-heading-xlarge"><%= __('homepage') %></h1>
-        <a href="/profiles/" class="uk-button uk-button-primary">
-            Profile
-        </a>
-    </div>
+<%- contentFor('content') %>
+
+    <% if (user) { %>
+        <div class="uk-container uk-container-small uk-margin-top">
+            <h2><%= __('homepage') %> <%- name[0] %></h2>
+        </div>
+    <% } %>
+
+        <section id="boxes" class="boxes uk-margin-top" uk-grid>
+            <div class="uk-width-1-2">
+                <article id="box-projects" class="box-menu">
+                    <div class="uk-flex">
+                        <div class="box-projects-icon">
+                            <span class="material-symbols-outlined">perm_media</span>
+                        </div>
+                        <div class="box-projects-text">
+                            <div class="box-projects-title">
+                                21
+                            </div>
+                            Projects
+                        </div>
+                    </div>
+                    <a href="/<%- lang %>/profiles" class="uk-button uk-button-secondary uk-flex uk-flex-center uk-width-100">
+                        ALL PROJECTS
+                    </a>
+                </article>
+            </div>
+            <div class="uk-width-1-2">
+                <article id="box-users" class="box-menu">
+                    <div class="uk-flex">
+                        <div class="box-users-icon">
+                            <span class="material-symbols-outlined">group</span>
+                        </div>
+                        <div class="box-users-text">
+                            <div class="box-users-title">
+                                12
+                            </div>
+                            Users
+                        </div>
+                    </div>
+                    <a href="/<%- lang %>/profiles" class="uk-button uk-button-secondary uk-flex uk-flex-center uk-width-100">
+                        ALL USERS
+                    </a>
+                </article>
+            </div>
+        </section>

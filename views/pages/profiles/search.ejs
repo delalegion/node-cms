@@ -1,11 +1,13 @@
 <div class="uk-container uk-container-small">
-    <div class="uk-flex-bottom block uk-margin-top uk-margin-medium-right">
+    <div class="uk-flex-bottom block">
         <label>
-            <span class="uk-form-label">Szukaj uzytkownika</span>
-            <input type="text" value="<%- query.q %>" placeholder="Wpisz szukaną frazę..." name="q" class="uk-input"/>
+            <span class="uk-form-label"><%= __('profiles.searchUser') %></span>
+            <div class="uk-position-relative">
+                <input type="text" value="<%- query.q %>" placeholder="Wpisz szukaną frazę..." name="q" class="uk-input"/>
+                <!-- <button type="submit" class="uk-button uk-button-small uk-button-primary search-button">
+                    <%= __('profiles.search') %>
+                </button> -->
+            </div>
         </label>
-        <button type="submit" class="uk-button uk-button-primary uk-margin-small-top">
-            Szukaj
-        </button>
     </div>
 </div>

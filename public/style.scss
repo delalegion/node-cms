@@ -1,56 +1,412 @@
-$primary: #635BFF;
-$grey: #EFF3F4;
-$danger: #f0506e;
-$lighBlue: #EFF6FF;
+$primary: #F7434E;
+$secondary: #CAC2B7;
+$light-secondary: #ECE8E3;
+$light-grey: #F5F5F5;
+$black: black;
+$additional: #4E2FA1;
 $text: rgb(15, 20, 25);
+$animation: .5s cubic-bezier(.19,1,.22,1);
+
+// Fonts
+@font-face {
+    font-family: 'Sora-Bold'; /*a name to be used later*/
+    src: url('fonts/Sora-Bold.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Bold-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-BoldItalic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-ExtraBold'; /*a name to be used later*/
+    src: url('fonts/Sora-ExtraBold.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-ExtraBold-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-ExtraBoldItalic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-ExtraLight'; /*a name to be used later*/
+    src: url('fonts/Sora-ExtraLight.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-ExtraLight-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-ExtraLightItalic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-Italic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Light'; /*a name to be used later*/
+    src: url('fonts/Sora-Light.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Light-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-LightItalic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Medium'; /*a name to be used later*/
+    src: url('fonts/Sora-Medium.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Medium-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-MediumItalic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Regular'; /*a name to be used later*/
+    src: url('fonts/Sora-Regular.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-SemiBold'; /*a name to be used later*/
+    src: url('fonts/Sora-SemiBold.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-SemiBold-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-SemiBoldItalic.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Thin'; /*a name to be used later*/
+    src: url('fonts/Sora-Thin.otf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Sora-Thin-Italic'; /*a name to be used later*/
+    src: url('fonts/Sora-ThinItalic.otf'); /*URL to font*/
+}
 
 body {
-    font-family: 'Readex Pro', sans-serif;
+    font-family: 'Sora-SemiBold', sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background: $secondary;
+    color: $black;
 }
 
+.uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge {
+    font-family: 'Sora-SemiBold', sans-serif;
+    color: $black;
+}
+h1,h2,h3,h4,h5,h6 {
+    color: $black;
+}
+h1 {
+    font-size: 96px;
+    font-family: 'Sora-Bold', sans-serif;
+}
+h2 {
+    font-size: 60px;
+    font-family: 'Sora-Bold', sans-serif;
+}
+h3 {
+    font-size: 48px;
+    font-family: 'Sora-SemiBold', sans-serif;
+}
+h4 {
+    font-size: 34px;
+    font-family: 'Sora-SemiBold', sans-serif;
+    letter-spacing: 0.25px;
+}
+h5 {
+    font-size: 24px;
+    font-family: 'Sora-Medium', sans-serif;
+}
+h6 {
+    font-size: 20px;
+    font-family: 'Sora-Medium', sans-serif;
+}
+.sub-1 {
+    font-size: 16px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 0.15px; 
+}
+.sub-2 {
+    font-size: 14px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 0.15px; 
+}
+.body-1 {
+    font-size: 16px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 0.5px; 
+}
+.body-2 {
+    font-size: 14px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 0.5px; 
+}
+.button-text {
+    font-size: 14px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 1.25px; 
+}
+.caption {
+    font-size: 12px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 0.4px; 
+}
+.overline {
+    font-size: 10px;
+    font-family: 'Sora-SemiBold', sans-serif;  
+    letter-spacing: 1.5px; 
+}
+
+a:hover {
+    color: $black;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+.uk-button:active, .uk-button-primary.uk-active, .uk-button-primary:active {
+    background: transparent;
+    &:hover {
+        &:after {
+            transform: scale(0.96);
+        }
+    }
+}
 .uk-button {
-    padding: 3px 20px;
+    padding: 20px 30px;
+    position: relative;
     border-radius: 100px;
     display: inline-flex;
     align-items: center;
+    font-size: 14px;
+    letter-spacing: 1.25px;
+    line-height: unset;
     text-align: center;
+    color: white;
+    background: transparent;
+    z-index: 1;
 
     span {
         margin-right: 8px;
     }
 }
-.uk-button-primary {
-    background: $primary;
-}
 .uk-button-default {
-    border: 2px solid rgba(0,0,0,0.15)
+    color: $black;
+    border: none;
+    -webkit-box-shadow:inset 0px 0px 0px 2px #ADA599;
+    -moz-box-shadow:inset 0px 0px 0px 2px #ADA599;
+    box-shadow:inset 0px 0px 0px 2px #ADA599;
+    transition: $animation;
+
+    &:hover {
+        -webkit-box-shadow:inset 0px 0px 0px 3px #ADA599;
+        -moz-box-shadow:inset 0px 0px 0px 3px #ADA599;
+        box-shadow:inset 0px 0px 0px 3px #ADA599;
+    }
+    &:active {
+        transform: scale(0.96);
+    }
+}
+.uk-button-small {
+    padding: 15px 20px;
+}
+.uk-button-dropdown {
+    background: white;
+    color: $black;
+
+    span.material-symbols-outlined {
+        color: $primary;
+    }
+}
+.uk-button-primary {
+    background: transparent;
+    &:after {
+        content: '';
+        background: $primary;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 100px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transition: $animation;
+    }
+    &:hover {
+        background: transparent;
+        transition: $animation;
+        &:after {
+            transform: scale(1.05);
+        }
+    }
+}
+.uk-button-secondary {
+    background: transparent;
+    &:after {
+        content: '';
+        background: $black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 100px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transition: $animation;
+    }
+    &:hover {
+        background: transparent;
+        transition: $animation;
+        &:after {
+            transform: scale(1.05);
+        }
+    }
+}
+.uk-button-third {
+    background: transparent;
+    &:after {
+        content: '';
+        background: $additional;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 100px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transition: $animation;
+    }
+    &:hover {
+        background: transparent;
+        transition: $animation;
+        &:after {
+            transform: scale(1.05);
+        }
+    }
+}
+.uk-button-border {
+    background: transparent;
+    color: $black;
+    &:after {
+        content: '';
+        background: transparent;
+        box-shadow:inset 0px 0px 0px 2px #ADA599;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 100px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transition: $animation;
+    }
+    &:hover {
+        background: transparent;
+        transition: $animation;
+        &:after {
+            transform: scale(1.05);
+        }
+    }
+}
+.uk-button-border-light {
+    background: transparent;
+    color: $secondary;
+    &:after {
+        content: '';
+        background: transparent;
+        box-shadow:inset 0px 0px 0px 2px #373737;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        border-radius: 100px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transition: $animation;
+    }
+    &:hover {
+        background: transparent;
+        transition: $animation;
+        color: $black;
+        &:after {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.uk-alert {
+    border-radius: 20px;
+    padding: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+
+    p {
+        margin: unset;
+    }
+}
+.uk-alert-danger {
+    background: $light-grey;
+    color: $primary;
+}
+.uk-input-danger {
+    box-shadow: inset 0px 0px 0px 2px $primary;
+}
+.alert-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    justify-content: center;
+    margin-right: 15px;
+}
+.alert-icon-danger {
+    background: $primary;
+    color: white;
+}
+.login-box {
+    padding: 45px;
+    border-radius: 20px;
+    background: $light-grey;
+}
+.password-toggler {
+    user-select: none;
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    padding: 8px;
+    border-radius: 10px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(0,0,0,0.1);
+    };
 }
 .uk-alert-close {
     right: 25px;
     top: 16px;
 }
-.uk-alert {
-    border-radius: 100px;
-    padding: 12px 20px;
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px $light-secondary inset !important;
 }
 .uk-input, .uk-select, .uk-textarea {
     color: $text;
-    border-radius: 100px;
-    padding: 15px;
+    border-radius: 10px;
+    padding: 18px 28px;
     border: 0px;
-    border: 2px solid rgba(0,0,0,0);
-    height: 45px;
-    background-color: $grey;
+    font-size: 16px;
+    color: #83807C;
+    height: unset;
+    background-color: $light-secondary;
 
     &::placeholder {
-        color: rgba(15, 20, 25, 0.417);
+        color: #83807C;
     }
     &:focus {
         color: $text;
-        border: 2px solid $primary;
+        background-color: #D8D3CD;
     }
 }
 .uk-select {
@@ -58,35 +414,79 @@ body {
 }
 .uk-form-danger {
     &::placeholder {
-        color: $danger;
+        color: $primary;
+    }
+}
+.uk-navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    li {
+        width: 100%;
     }
 }
 .uk-navbar {
-    margin: 20px;
+    height: calc(100% + 160px);
+    max-height: 700px;
+    margin-top: -160px;
     display: flex;
     position: relative;
-    border-radius: 12px;
-    padding: 12px 25px;
+    border-radius: 20px;
+    padding: 10px;
     background: #F7F9F9;
     color: $text;
+    flex-direction: column;
 
+    .login-logo {
+        padding: 20px;
+    }
     ul {
         li {
             a {
                 color: $text;
-                font-size: 1em;
                 font-weight: 600;
                 min-height: 0;
-                padding: 15px 25px;
-                border-radius: 100px;
-                
-                span {
+                padding: 12px 20px;
+                border-radius: 10px;
+                justify-content: flex-start;
+                position: relative;
+                font-size: 16px;
+                font-family: 'Sora-SemiBold', sans-serif;  
+                letter-spacing: 0.15px; 
+
+                span.circle-url {
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: #F7434E;
+                    position: absolute;
+                    left: 6px;
+                    top: 21px;
+                }
+                span.material-symbols-outlined {
                     margin-right: 6px;
                     color: $primary;
                 }
                 &:hover {
-                    background: white;
+                    background: #EEE9E3;
                 }
+            }
+        }
+    }
+}
+.uk-navbar-dropdown-nav {
+    li {
+        a {
+            color: $text;
+            font-weight: 600;
+            min-height: 0;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Sora-SemiBold', sans-serif;  
+
+            &:hover {
+                background: #EEE9E3;
             }
         }
     }
@@ -94,4 +494,122 @@ body {
 .uk-navbar-dropdown {
     padding: 12px;
     width: 250px;
+    border-radius: 20px;
+}
+
+// Header in logged section
+header.header {
+    height: 190px;
+    display: flex;
+    background: $primary;
+}
+
+// Boxes in homepage
+section.boxes {
+    .box-projects-icon,
+    .box-projects-title {
+        color: $primary;
+    }
+    .box-users-icon,
+    .box-users-title {
+        color: $additional;
+    }
+    .box-projects-icon,
+    .box-users-icon {
+        width: 70px;
+        padding: 0;
+        height: 70px;
+        border-radius: 50%;
+        background: $light-secondary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 20px;
+
+        span {
+            font-size: 30px;
+        }
+    }
+    .box-menu {
+        padding: 30px;
+        border-radius: 20px;
+        background: $light-grey;
+
+        a {
+            margin-top: 30px;
+        }
+    }
+    .box-projects-text,
+    .box-users-text {
+        font-size: 24px;
+        font-family: 'Sora-Medium', sans-serif;
+    }
+    .box-projects-title,
+    .box-users-title {
+        font-size: 60px;
+        font-family: 'Sora-Bold', sans-serif;
+        line-height: 1;
+    }
+}
+footer.footer {
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+.search-button {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+.uk-select, .uk-select:not([multiple]):not([size]) {
+    padding: 0 28px;
+    height: 60px;
+}
+.middle-box {
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+}
+.uk-card {
+    border-radius: 20px;
+}
+.uk-modal-body {
+    border-radius: 20px;
+}
+.uk-modal-title {
+    font-family: 'Sora-Medium', sans-serif;
+}
+.user-modal-email, .user-modal-id, .user-modal-date {
+    font-family: 'Sora-Regular', sans-serif;
+    margin: 0;
+}
+.user-modal-text {
+    padding: 15px;
+    border-radius: 10px;
+    background: $light-secondary;
+    margin: 0;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    span {
+        margin-right: 10px;
+        user-select: none;
+        color: $primary;
+    }
+}
+.uk-card-calendar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    span {
+        font-size:1.5rem;
+        user-select: none;
+        color: $primary;
+        margin-right: 5px;
+    }
+}
+.lang-box {
+    position: absolute;
+    top: -75px;
 }

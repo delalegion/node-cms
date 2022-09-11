@@ -1,0 +1,82 @@
+<%- contentFor('content') %>
+
+<div class="uk-container uk-container-xsmall">
+    <% if (errors) { %>
+        <div class="uk-alert-danger uk-margin-top" uk-alert>
+            <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
+            <p><%= __('form.error') %></p>
+        </div>
+    <% } %>
+    <div class="login-box uk-margin-top">
+        <h3><%= __('navbar.register') %></h3>
+        <form method="POST">
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label"><%= __('form.name') %></span>
+                    <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %>uk-input-danger<% } %>"/>
+                    <% if (errors?.name) { %>
+                        <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
+                            <p><%= errors?.name.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label">Slug</span>
+                    <input value="<%= form.slug %>" type="text" placeholder="Slug..." name="slug" class="uk-input <% if (errors?.slug) { %>uk-input-danger<% } %>"/>
+                    <% if (errors?.slug) { %>
+                        <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
+                            <p><%= errors?.slug.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label">Email</span>
+                    <input value="<%= form.email %>" type="email" placeholder="email@gmail.com..." name="email" class="uk-input <% if (errors?.email) { %>uk-input-danger<% } %>" />
+                    <% if (errors?.email) { %>
+                        <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
+                            <p><%= errors.email.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label"><%= __('form.password') %></span>
+                    <div class="uk-position-relative">
+                        <input value="<%= form.password %>" type="password" placeholder="<%= __('form.passwordText') %>..." name="password" class="uk-input form-password <% if (errors?.password) { %>uk-input-danger<% } %>"/>
+                        <span class="material-symbols-outlined password-toggler" toggle=".form-password">visibility</span>
+                    </div>
+                    <% if (errors?.password) { %>
+                        <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
+                            <p><%= errors.password %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <button type="submit" class="uk-button uk-button-primary uk-margin-top uk-width-100 uk-flex-center">
+                <span class="material-symbols-outlined">supervisor_account</span>
+                <%= __('navbar.register') %>
+            </button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    $(".password-toggler").click(function() {
+
+    $(this).text(function(i, oldText) {
+        return oldText === 'visibility' ? 'visibility_off' : 'visibility';
+    });
+    const input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+    });
+</script>

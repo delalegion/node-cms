@@ -10,9 +10,9 @@
     <form method="POST">
         <div class="block uk-margin-top">
             <label>
-                <span class="uk-form-label">Imię i nazwisko</span>
+                <span class="uk-form-label"><%= __('form.name') %></span>
                 <!-- Using form state modifers, the classes can be identical for every input -->
-                <input value="<%= form.name %>" type="text" placeholder="Imię i nazwisko..." name="name" class="uk-input <% if (errors?.name) { %>  uk-form-danger  <% } %>"/>
+                <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %>  uk-form-danger  <% } %>"/>
                 <% if (errors?.name) { %>
                     <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
                         <p><%= errors?.name.message %></p>
@@ -22,9 +22,9 @@
         </div>
         <div class="block uk-margin-top">
             <label>
-                <span class="uk-form-label">Slug</span>
+                <span class="uk-form-label"><%= __('form.slug') %></span>
                 <!-- Using form state modifers, the classes can be identical for every input -->
-                <input value="<%= form.slug %>" type="text" placeholder="Slug..." name="slug" class="uk-input <% if (errors?.slug) { %>  uk-form-danger  <% } %>"/>
+                <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %>  uk-form-danger  <% } %>"/>
                 <% if (errors?.slug) { %>
                     <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
                         <p><%= errors?.slug.message %></p>
@@ -34,7 +34,7 @@
         </div>
         <div class="block uk-margin-top">
             <label>
-                <span class="uk-form-label">Email</span>
+                <span class="uk-form-label"><%= __('form.email') %></span>
                 <!-- Using form state modifers, the classes can be identical for every input -->
                 <input value="<%= form.email %>" type="email" placeholder="email@gmail.com" name="email" class="uk-input" />
                 <% if (errors?.email) { %>
