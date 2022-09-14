@@ -506,30 +506,6 @@ header.header {
 
 // Boxes in homepage
 section.boxes {
-    .box-projects-icon,
-    .box-projects-title {
-        color: $primary;
-    }
-    .box-users-icon,
-    .box-users-title {
-        color: $additional;
-    }
-    .box-projects-icon,
-    .box-users-icon {
-        width: 70px;
-        padding: 0;
-        height: 70px;
-        border-radius: 50%;
-        background: $light-secondary;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 20px;
-
-        span {
-            font-size: 30px;
-        }
-    }
     .box-menu {
         padding: 30px;
         border-radius: 20px;
@@ -550,6 +526,36 @@ section.boxes {
         font-family: 'Sora-Bold', sans-serif;
         line-height: 1;
     }
+}
+.box-projects-icon,
+.box-icon,
+.box-projects-title {
+    color: $primary;
+}
+.box-users-icon,
+.box-users-title {
+    color: $additional;
+}
+.box-projects-icon,
+.box-icon,
+.box-users-icon {
+    user-select: none;
+    width: 70px;
+    padding: 0;
+    height: 70px;
+    border-radius: 50%;
+    background: $light-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+
+    span {
+        font-size: 30px;
+    }
+}
+.box-icon {
+    background: white;
 }
 footer.footer {
     font-size: 12px;
@@ -612,4 +618,45 @@ footer.footer {
 .lang-box {
     position: absolute;
     top: -75px;
+}
+.uk-pagination {
+    li {
+        margin-right: 5px;
+
+        a {
+            padding: 10px 15px;
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            position: relative;
+            z-index: 1;
+
+            &:active {
+                &:hover {
+                    &:after {
+                        transform: scale(0.96);
+                    }
+                }
+            }
+            &:after {
+                content: '';
+                background: $black;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                border-radius: 10px;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                transition: $animation;
+            }
+            &:hover {
+                transition: $animation;
+                &:after {
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
 }

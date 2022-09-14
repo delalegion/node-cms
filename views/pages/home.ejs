@@ -3,7 +3,7 @@
 
     <% if (user) { %>
         <div class="uk-container uk-container-small uk-margin-top">
-            <h2><%= __('homepage') %> <%- name[0] %></h2>
+            <h2><%= __('homepage.welcome') %> <%- name[0] %></h2>
         </div>
     <% } %>
 
@@ -18,11 +18,11 @@
                             <div class="box-projects-title">
                                 21
                             </div>
-                            Projects
+                            <%= __('homepage.projects') %>
                         </div>
                     </div>
                     <a href="/<%- lang %>/profiles" class="uk-button uk-button-secondary uk-flex uk-flex-center uk-width-100">
-                        ALL PROJECTS
+                        <%= __('homepage.allProjects') %>
                     </a>
                 </article>
             </div>
@@ -36,11 +36,11 @@
                             <div class="box-users-title">
                                 12
                             </div>
-                            Users
+                            <%= __('homepage.users') %>
                         </div>
                     </div>
                     <a href="/<%- lang %>/profiles" class="uk-button uk-button-secondary uk-flex uk-flex-center uk-width-100">
-                        ALL USERS
+                        <%= __('homepage.allUsers') %>
                     </a>
                 </article>
             </div>

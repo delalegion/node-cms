@@ -6,11 +6,13 @@ const usersSchema = new Schema(
     {
         name: {
             type: String,
+            trim: true,
             minlength: [4, "Minimalna liczba znaków to 4..."],
             required: [true, "Wartość name jest wymagana"]
         },
         email: {
             type: String,
+            trim: true,
             required: [true, "Email jest wymagany"],
             validate: [(value => {
                 const emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -38,6 +40,9 @@ const usersSchema = new Schema(
 // Salt and hash the password
 usersSchema.pre('save', function(next) {
     const user = this;
+    if (!user.isModified('name')) {
+        user.name = user.name.replace(/ +(?= )/g,'')
+    }
     if (!user.isModified('password')) {
         return next();
     } else {

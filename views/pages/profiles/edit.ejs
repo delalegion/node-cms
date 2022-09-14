@@ -1,51 +1,56 @@
-<div class="uk-container uk-container-small uk-margin-top">
+<%- contentFor('content') %>
+
+<div class="uk-container uk-container-xsmall uk-margin-top">
 
     <% if (errors) { %>
         <div class="uk-alert-danger" uk-alert>
-            <a class="uk-alert-close" uk-close></a>
-            <p>Wystąpił błąd. Sprawdź wszystkie wprowadzone dane.</p>
+            <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
+            <p><%= __('form.error') %></p>
         </div>
     <% } %>
+    <div class="login-box">
+        <form method="POST">
+            <h3><%= __('profiles.editUser') %></h3>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label"><%= __('form.name') %></span>
+                    <!-- Using form state modifers, the classes can be identical for every input -->
+                    <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %> uk-input-danger <% } %>"/>
+                    <% if (errors?.name) { %>
+                        <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                            <p><%= errors?.name.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label"><%= __('form.slug') %></span>
+                    <!-- Using form state modifers, the classes can be identical for every input -->
+                    <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
+                    <% if (errors?.slug) { %>
+                        <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                            <p><%= errors?.slug.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <div class="block uk-margin-top">
+                <label>
+                    <span class="uk-form-label"><%= __('form.email') %></span>
+                    <!-- Using form state modifers, the classes can be identical for every input -->
+                    <input value="<%= form.email %>" type="email" placeholder="email@gmail.com" name="email" class="uk-input <% if (errors?.email) { %> uk-input-danger <% } %>" />
+                    <% if (errors?.email) { %>
+                        <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                            <p><%= errors.email.message %></p>
+                        </div>
+                    <% } %>
+                </label>
+            </div>
+            <button type="submit" class="uk-button uk-button-primary uk-margin-top">
+                <%= __('profiles.editUser') %>
+            </button>
+        </form>
+    </div>
 
-    <form method="POST">
-        <div class="block uk-margin-top">
-            <label>
-                <span class="uk-form-label"><%= __('form.name') %></span>
-                <!-- Using form state modifers, the classes can be identical for every input -->
-                <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %>  uk-form-danger  <% } %>"/>
-                <% if (errors?.name) { %>
-                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                        <p><%= errors?.name.message %></p>
-                    </div>
-                <% } %>
-            </label>
-        </div>
-        <div class="block uk-margin-top">
-            <label>
-                <span class="uk-form-label"><%= __('form.slug') %></span>
-                <!-- Using form state modifers, the classes can be identical for every input -->
-                <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %>  uk-form-danger  <% } %>"/>
-                <% if (errors?.slug) { %>
-                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                        <p><%= errors?.slug.message %></p>
-                    </div>
-                <% } %>
-            </label>
-        </div>
-        <div class="block uk-margin-top">
-            <label>
-                <span class="uk-form-label"><%= __('form.email') %></span>
-                <!-- Using form state modifers, the classes can be identical for every input -->
-                <input value="<%= form.email %>" type="email" placeholder="email@gmail.com" name="email" class="uk-input" />
-                <% if (errors?.email) { %>
-                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                        <p><%= errors.email.message %></p>
-                    </div>
-                <% } %>
-            </label>
-        </div>
-        <button type="submit" class="uk-button uk-button-primary uk-margin-top">
-            Edit user
-        </button>
-    </form>
 </div>

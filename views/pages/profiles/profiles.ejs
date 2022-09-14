@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>   
-            <button type="submit" class="uk-button uk-button-primary uk-margin-small-top">
+            <button type="submit" class="uk-button uk-button-primary uk-margin-small-top" id="filter-submit">
                 <%= __('profiles.apply') %>
             </button>           
         </div>
@@ -48,12 +48,12 @@
             <% }) %>
         </div>
         <% if (pagesCount > 1) { %>
-            <ul class="uk-pagination uk-margin-medium-top" uk-margin>
-                <li><a href="#"><span uk-pagination-previous></span></a></li>
+            <ul class="uk-pagination uk-margin-top" uk-margin>
+                <li><a href="#" id="li-previous" data-page="previous"><span uk-pagination-previous></span></a></li>
                 <% for (let i=0;i < pagesCount;i++) { %>
                     <li><a href="#" data-page="<%- i+1 %>"><%- i+1 %></a></li>
                 <% } %>
-                <li><a href="#"><span uk-pagination-next></span></a></li>
+                <li><a href="#" id="li-next" data-page="next"><span uk-pagination-next></span></a></li>
             </ul>
         <% } %>
         </div>
@@ -129,11 +129,46 @@
 </script>
 
 <script>
+    const urlScope = new URLSearchParams(window.location.search);
+    document.querySelector('#filter-submit').addEventListener("click", function(e) {
+        if (urlScope.get('q').length === 0 && urlScope.get('sort').length === 0) {
+            if (document.querySelector('#sort').value.length === 0 && document.querySelector('#search').value.length === 0) {
+                e.preventDefault();
+            }
+        }
+    })
+</script>
+
+<script>
+    const url = new URLSearchParams(window.location.search);
+    let currentPage = 1;
+
+    if (url.get('page')) {
+        currentPage = parseInt(url.get('page'));
+    } else {
+        currentPage = 1;
+    }
+
+    if (currentPage == 1) {
+        document.getElementById('li-previous').style.display = "none";
+    }
+    if (currentPage == parseInt(Math.round('<%= pagesCount %>'))) {
+        document.getElementById('li-next').style.display = "none";      
+    }
+    
     const changePage = e => {
         e.preventDefault();
-        const page = e.target.dataset.page;
-        const url = new URLSearchParams(window.location.search);
-        url.set('page', page);
+        let page = e.target.dataset.page;
+
+        if (page === 'next') {
+            page = currentPage + 1;
+            url.set('page', page)
+        } else { url.set('page', page) }
+        if (page === 'previous') {
+            page = currentPage - 1;
+            url.set('page', page)
+        } else { url.set('page', page) }
+
         window.location.href = window.location.origin + window.location.pathname + '?' + url.toString();
     }
 

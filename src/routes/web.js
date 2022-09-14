@@ -31,8 +31,8 @@ router.get("/:locale/", localeMiddleware, PagesController.home)
 // Profiles
 router.get("/:locale/profiles", [localeMiddleware], UserController.showUsers)
 router.post("/:locale/profiles", [localeMiddleware], UserController.showUsersDetails)
-router.get("/:locale/edit/profile/:slug", [localeMiddleware, isAuth], UserController.editShowUser)
-router.post("/:locale/edit/profile/:slug", [localeMiddleware, isAuth], UserController.editUser)
+router.get("/:locale/edit/profile/:slug", [localeMiddleware], UserController.editShowUser)
+router.post("/:locale/edit/profile/:slug", [localeMiddleware], UserController.editUser)
 router.get("/:locale/delete/profile/:slug", [localeMiddleware, isAuth], UserController.deleteUser)
 
 //Auth
@@ -43,6 +43,6 @@ router.post("/:locale/auth/register", [localeMiddleware, isAuth], UserController
 router.get("/:locale/auth/logout", [localeMiddleware, isAuth], UserController.logout)
 
 // 404
-router.get('*', localeMiddleware, PagesController.notFound)
+router.get('*', PagesController.notFound)
 
 module.exports = router;

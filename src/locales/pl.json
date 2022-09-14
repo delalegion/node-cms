@@ -1,5 +1,11 @@
 {
-	"homepage": "Witaj spowrotem",
+	"homepage": {
+		"welcome": "Witaj spowrotem",
+		"projects": "Projekty",
+		"allProjects": "Wszystkie projekty",
+		"users": "Użytkownicy",
+		"allUsers": "Wszyscy użytkownicy"
+	},
 	"navbar": {
 		"users": "Użytkownicy",
 		"projects": "Projekty",
@@ -36,6 +42,12 @@
 		},
 		"apply": "Zastosuj",
 		"details": "Szczegóły",
-		"edit": "Edytuj"
+		"edit": "Edytuj",
+		"editUser": "Edytuj użytkownika"
+	},
+	"404": {
+		"back": "Wróć",
+		"contact": "Kontakt",
+		"info": "Strona którą chcesz odwiedzić nie istnieje. Wróć na stronę główną albo skontaktuj się z właścicielem strony."
 	}
 }

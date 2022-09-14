@@ -27,7 +27,7 @@
                 <label>
                     <span class="uk-form-label"><%= __('form.password') %></span>
                     <div class="uk-position-relative">
-                        <input value="<%= form.password %>" type="password" placeholder="<%= __('form.passwordText') %>..." name="password" class="uk-input form-password <% if (errors?.password) { %>uk-input-danger<% } %>"/>
+                        <input type="password" placeholder="<%= __('form.passwordText') %>..." name="password" class="uk-input form-password <% if (errors?.password) { %>uk-input-danger<% } %>"/>
                         <span class="material-symbols-outlined password-toggler" toggle=".form-password">visibility</span>
                     </div>
                     <% if (errors?.password) { %>

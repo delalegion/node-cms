@@ -23,9 +23,9 @@ class UserController {
         const data = await query.exec();
         
         if(res.getLocales().includes(req.params.locale)) {
-            res.render('pages/profiles/profiles', {users: data, title: "CO", details: 0, pagesCount, page});
+            res.render('pages/profiles/profiles', {users: data, title: "Users", details: 0, pagesCount, page});
         } else {
-            res.render('pages/404', {title: "404 - Site no found"});
+            res.render('pages/404', {title: "404 - Site no found", layout: 'layouts/minimal'});
         }
     }
     async showUsersDetails(req, res) {
@@ -33,7 +33,7 @@ class UserController {
         res.send(data);
     }
     showCreateUser(req, res) {
-        res.render('pages/auth/register', {title: "Stwórz nowego uzytkownika"});
+        res.render('pages/auth/register', {title: "Create new user!"});
     }
     async createUser(req, res) {
         try {
@@ -45,11 +45,11 @@ class UserController {
             })
             res.redirect("/" + req.params.locale + '/auth/login');
         } catch(e) {
-            res.render('pages/auth/register', {title: "Coś poszło nie tak!", errors: e.errors, form: req.body});
+            res.render('pages/auth/register', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
     }
     async showLogin(req, res) {
-        res.render('pages/auth/login', {title: "Coś poszło nie tak!", form: req.body, layout: 'layouts/minimal'});
+        res.render('pages/auth/login', {title: "Login to dashboard!", form: req.body, layout: 'layouts/minimal'});
     }
     async loginUser(req, res) {
         try {
@@ -69,32 +69,39 @@ class UserController {
             res.redirect('/' + req.params.locale + '/');
         }
         catch (e) {
-            res.render('pages/auth/login', {form: req.body, errors: true, title: "CMS", layout: 'layouts/minimal'});
+            res.render('pages/auth/login', {form: req.body, errors: true, title: "Something goes wrong!", layout: 'layouts/minimal'});
         }
     }
     async editShowUser(req, res) {
         const data = await Users.findOne({ slug: req.params.slug });
         if (!data) {
-            res.render('pages/404', {title: "404 - Site no found"});
-        } else { res.render('pages/profiles/edit', {title: "Edytuj dane uzytkownika", form: data}); }
+            res.render('pages/404', {title: "404 - Site no found", layout: 'layouts/minimal'});
+        } else { res.render('pages/profiles/edit', {title: "Edit user data", form: data}); }
     }
     async editUser(req, res) {
-        const data = await Users.findOne({ slug: req.params.slug });
-        data.name = req.body.name;
-        data.slug = req.body.slug;
-        data.email = req.body.email;
+        // const data = await Users.findOne({ slug: req.params.slug });
+        // data.name = req.body.name;
+        // data.slug = req.body.slug;
+        // data.email = req.body.email;
+
+        const data = await Users.findOneAndUpdate({ slug: req.params.slug }, {$set: {
+                name: req.body.name,
+                slug: req.body.slug,
+                email: req.body.email
+        }}, {new: true});
 
         try {
             await data.save();
-            res.redirect('/' + res.getLocale() + '/profiles');
+            res.redirect('back');
         } catch(e) {
-            res.render('pages/profiles/edit', {title: "Coś poszło nie tak!", errors: e.errors, form: req.body});
+            console.log(e.errors)
+            res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
     }
     async deleteUser(req, res) {
         try {
             await Users.deleteOne({ slug: req.params.slug })
-            res.redirect('/profiles');
+            res.redirect('back');
         } catch(e) {
             console.log(e.errors);
         }

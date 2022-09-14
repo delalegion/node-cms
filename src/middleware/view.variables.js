@@ -16,13 +16,14 @@ module.exports = function (req, res, next) {
     };
     res.locals.user = req.session.user;
     res.locals.checkUrl = (url) => {
+        const cutUrl = req.url.split('?')[0];
         if (req.params.locale) {
             if (url.length > 0) {
-                if (req.url === '/' + req.params.locale + '/' + url || req.url === '/' + req.params.locale + '/' + url + '/') {
+                if (cutUrl === '/' + req.params.locale + '/' + url || cutUrl === '/' + req.params.locale + '/' + url + '/') {
                     return true;
                 } else { return false; }
             } else {
-                if (req.url === '/' + req.params.locale || req.url === '/' + req.params.locale + '/') {
+                if (cutUrl === '/' + req.params.locale || cutUrl === '/' + req.params.locale + '/') {
                     return true;
                 } else { return false; }
             }

@@ -1,5 +1,16 @@
 {
-	"homepage": "Welcome back",
+	"404": {
+		"back": "Back",
+		"contact": "Contact",
+		"info": "The page you want to visit does not exist. Return to the home page or contact the admin."
+	},
+	"homepage": {
+		"welcome": "Welcome back",
+		"projects": "Projects",
+		"allProjects": "All projects",
+		"users": "Users",
+		"allUsers": "All users"
+	},
 	"navbar": {
 		"users": "Users",
 		"projects": "Projects",
@@ -36,9 +47,7 @@
 		},
 		"apply": "Apply",
 		"details": "Details",
-		"edit": "Edit"
-	},
-	"from": {
-		"password": "from.password"
+		"edit": "Edit",
+		"editUser": "Edit user"
 	}
 }
