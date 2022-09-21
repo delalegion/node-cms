@@ -477,8 +477,8 @@ a:hover {
   color: white;
 }
 
-.login-box {
-  padding: 45px;
+.uk-card-box {
+  padding: 35px;
   border-radius: 20px;
   background: #F5F5F5;
 }
@@ -514,6 +514,7 @@ input:-webkit-autofill:active {
 
 .uk-input, .uk-select, .uk-textarea {
   color: #0f1419;
+  font-family: 'Sora-Medium', sans-serif;
   border-radius: 10px;
   padding: 18px 28px;
   border: 0px;
@@ -521,6 +522,7 @@ input:-webkit-autofill:active {
   color: #83807C;
   height: unset;
   background-color: #ECE8E3;
+  width: 100%;
 }
 
 .uk-input::-webkit-input-placeholder, .uk-select::-webkit-input-placeholder, .uk-textarea::-webkit-input-placeholder {
@@ -541,7 +543,7 @@ input:-webkit-autofill:active {
 
 .uk-input:focus, .uk-select:focus, .uk-textarea:focus {
   color: #0f1419;
-  background-color: #D8D3CD;
+  background-color: #e4dcd4;
 }
 
 .uk-select {
@@ -562,6 +564,17 @@ input:-webkit-autofill:active {
 
 .uk-form-danger::placeholder {
   color: #F7434E;
+}
+
+.uk-form-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  font-size: 20px;
+  font-family: 'Sora-Medium';
+  margin-bottom: 6px;
+  color: black;
 }
 
 .uk-navbar-nav {
@@ -825,6 +838,42 @@ footer.footer {
   top: -75px;
 }
 
+.uk-card-icon {
+  width: 76px;
+  height: 76px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  background: white;
+  margin-right: 15px;
+}
+
+.uk-card-icon span {
+  font-size: 36px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #F7434E;
+}
+
+.uk-card-icon-box:nth-child(2) {
+  margin-left: 40px;
+}
+
+.uk-card-icon-text h4 {
+  line-height: 1;
+  margin: 0;
+  color: #F7434E;
+}
+
 .uk-pagination li {
   margin-right: 5px;
 }
@@ -866,5 +915,38 @@ footer.footer {
 .uk-pagination li a:hover:after {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
+}
+
+.uk-badge-item {
+  padding: 10px 20px;
+  background: black;
+  font-family: 'Sora-Medium', sans-serif;
+  border-radius: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  font-size: 12px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-transform: uppercase;
+}
+
+.uk-badge-item span {
+  margin-left: 5px;
+  color: #CAC2B7;
+}
+
+.uk-badge-item span:hover {
+  cursor: pointer;
+}
+
+.uk-badges-container .uk-badge-item:not(:first-child) {
+  margin-left: 10px;
 }
 /*# sourceMappingURL=style.css.map */

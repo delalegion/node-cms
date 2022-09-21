@@ -5,6 +5,7 @@ const http = require('http');
 const server = http.createServer(app);
 const ejslayout = require('express-ejs-layouts');
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const session = require('express-session');
 const { sessionKeySecret } = require('./config');
 
@@ -19,7 +20,7 @@ const i18n = new I18n({
   register: global,
   cookie: 'locale',
   defaultLocale: 'en',
-  directory: path.join(__dirname, 'locales'),
+  directory: path.join(__dirname, '/locales'),
   objectNotation: true
 })
 
@@ -34,6 +35,7 @@ app.use(session({
 }))
 
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(i18n.init);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname + '/../views'));

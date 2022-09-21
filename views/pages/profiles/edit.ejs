@@ -8,7 +8,7 @@
             <p><%= __('form.error') %></p>
         </div>
     <% } %>
-    <div class="login-box">
+    <div class="uk-card-box">
         <form method="POST">
             <h3><%= __('profiles.editUser') %></h3>
             <div class="block uk-margin-top">
@@ -18,7 +18,7 @@
                     <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %> uk-input-danger <% } %>"/>
                     <% if (errors?.name) { %>
                         <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                            <p><%= errors?.name.message %></p>
+                            <p><%= __(errors?.name.message) %></p>
                         </div>
                     <% } %>
                 </label>
@@ -30,7 +30,7 @@
                     <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
                     <% if (errors?.slug) { %>
                         <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                            <p><%= errors?.slug.message %></p>
+                            <p><%= __(errors?.slug.message) %></p>
                         </div>
                     <% } %>
                 </label>
@@ -42,7 +42,7 @@
                     <input value="<%= form.email %>" type="email" placeholder="email@gmail.com" name="email" class="uk-input <% if (errors?.email) { %> uk-input-danger <% } %>" />
                     <% if (errors?.email) { %>
                         <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                            <p><%= errors.email.message %></p>
+                            <p><%= __(errors?.email.message) %></p>
                         </div>
                     <% } %>
                 </label>

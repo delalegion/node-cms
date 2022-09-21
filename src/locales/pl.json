@@ -1,4 +1,47 @@
 {
+	"404": {
+		"back": "Wróć",
+		"contact": "Kontakt",
+		"info": "Strona którą chcesz odwiedzić nie istnieje. Wróć na stronę główną albo skontaktuj się z właścicielem strony."
+	},
+	"errors": {
+		"unique": "Podana wartość istnieje już w bazie danych",
+		"nameAndSurname": {
+			"minLength": "Minimalna liczba znaków to 4...",
+			"maxLength": "Maksymalna liczba znaków to 30...",
+			"required": "Powyższe pole jest wymagane"
+		},
+		"email": {
+			"required": "Powyższe pole jest wymagane",
+			"validate": "Wprowadź prawidłowy email"
+		},
+		"slug": {
+			"minLength": "Minimalna liczba znaków to 4...",
+			"required": "Powyższe pole jest wymagane"
+		},
+		"password": {
+			"minLength": "Minimalna liczba znaków to 7...",
+			"required": "Powyższe pole jest wymagane",
+			"validate": "Hasło musi zawierać przynajmniej jeden znak specjalny, jedną cyfrę oraz zawierać pomiędzy 7 a 16 znaków"
+		},
+		"users": {
+			"nameAndSurname": {
+				"minLength": "errors.users.nameAndSurname.minLength"
+			},
+			"slug": {
+				"minLength": "errors.users.slug.minLength"
+			},
+			"unique": "errors.users.unique",
+			"password": {
+				"validate": "errors.users.password.validate"
+			}
+		},
+		"projects": {
+			"slug": {
+				"required": "errors.projects.slug.required"
+			}
+		}
+	},
 	"homepage": {
 		"welcome": "Witaj spowrotem",
 		"projects": "Projekty",
@@ -45,9 +88,8 @@
 		"edit": "Edytuj",
 		"editUser": "Edytuj użytkownika"
 	},
-	"404": {
-		"back": "Wróć",
-		"contact": "Kontakt",
-		"info": "Strona którą chcesz odwiedzić nie istnieje. Wróć na stronę główną albo skontaktuj się z właścicielem strony."
+	"slug jest": "slug jest",
+	"Error, expected `slug` to be unique": {
+		" Value": " `kruczek`"
 	}
 }

@@ -29,5 +29,8 @@ module.exports = function (req, res, next) {
             }
         } else { return false; }
     };
+    res.locals.whot = () => {
+        req.body.co = "ahaxd";
+    }
     next();
 }

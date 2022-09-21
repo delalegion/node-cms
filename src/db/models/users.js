@@ -1,41 +1,62 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const usersSchema = new Schema(
     {
         name: {
             type: String,
             trim: true,
-            minlength: [4, "Minimalna liczba znaków to 4..."],
-            required: [true, "Wartość name jest wymagana"]
+            minlength: [4, 'errors.users.nameAndSurname.minLength'],
+            maxLength: [30, 'errors.users.nameAndSurname.maxLength'],
+            required: [true, "errors.users.nameAndSurname.required"]
         },
         email: {
             type: String,
             trim: true,
-            required: [true, "Email jest wymagany"],
+            required: [true, 'errors.users.email.required'],
+            lowercase: true,
+            unique: true,
             validate: [(value => {
                 const emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
                 return emailRegex.test(value);
-            }), "Wprowadź prawidłowy email"],
+            }), 'errors.users.email.validate'],
         },
         slug: {
             type: String,
             lowercase: true,
-            minlength: [4, "Minimalna liczba znaków to 4..."],
-            unique: [true, "Podana wartość istnieje juz w bazie danych."],
-            required: [true, "Wartość slug jest wymagania"]
+            unique: true,
+            minlength: [4, 'errors.users.slug.minLength'],
+            required: [true, 'errors.users.slug.required']
         },
         password: {
             type: String,
-            required: true,
-            minlength: [5, "Hasło powinno posiadać minimum 5 znaków"]
+            required: [true, "errors.users.password.required"],
+            validate: [(value => {
+                const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,16}$/;
+                return passwordRegex.test(value);
+            }), "errors.users.password.validate"],
+            minlength: [7, "errors.users.password.minLength"]
         }
     },
     {
         timestamps: true
     }
 )
+
+// usersSchema.index({
+//     email: 1,
+//     slug: 1,
+//   }, {
+//     unique: true,
+// });
+
+// usersSchema.post('save', function(error, doc, next) {
+//     console.log(error)
+//     next(error);
+// });
+
 
 // Salt and hash the password
 usersSchema.pre('save', function(next) {
@@ -58,6 +79,8 @@ usersSchema.methods = {
         return bcrypt.compareSync(password, this.password);
     }
 }
+
+usersSchema.plugin(uniqueValidator, { message: 'errors.users.unique' });
 
 const Users = mongoose.model('users', usersSchema)
 

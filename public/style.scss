@@ -363,8 +363,8 @@ a:hover {
     background: $primary;
     color: white;
 }
-.login-box {
-    padding: 45px;
+.uk-card-box {
+    padding: 35px;
     border-radius: 20px;
     background: $light-grey;
 }
@@ -393,6 +393,7 @@ input:-webkit-autofill:active{
 }
 .uk-input, .uk-select, .uk-textarea {
     color: $text;
+    font-family: 'Sora-Medium', sans-serif;
     border-radius: 10px;
     padding: 18px 28px;
     border: 0px;
@@ -400,13 +401,14 @@ input:-webkit-autofill:active{
     color: #83807C;
     height: unset;
     background-color: $light-secondary;
+    width: 100%;
 
     &::placeholder {
         color: #83807C;
     }
     &:focus {
         color: $text;
-        background-color: #D8D3CD;
+        background-color: #e4dcd4;
     }
 }
 .uk-select {
@@ -416,6 +418,14 @@ input:-webkit-autofill:active{
     &::placeholder {
         color: $primary;
     }
+}
+.uk-form-label {
+    display: flex;
+    position: relative;
+    font-size: 20px;
+    font-family: 'Sora-Medium';
+    margin-bottom: 6px;
+    color: $black;
 }
 .uk-navbar-nav {
     flex-direction: column;
@@ -619,6 +629,34 @@ footer.footer {
     position: absolute;
     top: -75px;
 }
+.uk-card-icon {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    margin-right: 15px;
+
+    span {
+        font-size: 36px;
+        user-select: none;
+        color: $primary;
+    }
+}
+.uk-card-icon-box {
+    &:nth-child(2) {
+        margin-left: 40px;
+    }
+}
+.uk-card-icon-text {
+    h4 {
+        line-height: 1;
+        margin: 0;
+        color: $primary;
+    }
+}
 .uk-pagination {
     li {
         margin-right: 5px;
@@ -658,5 +696,31 @@ footer.footer {
                 }
             }
         }
+    }
+}
+.uk-badge-item {
+    padding: 10px 20px;
+    background: $black;
+    font-family: 'Sora-Medium', sans-serif;
+    border-radius: 100px;
+    display: flex;
+    color: white;
+    font-size: 12px;
+    flex-direction: row;
+    align-items: center;
+    text-transform: uppercase;
+
+    span {
+        margin-left: 5px;
+        color: $secondary;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+.uk-badges-container {
+    .uk-badge-item:not(:first-child) {
+        margin-left: 10px;
     }
 }

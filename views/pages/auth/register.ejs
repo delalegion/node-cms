@@ -7,16 +7,16 @@
             <p><%= __('form.error') %></p>
         </div>
     <% } %>
-    <div class="login-box uk-margin-top">
+    <div class="uk-card-box uk-margin-top">
         <h3><%= __('navbar.register') %></h3>
         <form method="POST">
             <div class="block uk-margin-top">
                 <label>
                     <span class="uk-form-label"><%= __('form.name') %></span>
-                    <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %>uk-input-danger<% } %>"/>
+                    <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="name" class="uk-input <% if (errors?.name) { %>uk-input-danger<% } %>" required />
                     <% if (errors?.name) { %>
                         <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
-                            <p><%= errors?.name.message %></p>
+                            <p><%= __(errors?.name.message) %></p>
                         </div>
                     <% } %>
                 </label>
@@ -24,10 +24,10 @@
             <div class="block uk-margin-top">
                 <label>
                     <span class="uk-form-label">Slug</span>
-                    <input value="<%= form.slug %>" type="text" placeholder="Slug..." name="slug" class="uk-input <% if (errors?.slug) { %>uk-input-danger<% } %>"/>
+                    <input value="<%= form.slug %>" type="text" placeholder="Slug..." name="slug" class="uk-input <% if (errors?.slug) { %>uk-input-danger<% } %>" required />
                     <% if (errors?.slug) { %>
                         <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
-                            <p><%= errors?.slug.message %></p>
+                            <p><%= __(errors?.slug.message) %></p>
                         </div>
                     <% } %>
                 </label>
@@ -35,10 +35,10 @@
             <div class="block uk-margin-top">
                 <label>
                     <span class="uk-form-label">Email</span>
-                    <input value="<%= form.email %>" type="email" placeholder="email@gmail.com..." name="email" class="uk-input <% if (errors?.email) { %>uk-input-danger<% } %>" />
+                    <input value="<%= form.email %>" type="email" placeholder="email@gmail.com..." name="email" class="uk-input <% if (errors?.email) { %>uk-input-danger<% } %>" required />
                     <% if (errors?.email) { %>
                         <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
-                            <p><%= errors.email.message %></p>
+                            <p><%= __(errors?.email.message) %></p>
                         </div>
                     <% } %>
                 </label>
@@ -47,12 +47,12 @@
                 <label>
                     <span class="uk-form-label"><%= __('form.password') %></span>
                     <div class="uk-position-relative">
-                        <input value="<%= form.password %>" type="password" placeholder="<%= __('form.passwordText') %>..." name="password" class="uk-input form-password <% if (errors?.password) { %>uk-input-danger<% } %>"/>
+                        <input value="<%= form.password %>" type="password" placeholder="<%= __('form.passwordText') %>..." name="password" class="uk-input form-password <% if (errors?.password) { %>uk-input-danger<% } %>" required />
                         <span class="material-symbols-outlined password-toggler" toggle=".form-password">visibility</span>
                     </div>
                     <% if (errors?.password) { %>
                         <div class="uk-alert-danger uk-margin-remove-vertical" uk-alert>
-                            <p><%= errors.password %></p>
+                            <p><%= __(errors?.password.message) %></p>
                         </div>
                     <% } %>
                 </label>

@@ -4,6 +4,55 @@
 		"contact": "Contact",
 		"info": "The page you want to visit does not exist. Return to the home page or contact the admin."
 	},
+	"errors": {
+		"users": {
+			"unique": "The specified data already exists in our database",
+			"nameAndSurname": {
+				"minLength": "The minimum number of characters is 4...",
+				"maxLength": "The maximum number of characters is 30...",
+				"required": "The above field is required"
+			},
+			"email": {
+				"required": "The above field is required",
+				"validate": "Please enter valid email"
+			},
+			"slug": {
+				"minLength": "The minimum number of characters is 4...",
+				"required": "The above field is required"
+			},
+			"password": {
+				"minLength": "The minimum number of characters is 7...",
+				"required": "The above field is required",
+				"validate": "The password must contain at least one special character, one number and should be between 7 and 16 characters long"
+			}
+		},
+		"projects": {
+			"unique": "The specified data already exists in our database",
+			"title": {
+				"minLength": "The minimum number of characters is 6...",
+				"maxLength": "The maximum number of characters is 30...",
+				"required": "The above field is required"
+			},
+			"slug": {
+				"minLength": "The minimum number of characters is 4...",
+				"required": "The above field is required"
+			},
+			"client": {
+				"minLength": "The minimum number of characters is 4...",
+				"maxLength": "The maximum number of characters is 30...",
+				"required": "The above field is required"
+			},
+			"description": {
+				"minLength": "The minimum number of characters is 12...",
+				"maxLength": "The maximum number of characters is 300...",
+				"required": "The above field is required"
+			}
+		},
+		"unique": "errors.unique",
+		"password": {
+			"validate": "errors.password.validate"
+		}
+	},
 	"homepage": {
 		"welcome": "Welcome back",
 		"projects": "Projects",

@@ -1,0 +1,195 @@
+<%- contentFor('content') %>
+
+<div class="uk-container uk-container-xsmall">
+    <div class="uk-flex uk-margin-medium-top">
+        <div class="uk-flex uk-flex-row uk-flex-middle uk-card-icon-box">
+            <div class="uk-card-icon"><span class="material-symbols-outlined">
+                visibility
+                </span></div>
+            <div class="uk-card-icon-text uk-flex uk-flex-column">
+                <h4>4441</h4>
+                <span>Wyświetleń</span>
+            </div>
+        </div>
+        <div class="uk-flex uk-flex-row uk-flex-middle uk-card-icon-box">
+            <div class="uk-card-icon"><span class="material-symbols-outlined">
+                calendar_month
+                </span></div>
+            <div class="uk-card-icon-text uk-flex uk-flex-column">
+                <h4>10.02.2022</h4>
+                <span>Data utworzenia</span>
+            </div>
+        </div>
+    </div>
+    <form method="POST" class="uk-margin-medium-top">
+        <div class="block uk-margin-top">
+            <label>
+                <span class="uk-form-label"><%= __('form.name') %></span>
+                <!-- Using form state modifers, the classes can be identical for every input -->
+                <input value="<%= form.name %>" type="text" placeholder="<%= __('form.name') %>..." name="title" id="co" class="uk-input <% if (errors?.name) { %> uk-input-danger <% } %>"/>
+                <% if (errors?.name) { %>
+                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                        <p><%= __(errors?.name.message) %></p>
+                    </div>
+                <% } %>
+            </label>
+        </div>
+        <div class="block uk-margin-top">
+            <label>
+                <span class="uk-form-label"><%= __('form.slug') %></span>
+                <!-- Using form state modifers, the classes can be identical for every input -->
+                <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="client" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
+                <% if (errors?.slug) { %>
+                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                        <p><%= __(errors?.slug.message) %></p>
+                    </div>
+                <% } %>
+            </label>
+        </div>
+        <div class="block uk-margin-top">
+            <label>
+                <span class="uk-form-label"><%= __('form.slug') %></span>
+                <!-- Using form state modifers, the classes can be identical for every input -->
+                <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
+                <% if (errors?.slug) { %>
+                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                        <p><%= __(errors?.slug.message) %></p>
+                    </div>
+                <% } %>
+            </label>
+        </div>
+        <div class="block uk-margin-top">
+            <label>
+                <span class="uk-form-label"><%= __('form.email') %></span>
+                <!-- Using form state modifers, the classes can be identical for every input -->
+                <textarea value="<%= form.email %>" rows="5" type="email" placeholder="Opis projektu" name="description" class="uk-input <% if (errors?.email) { %> uk-input-danger <% } %>"></textarea>
+                <% if (errors?.email) { %>
+                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                        <p><%= __(errors?.email.message) %></p>
+                    </div>
+                <% } %>
+            </label>
+        </div>
+        <div class="block uk-margin-top">
+            <label>
+                <span class="uk-form-label"><%= __('form.slug') %></span>
+                <!-- Using form state modifers, the classes can be identical for every input -->
+                <div class="uk-flex uk-flex-row">
+                    <input id="skillsInput" type="text" placeholder="<%= __('form.slug') %>..." name="skillsInput" class="uk-input" />
+                    <button type="button" class="uk-button uk-button-secondary uk-margin-left" id="skillsButton">
+                        DODAJ
+                    </button>
+                </div>
+                <div class="uk-flex uk-margin-small-top uk-badges-container">
+                    <!-- <div class="uk-badge-item">REACT.JS <span class="material-symbols-outlined">cancel</span></div> -->
+                </div>
+                <% if (errors?.slug) { %>
+                    <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
+                        <p><%= __(errors?.slug.message) %></p>
+                    </div>
+                <% } %>
+            </label>
+        </div>
+        <button type="submit" class="uk-button uk-button-primary uk-margin-top" id="projectButton">
+            <%= __('profiles.editUser') %>
+        </button>
+    </form>    
+</div>
+
+<script>
+
+    const skillsArrayValues = [];
+    const skillsArray = [];
+    const skillsButton = document.querySelector('#skillsButton');
+    const skillsContainer = document.querySelector('.uk-badges-container');
+
+    skillsButton.addEventListener('click', function(e) {
+        // Get html input value
+        const skillsInput = document.querySelector('#skillsInput').value;
+        console.log(skillsArray)
+        // Add input value to array's
+        if (skillsInput.length > 0) 
+        {
+            // Push value to array
+            skillsArrayValues.push(skillsInput);
+            // Create new badge and push to badges array
+            newBadge(skillsInput);
+            // Add badge to container to show in html
+            addToContainer();
+        }
+    })
+    
+    const newBadge = (e) => {
+        // Create html badge item
+            // Create div
+            const badgeItem = document.createElement("div");
+            // Add classname
+            badgeItem.className = 'uk-badge-item';
+            badgeItem.setAttribute('id', e);
+            // Add value from input
+            const badgeText = document.createTextNode(e);
+            // Create destroy button
+            const destroyButton = document.createElement("span");
+            // Add classname to button
+            destroyButton.className = 'material-symbols-outlined';
+            destroyButton.setAttribute("id", "destroyButton");
+            // Add icon to button
+            const destroyText = document.createTextNode('cancel');
+            destroyButton.append(destroyText);
+            // Append text to badge
+            badgeItem.append(badgeText);
+            badgeItem.append(destroyButton);
+            // Push badge to array
+            // const obj = {};
+            // obj[e] = badgeItem;
+            skillsArray.push({
+                "name": e,
+                "value": badgeItem
+            });
+    }
+
+    const addToContainer = () => {
+        if (skillsArray.length > 0) {
+            skillsArray.forEach((e) => {
+                skillsContainer.append(e.value);
+                destroyBadge();
+            })
+        }
+    }
+
+    const destroyBadge = () => {
+        const skillsDestroyButton = document.querySelectorAll('#destroyButton');
+
+        skillsDestroyButton.forEach((e) => {
+            e.addEventListener('click', function(event) {
+                // Get id of clicked element
+                const element = event.target.parentNode;
+                const elementid = element.getAttribute('id');
+
+                // Find element in array and remove it
+                for (let i=0;i<skillsArray.length;i++) {
+                    if (skillsArray[i].name == elementid) {
+                        skillsArray.splice(i, 1);
+                        skillsArrayValues.splice(i, 1);
+                    }
+                }
+
+                // Remove element from DOM
+                element.remove();
+            })
+        })
+    }
+
+    document.querySelector("#projectButton").addEventListener("click", function() {
+        if (skillsArray.length > 0) {
+            fetch("http://localhost:3000/<%- lang %>/projects", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify({'tools': skillsArrayValues})
+            }).then(res => {
+                console.log("Request complete! response:", res);
+            });
+        }
+    })
+
+</script>

@@ -43,7 +43,7 @@ class UserController {
                 slug: req.body.slug,
                 password: req.body.password
             })
-            res.redirect("/" + req.params.locale + '/auth/login');
+            res.redirect("/" + req.params.locale + '/auth/login')
         } catch(e) {
             res.render('pages/auth/register', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
@@ -79,22 +79,15 @@ class UserController {
         } else { res.render('pages/profiles/edit', {title: "Edit user data", form: data}); }
     }
     async editUser(req, res) {
-        // const data = await Users.findOne({ slug: req.params.slug });
-        // data.name = req.body.name;
-        // data.slug = req.body.slug;
-        // data.email = req.body.email;
-
-        const data = await Users.findOneAndUpdate({ slug: req.params.slug }, {$set: {
+        try {
+            await Users.findOneAndUpdate({slug: req.params.slug}, {
                 name: req.body.name,
                 slug: req.body.slug,
                 email: req.body.email
-        }}, {new: true});
-
-        try {
-            await data.save();
-            res.redirect('back');
+            }, { runValidators: true, context: 'query' });
+            res.redirect('/' + req.params.locale + '/');
         } catch(e) {
-            console.log(e.errors)
+            console.log(e)
             res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
     }
