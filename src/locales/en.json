@@ -46,6 +46,9 @@
 				"minLength": "The minimum number of characters is 12...",
 				"maxLength": "The maximum number of characters is 300...",
 				"required": "The above field is required"
+			},
+			"tools": {
+				"minLength": "The minimum number of characters is 6..."
 			}
 		},
 		"unique": "errors.unique",
@@ -74,6 +77,10 @@
 	},
 	"form": {
 		"name": "Full name",
+		"title": "Title",
+		"client": "Client",
+		"description": "Description",
+		"tools": "Tools",
 		"slug": "Slug",
 		"email": "Email",
 		"emailText": "Your email",

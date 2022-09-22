@@ -20,7 +20,8 @@ class ProjectsController {
             })
             res.redirect("/" + req.params.locale + '/projects')
         } catch(e) {
-            res.render('pages/auth/register', {title: "Something goes wrong!", errors: e.errors, form: req.body});
+            console.log(e)
+            res.render('pages/projects/all', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
     }
 

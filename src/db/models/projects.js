@@ -14,27 +14,27 @@ const projectsSchema = new Schema(
         title: {
             type: String,
             lowercase: true,
-            minlength: [6, 'errors.projects.slug.minLength'],
-            maxLength: [30, 'errors.projects.nameAndSurname.maxLength'],
-            required: [true, 'errors.projects.slug.required']
+            minlength: [6, 'errors.projects.title.minLength'],
+            maxLength: [30, 'errors.projects.title.maxLength'],
+            required: [true, 'errors.projects.title.required']
         },
         client: {
             type: String,
             trim: true,
-            minlength: [4, 'errors.projects.nameAndSurname.minLength'],
-            maxLength: [30, 'errors.projects.nameAndSurname.maxLength'],
-            required: [true, "errors.projects.nameAndSurname.required"]
+            minlength: [4, 'errors.projects.client.minLength'],
+            maxLength: [30, 'errors.projects.client.maxLength'],
+            required: [true, "errors.projects.client.required"]
         },
         description: {
             type: String,
             trim: true,
-            minlength: [12, 'errors.projects.nameAndSurname.minLength'],
-            maxLength: [300, 'errors.projects.nameAndSurname.maxLength'],
-            required: [true, "errors.projects.nameAndSurname.required"]
+            minlength: [12, 'errors.projects.description.minLength'],
+            maxLength: [300, 'errors.projects.description.maxLength'],
+            required: [true, "errors.projects.description.required"]
         },
         tools: {
             type: String,
-            minlength: [6, 'errors.projects.slug.minLength']
+            minlength: [6, 'errors.projects.tools.minLength']
         }
     }
 )

@@ -917,6 +917,32 @@ footer.footer {
           transform: scale(1.05);
 }
 
+@-webkit-keyframes append-animate {
+  from {
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes append-animate {
+  from {
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 .uk-badge-item {
   padding: 10px 20px;
   background: black;
@@ -935,6 +961,8 @@ footer.footer {
       -ms-flex-align: center;
           align-items: center;
   text-transform: uppercase;
+  -webkit-animation: append-animate 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+          animation: append-animate 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .uk-badge-item span {
@@ -946,7 +974,12 @@ footer.footer {
   cursor: pointer;
 }
 
-.uk-badges-container .uk-badge-item:not(:first-child) {
-  margin-left: 10px;
+.uk-badges-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
 }
 /*# sourceMappingURL=style.css.map */

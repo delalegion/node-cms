@@ -5,41 +5,55 @@
 		"info": "Strona którą chcesz odwiedzić nie istnieje. Wróć na stronę główną albo skontaktuj się z właścicielem strony."
 	},
 	"errors": {
-		"unique": "Podana wartość istnieje już w bazie danych",
-		"nameAndSurname": {
-			"minLength": "Minimalna liczba znaków to 4...",
-			"maxLength": "Maksymalna liczba znaków to 30...",
-			"required": "Powyższe pole jest wymagane"
-		},
-		"email": {
-			"required": "Powyższe pole jest wymagane",
-			"validate": "Wprowadź prawidłowy email"
-		},
-		"slug": {
-			"minLength": "Minimalna liczba znaków to 4...",
-			"required": "Powyższe pole jest wymagane"
-		},
-		"password": {
-			"minLength": "Minimalna liczba znaków to 7...",
-			"required": "Powyższe pole jest wymagane",
-			"validate": "Hasło musi zawierać przynajmniej jeden znak specjalny, jedną cyfrę oraz zawierać pomiędzy 7 a 16 znaków"
-		},
 		"users": {
+			"unique": "The specified data already exists in our database",
 			"nameAndSurname": {
-				"minLength": "errors.users.nameAndSurname.minLength"
+				"minLength": "The minimum number of characters is 4...",
+				"maxLength": "The maximum number of characters is 30...",
+				"required": "The above field is required"
+			},
+			"email": {
+				"required": "The above field is required",
+				"validate": "Please enter valid email"
 			},
 			"slug": {
-				"minLength": "errors.users.slug.minLength"
+				"minLength": "The minimum number of characters is 4...",
+				"required": "The above field is required"
 			},
-			"unique": "errors.users.unique",
 			"password": {
-				"validate": "errors.users.password.validate"
+				"minLength": "The minimum number of characters is 7...",
+				"required": "The above field is required",
+				"validate": "The password must contain at least one special character, one number and should be between 7 and 16 characters long"
 			}
 		},
 		"projects": {
+			"unique": "The specified data already exists in our database",
+			"title": {
+				"minLength": "The minimum number of characters is 6...",
+				"maxLength": "The maximum number of characters is 30...",
+				"required": "The above field is required"
+			},
 			"slug": {
-				"required": "errors.projects.slug.required"
+				"minLength": "The minimum number of characters is 4...",
+				"required": "The above field is required"
+			},
+			"client": {
+				"minLength": "The minimum number of characters is 4...",
+				"maxLength": "The maximum number of characters is 30...",
+				"required": "The above field is required"
+			},
+			"description": {
+				"minLength": "The minimum number of characters is 12...",
+				"maxLength": "The maximum number of characters is 300...",
+				"required": "The above field is required"
+			},
+			"tools": {
+				"minLength": "The minimum number of characters is 6..."
 			}
+		},
+		"unique": "errors.unique",
+		"password": {
+			"validate": "errors.password.validate"
 		}
 	},
 	"homepage": {
@@ -63,6 +77,10 @@
 	},
 	"form": {
 		"name": "Imię i nazwisko",
+		"title": "Tytuł projektu",
+		"client": "Klient",
+		"description": "Opis projektu",
+		"tools": "Narzędzia",
 		"slug": "Slug",
 		"email": "Email",
 		"emailText": "Wpisz email",

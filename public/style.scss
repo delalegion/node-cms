@@ -698,6 +698,17 @@ footer.footer {
         }
     }
 }
+@keyframes append-animate {
+	from {
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0px);
+		opacity: 1;	
+	}
+}
+
 .uk-badge-item {
     padding: 10px 20px;
     background: $black;
@@ -709,6 +720,7 @@ footer.footer {
     flex-direction: row;
     align-items: center;
     text-transform: uppercase;
+    animation: append-animate $animation;
 
     span {
         margin-left: 5px;
@@ -720,7 +732,7 @@ footer.footer {
     }
 }
 .uk-badges-container {
-    .uk-badge-item:not(:first-child) {
-        margin-left: 10px;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
