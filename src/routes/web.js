@@ -1,5 +1,21 @@
 const express = require('express');
 const router = new express.Router();
+const path = require('path');
+
+// Multer to upload photos
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads/')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      // cb(null, '-' + uniqueSuffix + path.extname(file.originalname))
+      cb(null, file.originalname)
+    }
+  })
+  
+const upload = multer({ storage: storage })
 
 const UserController = require("../controllers/users.controller");
 const ProjectsController = require("../controllers/projects.controller");
@@ -21,7 +37,7 @@ router.get("/:locale/", localeMiddleware, PagesController.home)
 
 // Projects
 router.get("/:locale/projects", [localeMiddleware], ProjectsController.showProjects)
-router.post("/:locale/projects", [localeMiddleware], ProjectsController.editProjects)
+router.post("/:locale/projects", [localeMiddleware], upload.array('photos', 12), ProjectsController.editProjects)
 
 // Profiles
 router.get("/:locale/profiles", [localeMiddleware], UserController.showUsers)

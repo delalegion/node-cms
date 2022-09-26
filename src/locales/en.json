@@ -89,7 +89,9 @@
 		"error": "Error occured. Check the entered data.",
 		"backToSite": "Back to site",
 		"logIn": "Have you got an account? Log in",
-		"signUp": "Don't have an account? Sign up"
+		"signUp": "Don't have an account? Sign up",
+		"upload": "Attach binaries by dropping them here or",
+		"uploadSelect": "selecting one"
 	},
 	"profiles": {
 		"searchUser": "Search user",

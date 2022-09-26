@@ -89,7 +89,9 @@
 		"error": "Wystąpił błąd. Sprawdź wszystkie wprowadzone dane.",
 		"backToSite": "Wróć do strony",
 		"logIn": "Posiadasz konto? Zaloguj się",
-		"signUp": "Nie posiadasz konta? Zarejestruj się"
+		"signUp": "Nie posiadasz konta? Zarejestruj się",
+		"upload": "Dołącz pliki opuszczając je w tym miejscu lub",
+		"uploadSelect": "wybierz pliki z dysku"
 	},
 	"profiles": {
 		"searchUser": "Szukaj użytkownika",
@@ -105,9 +107,5 @@
 		"details": "Szczegóły",
 		"edit": "Edytuj",
 		"editUser": "Edytuj użytkownika"
-	},
-	"slug jest": "slug jest",
-	"Error, expected `slug` to be unique": {
-		" Value": " `kruczek`"
 	}
 }
