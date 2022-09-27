@@ -70,7 +70,7 @@
                     <label>
                         <span class="uk-form-label"><%= __('form.description') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
-                        <textarea value="<%= form.description %>" rows="5" type="textarea" placeholder="Opis projektu" name="description" class="uk-input <% if (errors?.description) { %> uk-input-danger <% } %>"></textarea>
+                        <textarea rows="5" type="textarea" placeholder="Opis projektu" name="description" class="uk-input <% if (errors?.description) { %> uk-input-danger <% } %>"><%= form.description %></textarea>
                         <% if (errors?.description) { %>
                             <div class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom" uk-alert>
                                 <p><%= __(errors?.description.message) %></p>
@@ -136,6 +136,8 @@
     let filesToDo = 0
     let progressBar = document.getElementById('js-progressbar');
     let copyArray = [];
+
+    console.log('<%= slug %>')
 
     function initializeProgress(numfiles) {
         progressBar.removeAttribute('hidden')
@@ -291,10 +293,11 @@
         formData.append('description', document.querySelector("[name='description']").value)
         formData.append('tools', document.querySelector("[name='tools']").value)
 
-        fetch('http://localhost:3000/<%- lang %>/projects/create', {
-            method: 'POST',
-            body: formData
-        });
+        fetch('http://localhost:3000/<%- lang %>/edit/projects/ahahaahahx', {
+            method: 'post',
+            body: formData,
+        }).then(res => res.json())
+      .then(data => console.log(data));
     }) 
     
 </script>
@@ -306,17 +309,13 @@
     const skillsInput = document.querySelector('#toolsInput');
 
     function useState(defaultValue) {
-        // 👆🏻We create a function useState with a default value
         let value = defaultValue;
-        // 👆🏻We create a local variable value = defaultValue
+
         function getValue() {
-            // 👆🏻We create a function getValue to get the value that return the value
             return value;
         }
         function setValue(newValue) {
-            // 👆🏻We create a function to set the value with parameter newValue
-            value = newValue; // 👈🏻 We change the value for newValue
-            addToInput(); // 👈🏻We run the render function on our app
+            value = newValue;
         }
         return [getValue, setValue];
     }
@@ -331,8 +330,15 @@
         }
     })
 
+    const addToInput = () => {
+        if (skillsArrayValues().length > 0) {
+            skillsInput.value = skillsArrayValues().join()
+        }
+    }
+
     skillsButton.addEventListener('click', function(e) {
         addSkill();
+        addToInput();
     })
 
     const addSkill = () => {
@@ -349,6 +355,9 @@
         }
     }
 
+    const addToContainer = (badgeItem) => {
+        skillsContainer.appendChild(badgeItem);
+    }
     
     const newBadge = (e) => {
         // Create html badge item
@@ -379,8 +388,12 @@
             addToContainer(badgeItem);
     }
 
-    const addToContainer = (badgeItem) => {
-        skillsContainer.appendChild(badgeItem);
+   // Set up tools from database
+   if ('<%= tools %>') {
+      '<%= tools %>'.split(',').forEach((e) => {
+         newBadge(e);
+         addToInput();
+      })
     }
 
     const addDestroyButton = () => {
@@ -406,12 +419,6 @@
                 // element.remove();
             })
         })
-    }
-
-    const addToInput = () => {
-        if (skillsArrayValues().length > 0) {
-            skillsInput.value = skillsArrayValues().join()
-        }
     }
 
 </script>

@@ -36,8 +36,10 @@ router.get("/", (req, res) => {
 router.get("/:locale/", localeMiddleware, PagesController.home)
 
 // Projects
-router.get("/:locale/projects", [localeMiddleware], ProjectsController.showProjects)
-router.post("/:locale/projects", [localeMiddleware], upload.array('photos', 12), ProjectsController.editProjects)
+router.get("/:locale/edit/projects/:slug", [localeMiddleware], ProjectsController.showEditProjects)
+router.post("/:locale/edit/projects/:slug", [localeMiddleware], upload.array('photos', 12), ProjectsController.editProjects)
+router.get("/:locale/projects/create/:slug", [localeMiddleware], ProjectsController.showCreateProjects)
+router.post("/:locale/projects/create", [localeMiddleware], upload.array('photos', 12), ProjectsController.createProjects)
 
 // Profiles
 router.get("/:locale/profiles", [localeMiddleware], UserController.showUsers)
