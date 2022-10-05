@@ -33,10 +33,10 @@ const uploadMiddleware = (req,res,next)=>{
   let maxSize = (1*1024*1024).toFixed(2);
   let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
   
-  const uploader = multer({ storage: storage, limits: { fileSize: maxSize },
+  const uploader = multer({ storage: storage, limits: { fileSize: 482824824428427 },
     fileFilter: function(req,file,cb) {
-      if (!validExtensions.includes(file.type)) {
-        req.fileValidationError = 'goes wrong on the mimetype';
+      if (!validExtensions.includes(file.mimetype)) {
+        req.fileValidationError = 'goes wrong on the mimetype'; 
         return cb(null, false, new Error('goes wrong on the mimetype'));
       }
       cb(null, true);

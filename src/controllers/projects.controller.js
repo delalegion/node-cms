@@ -1,6 +1,7 @@
 const Projects = require("../db/models/projects");
 const path = require('path');
 const fs = require('fs');
+const i18n = require('i18n')
 
 class ProjectsController {
     async showCreateProjects(req, res) {
@@ -8,6 +9,7 @@ class ProjectsController {
     }
     async createProjects(req, res) {
         const images = req.files;
+        console.log(req.body)
 
         const createdir = () => {
             const dir = path.join(__dirname, '../../public/uploads/' + req.body.photosUrl);
@@ -31,6 +33,10 @@ class ProjectsController {
             return pathsArray.join(',');
         }
 
+        if (req.fileValidationError) {
+            console.log("cosnietak z files")
+        }
+
         try {
             await Projects.create({
                 slug: req.body.slug,
@@ -45,9 +51,14 @@ class ProjectsController {
             res.redirect("/" + req.params.locale + '/projects')
         } catch(e) {
             if (req.fileValidationError) {
-                e.errors.files = { message: "errors.projects.files" };
+                e.errors.files = { message: res.__('errors.projects.files') };
             }
-            res.render('pages/projects/projects', {title: "Error occured. Check entered data.", form: req.body, errors: e.errors});
+            const newErrorsInstnace = {};
+            for (let i in e.errors) {
+                newErrorsInstnace[e.errors[i].properties.path] = res.__(e.errors[i].properties.message)
+            }
+            // res.render('pages/projects/projects', {title: "Error occured. Check entered data.", form: req.body, errors: e.errors});
+            res.status(400).json({ errors: newErrorsInstnace })
         }
     }
     async showEditProjects(req, res) {

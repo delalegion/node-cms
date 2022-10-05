@@ -1,6 +1,8 @@
 const io = require('socket.io');
+const { I18n } = require('i18n');
 
 module.exports = function (req, res, next) {
+    res.locals.i18n = I18n;
     res.locals.url = req.url;
     res.locals.errors = null;
     res.locals.form = {};

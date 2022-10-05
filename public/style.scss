@@ -346,6 +346,11 @@ a:hover {
     background: $light-grey;
     color: $primary;
 }
+.uk-alert-hide {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
 .uk-input-danger {
     box-shadow: inset 0px 0px 0px 2px $primary;
 }

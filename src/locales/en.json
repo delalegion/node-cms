@@ -114,5 +114,16 @@
 	"Cast to string failed for value \"[ 'okokokokokok', 'okokokokokok' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'okokokokokok', 'okokokokokok' ]\" (type Array) at path \"tools\"",
 	"Cast to string failed for value \"[ 'nieironicznanieironiczna', '2nieironicznanieironiczna' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', '2nieironicznanieironiczna' ]\" (type Array) at path \"client\"",
 	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna2' ]\" (type Array) at path \"description\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna2' ]\" (type Array) at path \"description\"",
-	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\""
+	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\"",
+	"${errors[i]": {
+		"properties": {
+			"message}": "${errors[i].properties.message}"
+		}
+	},
+	"+errors[i]": {
+		"properties": {
+			"message+": "+errors[i].properties.message+"
+		}
+	},
+	"${aha}": "${aha}"
 }

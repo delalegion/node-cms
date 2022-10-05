@@ -447,6 +447,12 @@ a:hover {
   color: #F7434E;
 }
 
+.uk-alert-hide {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
 .uk-input-danger {
   -webkit-box-shadow: inset 0px 0px 0px 2px #F7434E;
           box-shadow: inset 0px 0px 0px 2px #F7434E;

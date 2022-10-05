@@ -2,12 +2,10 @@
 
 <div class="uk-container uk-container-xsmall">
     <h3 class="uk-margin-medium-top"><%= __('navbar.projectsAdd') %></h3>
-    <% if (errors) { %>
-        <div class="uk-alert-danger uk-margin-top" uk-alert>
+        <div id="alert-form" class="uk-alert-danger uk-margin-top uk-alert-hide" uk-alert>
             <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
             <p><%= __('form.error') %></p>
         </div>
-    <% } %>
         <form method="POST" id="form" enctype="multipart/form-data">
             <div class="uk-card-box uk-margin-top">
                 <div class="block">
@@ -15,11 +13,7 @@
                         <span class="uk-form-label"><%= __('form.title') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <input value="<%= form.title %>" type="text" placeholder="<%= __('form.title') %>..." name="title" id="co" class="uk-input <% if (errors?.title) { %> uk-input-danger <% } %>"/>
-                        <% if (errors?.title) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                                <p><%= __('errors.projects.slug.minLength') %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-title" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
                 <div class="block uk-margin-top">
@@ -27,11 +21,7 @@
                         <span class="uk-form-label"><%= __('form.slug') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
-                        <% if (errors?.slug) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                                <p><%= __('errors.projects.slug.minLength') %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-slug" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
                 <div class="block uk-margin-top">
@@ -39,11 +29,8 @@
                         <span class="uk-form-label"><%= __('form.client') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <input value="<%= form.client %>" type="text" placeholder="<%= __('form.client') %>..." name="client" class="uk-input <% if (errors?.client) { %> uk-input-danger <% } %>"/>
-                        <% if (errors?.client) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                                <p><%= __(errors?.client.message) %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-client" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
+       
                     </label>
                 </div>
                 <div class="block uk-margin-top">
@@ -51,11 +38,7 @@
                         <span class="uk-form-label"><%= __('form.description') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <textarea value="<%= form.description %>" rows="5" type="textarea" placeholder="Opis projektu" name="description" class="uk-input <% if (errors?.description) { %> uk-input-danger <% } %>"></textarea>
-                        <% if (errors?.description) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom" uk-alert>
-                                <p><%= __(errors?.description.message) %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-description" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
             </div>
@@ -72,11 +55,7 @@
                         </div>
                         <div class="uk-flex uk-margin-small-top uk-badges-container">
                         </div>
-                        <% if (errors?.tools) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom" uk-alert>
-                                <p><%= __(errors?.tools.message) %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-tools" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
                 <!-- INPUT FOR TOOLS DATA -->
@@ -114,12 +93,11 @@
 <script>
 
     const preview = document.querySelector('#preview');
-    const previewBox = document.querySelector('.js-upload');
     const rawData = document.querySelector('#rawData');
     const uploadBox = document.querySelector(".js-upload");
-    const files = document.querySelector('#photos').files;
     const form = document.querySelector("#form");
     const photosUrl = document.querySelector("#photosUrl");
+    let files = document.querySelector('#photos').files;
     let formData = new FormData();
     let filesDone = 0
     let filesToDo = 0
@@ -160,7 +138,45 @@
             skillsInput.value = skillsArrayValues().join()
         }
 
-        form.submit();
+        const params = new URLSearchParams();
+        const formDataForm = new FormData(form);
+
+        for (const pair of formDataForm) {
+            params.append(pair[0], pair[1])
+        }
+
+        const showEachError = (e) => {
+            const errors = e.errors;
+            document.querySelector('#alert-form').classList.remove('uk-alert-hide')
+            const keys = Object.keys(errors);
+            keys.forEach((e, i) => {
+                const div = document.querySelector('#alert-' + e);
+                div.innerHTML = '';
+                div.classList.remove('uk-alert-hide');
+                div.append(errors[e])
+            })
+        }
+
+        fetch('http://localhost:3000/<%- lang %>/create/project', {
+            method: 'POST',
+            body: formDataForm
+        })
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson ? await response.json() : null;
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data) || response.status;
+                return Promise.reject(error);
+            } else { console.log("ok") }
+        })
+        .catch(error => {
+            showEachError(error)
+        });
+
+
+        // form.submit();
     })
 
     function initializeProgress(numfiles) {

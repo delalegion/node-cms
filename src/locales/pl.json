@@ -31,21 +31,21 @@
 			"title": {
 				"minLength": "The minimum number of characters is 6...",
 				"maxLength": "The maximum number of characters is 30...",
-				"required": "The above field is required"
+				"required": "The above field is required PL"
 			},
 			"slug": {
 				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required"
+				"required": "The above field is required PL"
 			},
 			"client": {
 				"minLength": "The minimum number of characters is 4...",
 				"maxLength": "The maximum number of characters is 30...",
-				"required": "The above field is required"
+				"required": "The above field is required PL"
 			},
 			"description": {
 				"minLength": "The minimum number of characters is 12...",
 				"maxLength": "The maximum number of characters is 300...",
-				"required": "The above field is required"
+				"required": "The above field is required PL"
 			},
 			"tools": {
 				"minLength": "The minimum number of characters is 6..."
@@ -119,5 +119,10 @@
 		" Maksymalna wielkość pliku to": " 7 mb, oraz dozwolone rozszerzenia: png, jpg, jpeg, gif",
 		" Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia png, jpg, jpeg, gif": "Nieprawidłowe pliki. Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia png, jpg, jpeg, gif"
 	},
-	"Nieprawidłowe pliki Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia": " png, jpg, jpeg, gif"
+	"Nieprawidłowe pliki Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia": " png, jpg, jpeg, gif",
+	"slug": "slug",
+	"title": "title",
+	"client": "client",
+	"description": "description",
+	"tools": "tools"
 }
