@@ -64,6 +64,9 @@ usersSchema.pre('save', function(next) {
     if (!user.isModified('name')) {
         user.name = user.name.replace(/ +(?= )/g,'')
     }
+    if (!user.isModified('slug')) {
+        return next();
+    }
     if (!user.isModified('password')) {
         return next();
     } else {

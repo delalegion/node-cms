@@ -1,17 +1,35 @@
 const Projects = require("../db/models/projects");
+const path = require('path');
+const fs = require('fs');
 
 class ProjectsController {
-
     async showCreateProjects(req, res) {
         res.render('pages/projects/projects', {title: "Projects management", layout: 'layouts/main'});
     }
     async createProjects(req, res) {
         const images = req.files;
-        const arrayPaths = [];
 
-        images.forEach((e) => {
-            arrayPaths.push(e.path.split('public')[1]);
-        })
+        const createdir = () => {
+            const dir = path.join(__dirname, '../../public/uploads/' + req.body.photosUrl);
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+            }
+        }
+        const upload = () => {
+            images.forEach((e) => {
+                const newpath = path.join(__dirname, '../../public/uploads/' + req.body.photosUrl + '/' + e.originalname);
+                fs.writeFileSync(newpath, e.buffer);
+            })
+        }
+
+        const modifyPaths = (paths) => {
+            const pathsArray = [];
+            paths.split(',').forEach((e) => {
+                const newPath = '/uploads/' + req.body.photosUrl + '/' + e;
+                pathsArray.push(newPath)
+            })
+            return pathsArray.join(',');
+        }
 
         try {
             await Projects.create({
@@ -20,42 +38,56 @@ class ProjectsController {
                 client: req.body.client,
                 description: req.body.description,
                 tools: req.body.tools,
-                photos: arrayPaths.join(',')
+                photos: modifyPaths(req.body.rawData)
             })
+            await createdir();
+            await upload();
             res.redirect("/" + req.params.locale + '/projects')
         } catch(e) {
-            res.render('pages/projects/projects', {title: "Something goes wrong!", errors: e.errors, form: req.body});
+            if (req.fileValidationError) {
+                e.errors.files = { message: "errors.projects.files" };
+            }
+            res.render('pages/projects/projects', {title: "Error occured. Check entered data.", form: req.body, errors: e.errors});
         }
     }
     async showEditProjects(req, res) {
-        const data = await Projects.findOne({ slug: req.params.slug });
-        const tools = data.tools.split(',');
-        if (!data) {
+        try {
+            const data = await Projects.findOne({ slug: req.params.slug });
+            const tools = data.tools.split(',');
+            const photos = data.photos.split(',');
+            res.render('pages/projects/edit', {title: "Edit user data", form: data, tools, photos, slug: req.params.slug});
+        } catch(e) {
             res.render('pages/404', {title: "404 - Site no found", layout: 'layouts/minimal'});
-        } else { res.render('pages/projects/edit', {title: "Edit user data", form: data, tools, slug: req.params.slug}); }
+        }
     }   
     async editProjects(req, res) {
-        console.log(req.body);
-        const images = req.files;
-        const arrayPaths = [];
+        const images = req.body.rawData;
 
-        images.forEach((e) => {
-            arrayPaths.push(e.path.split('public')[1]);
-        })
+        const oldProject = await Projects.findOne({ slug: req.params.slug })
+        const projectPhotos = oldProject.photos.split(',');
+
+        if (projectPhotos.length > 0) {
+            projectPhotos.forEach((image) => {
+                if(!images.includes(image)) {
+                    const dir = path.join(__dirname, '../../public/' + image);
+                    fs.unlinkSync(dir)
+                }
+            })
+        }
+
+        const project = await Projects.findOne({ slug: req.params.slug });
+
+        if (req.body.slug !== project.slug) project.slug = req.body.slug;
+        project.title = req.body.title
+        project.client = req.body.client
+        project.description = req.body.description
+        project.tools = req.body.tools
+        project.photos = (typeof images === 'string') ? images : images.join(',');
 
         try {
-            await Projects.where({slug: req.params.slug}).update({ $set: {
-                slug: req.body.slug,
-                title: req.body.title,
-                client: req.body.client,
-                description: req.body.description,
-                tools: req.body.tools,
-                photos: arrayPaths.join(',')
-            }});
+            await project.save();
             res.redirect('/' + req.params.locale + '/');
-            console.log("AHA");
         } catch(e) {
-            console.log(e);
             res.render('pages/projects/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
     }

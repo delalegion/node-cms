@@ -49,7 +49,8 @@
 			},
 			"tools": {
 				"minLength": "The minimum number of characters is 6..."
-			}
+			},
+			"files": "Wrong files..."
 		},
 		"unique": "errors.unique",
 		"password": {
@@ -107,5 +108,11 @@
 		"details": "Details",
 		"edit": "Edit",
 		"editUser": "Edit user"
-	}
+	},
+	"Cast to string failed for value \"[ 'okokokok', 'okokokok' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'okokokok', 'okokokok' ]\" (type Array) at path \"client\"",
+	"Cast to string failed for value \"[ 'okokokokok', 'okokokokok' ]\" (type Array) at path \"description\"": "Cast to string failed for value \"[ 'okokokokok', 'okokokokok' ]\" (type Array) at path \"description\"",
+	"Cast to string failed for value \"[ 'okokokokokok', 'okokokokokok' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'okokokokokok', 'okokokokokok' ]\" (type Array) at path \"tools\"",
+	"Cast to string failed for value \"[ 'nieironicznanieironiczna', '2nieironicznanieironiczna' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', '2nieironicznanieironiczna' ]\" (type Array) at path \"client\"",
+	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna2' ]\" (type Array) at path \"description\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna2' ]\" (type Array) at path \"description\"",
+	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\""
 }

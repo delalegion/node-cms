@@ -42,14 +42,6 @@ const projectsSchema = new Schema(
     }
 )
 
-// // Salt and hash the password
-// projectsSchema.pre('save', function(next) {
-//     const projects = this;
-//     if (!projects.isModified('slug')) {
-//         projects.slug = projects.slug.replace(/ +(?= )/g,'')
-//     }
-// })
-
 projectsSchema.plugin(uniqueValidator, { message: 'errors.projects.unique' });
 
 const Projects = mongoose.model('projects', projectsSchema)

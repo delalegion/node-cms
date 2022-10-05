@@ -81,8 +81,6 @@
                 </div>
                 <!-- INPUT FOR TOOLS DATA -->
                 <input id="toolsInput" type="hidden" name="tools" />
-                <!-- INPUT FOR URL -->
-                <input id="photosUrl" type="hidden" value="random" name="photosUrl" />
             </div>
             <div class="uk-card-box uk-margin-top">
                 <!-- <input type="file" name="photos" class="uk-input" multiple /> -->
@@ -91,12 +89,12 @@
                     <span class="material-symbols-outlined">file_upload</span>
                     <span class="uk-text-middle"><%= __('form.upload') %></span>
                     <div uk-form-custom>
-                        <input type="file" name="photos" onchange="filesFromInput()" id="photos" multiple>
+                        <input type="file" name="photos" onchange="filesFromInput()" id="photos" accept="image/*" multiple>
                         <span class="uk-link"><%= __('form.uploadSelect') %></span>
                     </div>
                 </div>
                 
-                <progress id="js-progressbar" class="uk-progress" value="0" max="100" accept="image/*" hidden></progress>
+                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
                 <div id="preview" class="images-preview" uk-sortable="handle: .image-handler; threshold: 1; animation: false"></div>
             </div>
             <button type="submit" class="uk-button uk-button-primary uk-margin-medium-bottom uk-margin-top" id="projectButton">
@@ -111,6 +109,7 @@
    const uploadBox = document.querySelector(".js-upload");
    const files = document.querySelector('#photos').files;
    const form = document.querySelector("#form");
+   const photosUrl = document.querySelector("#photosUrl");
    let formData = new FormData();
    let filesDone = 0
    let filesToDo = 0
@@ -130,6 +129,69 @@
            setTimeout(() => {
                progressBar.setAttribute('hidden', true)
            }, 1000)
+       }
+   }
+
+   function deletePhoto(ev) {
+       // Add images to array to send
+       formData.delete("photos");
+       ev.forEach((file) => {
+           formData.append("photos", file)
+       })
+       if (document.querySelectorAll('.image-preview-box').length < 1) {
+           preview.classList.remove('active');
+       }
+   }
+
+    // Set up photos from database
+   if ('<%= photos %>') {
+      const photosFromDatabase = '<%= photos %>'.split(',')
+      showPhotosFromDatabase(photosFromDatabase);
+   }
+
+   function showPhotosFromDatabase(ev) {
+      preview.classList.add('active');
+
+      let filesArray = ev;
+
+      // Show photos on view
+      if (filesArray.length > 0) {
+            // Initialize progress bar
+            initializeProgress(filesArray.length)
+            // Show each image on page  
+            filesArray.forEach((file, i) => {
+               const image = new Image();
+               image.className = 'image-preview';
+               image.title = file;
+               image.src = file;
+
+               const div = document.createElement('div');
+               div.dataset.name = file;
+               div.className = 'image-preview-box image-handler';
+
+               const icon = document.createElement('span');
+               icon.className = 'material-symbols-outlined';
+               icon.innerHTML = 'delete';
+
+               icon.addEventListener("click", function() {
+                  div.remove();
+                  const arrays = formData.getAll("photos");
+                  const index = arrays.findIndex(x => x === div.dataset.name);
+                  arrays.splice(index, 1);
+                  console.log(arrays)
+                  deletePhoto(arrays)
+               })
+
+               const iconContainer = document.createElement('div');
+               iconContainer.className = 'image-preview-icon-container';
+
+               iconContainer.appendChild(icon);
+               div.appendChild(iconContainer);
+               div.appendChild(image);
+               preview.appendChild(div);
+               progressDone();
+               formData.append("photos", file)
+            })           
        }
    }
 
@@ -156,41 +218,39 @@
    }
    
    function validateImages(ev) {
-       let acceptFiles = [];
+        let acceptFiles = [];
+        ev.forEach((file) => {
+            let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+            let maximumSize = 7;
 
-       ev.forEach((file) => {
-           let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
-           let maximumSize = 7;
-
-           if (validExtensions.includes(file.type)) {
-               if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
-                  acceptFiles.push(file);
-               }
-           }
-       })
-       showPhotos(acceptFiles)
-   }
-
-   function deletePhoto(ev) {
-       // Add images to array to send
-       formData.delete("photos");
-       ev.forEach((file) => {
-           formData.append("photos", file)
-       })
-       if (document.querySelectorAll('.image-preview-box').length < 1) {
-           preview.classList.remove('active');
-       }
+            if (validExtensions.includes(file.type)) {
+                if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
+                    acceptFiles.push(file);
+                }
+            }
+        })
+        showPhotos(acceptFiles)
    }
 
    function reorganize(ev) {
        const arrays = formData.getAll("photos");
        const newArray = new Array(arrays.length).fill("")
-       ev.forEach((e, i) => {
-           e.dataset.name
-           const index = arrays.findIndex(x => x.name === e.dataset.name);
-           newArray[i] = arrays[index];
+       const htmlTags = [...ev];
+       htmlTags.splice(htmlTags.length-1, 1)
+       htmlTags.forEach((e, i) => {
+            const index = arrays.findIndex(object => {
+                return object.name === e.dataset.name
+            });
+            if (index !== parseInt('-1')) {
+                newArray[i] = arrays[index]
+            }
+            const indexClear = arrays.findIndex(object => {
+                return object === e.dataset.name
+            });
+            if (indexClear !== parseInt('-1')) {
+                newArray[i] = arrays[indexClear]
+            }
        })
-       newArray.splice(ev.length-1, 1);
        formData.delete("photos");
        newArray.forEach((file) => {
            formData.append("photos", file)
@@ -213,7 +273,6 @@
            initializeProgress(filesArray.length)
            // Show each image on page  
            filesArray.forEach((file, i) => {
-                   let count = listCount;
                    let fileReader = new FileReader();
                    fileReader.onload = () => {
                        let fileUrl = fileReader.result;
@@ -248,7 +307,6 @@
                        div.appendChild(image);
                        preview.appendChild(div);
                        progressDone();
-
                    }
                    fileReader.readAsDataURL(file);
            });
@@ -260,21 +318,44 @@
            
        }
    }
-   
-   // Send form
-   form.addEventListener("submit", (ev) => {
-       ev.preventDefault();
 
-       formData.append('title', document.querySelector("[name='title']").value)
-       formData.append('slug', document.querySelector("[name='slug']").value)
-       formData.append('client', document.querySelector("[name='client']").value)
-       formData.append('description', document.querySelector("[name='description']").value)
-       formData.append('tools', document.querySelector("[name='tools']").value)
+       // Send form
+    form.addEventListener("submit", (ev) => {
+        ev.preventDefault();
 
-       fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
-           method: 'POST',
-           body: formData
-       });
+        const photos = formData.getAll("photos");
+        formData.delete("photos")
+
+        formData.append('title', document.querySelector("[name='title']").value)
+        formData.append('slug', document.querySelector("[name='slug']").value)
+        formData.append('client', document.querySelector("[name='client']").value)
+        formData.append('description', document.querySelector("[name='description']").value)
+        formData.append('tools', document.querySelector("[name='tools']").value)
+        formData.append('photosUrl', document.querySelector("[name='slug']").value);
+
+        photos.forEach((e) => {
+            formData.append("photos", e)
+        })
+
+        const rawData = []
+
+        formData.getAll("photos").forEach((e, i) => {
+            if (typeof e === 'string') {
+                formData.append("rawData", e)
+            } else {
+                formData.append("rawData", '/uploads/' + '<%= slug %>' + '/' + e.name)
+            }
+        })
+
+        try {
+            fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
+                method: 'POST',
+                body: formData,
+            });
+            window.location.href = 'http://localhost:3000/<%- lang %>/';
+        } catch(e) {
+            console.log(e);
+        }
    }) 
    
 </script>
@@ -380,9 +461,6 @@
                        setSkillsArrayValues(skillsArrayValues());
                    }
                }
-
-               // Remove element from DOM
-               // element.remove();
            })
        })
    }
@@ -399,6 +477,7 @@
          setSkillsArrayValues([...skillsArrayValues(), e]);
          newBadge(e);
          addToInput();
+         addDestroyButton();
       })
    }
 

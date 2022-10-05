@@ -80,37 +80,18 @@ class UserController {
     }
     async editUser(req, res) {
         try {
-            await Users.where({ slug: req.params.slug }).update({ $set: {
-                name: req.body.name,
-                slug: req.body.slug,
-                email: req.body.email
-            }});
+            let user = await Users.findOne({ slug: req.params.slug });
+            let data = { name: req.body.name,
+                email: req.body.email }
+            if (user.slug !== req.body.slug) {
+                data.slug = req.body.slug
+            }
+            await Users.updateOne({ slug: req.params.slug }, data, { runValidators: true })
             res.redirect('/' + req.params.locale + '/');
         } catch(e) {
             console.log(e);
             res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
         }
-        // try {
-        //     const user = await Users.findOne({ slug: req.params.slug });
-        //     user.name = req.body.name
-        //     user.slug = req.body.slug
-        //     user.email = req.body.email
-        //     await user.save();
-        //     res.redirect('/' + req.params.locale + '/');
-        // } catch(e) {
-        //     console.log(e);
-        //     res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
-        // }
-        // try {
-        //     await Users.findOneAndUpdate({slug: req.params.slug}, {
-        //         name: req.body.name,
-        //         slug: req.body.slug,
-        //         email: req.body.email
-        //     }, { runValidators: true, context: 'query' });
-        //     res.redirect('/' + req.params.locale + '/');
-        // } catch(e) {
-        //     res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
-        // }
     }
     async deleteUser(req, res) {
         try {

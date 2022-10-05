@@ -1134,4 +1134,8 @@ footer.footer {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.js-upload-error {
+  border: 2px solid #F7434E;
+}
 /*# sourceMappingURL=style.css.map */
