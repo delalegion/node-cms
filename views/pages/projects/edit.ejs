@@ -2,24 +2,18 @@
 
 <div class="uk-container uk-container-xsmall">
     <h3 class="uk-margin-medium-top"><%= __('navbar.projectsAdd') %></h3>
-    <% if (errors) { %>
-        <div class="uk-alert-danger uk-margin-top" uk-alert>
+        <div id="alert-form" class="uk-alert-danger uk-margin-top uk-alert-hide" uk-alert>
             <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
             <p><%= __('form.error') %></p>
         </div>
-    <% } %>
         <form method="POST" id="form" enctype="multipart/form-data">
             <div class="uk-card-box uk-margin-top">
                 <div class="block">
                     <label>
                         <span class="uk-form-label"><%= __('form.title') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
-                        <input value="<%= form.title %>" type="text" placeholder="<%= __('form.title') %>..." name="title" id="co" class="uk-input <% if (errors?.title) { %> uk-input-danger <% } %>"/>
-                        <% if (errors?.title) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                                <p><%= __('errors.projects.slug.minLength') %></p>
-                            </div>
-                        <% } %>
+                        <input value="<%= form.title %>" type="text" placeholder="<%= __('form.title') %>..." name="title" class="uk-input <% if (errors?.title) { %> uk-input-danger <% } %>"/>
+                        <div id="alert-title" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
                 <div class="block uk-margin-top">
@@ -27,11 +21,7 @@
                         <span class="uk-form-label"><%= __('form.slug') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
-                        <% if (errors?.slug) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                                <p><%= __('errors.projects.slug.minLength') %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-slug" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
                 <div class="block uk-margin-top">
@@ -39,11 +29,8 @@
                         <span class="uk-form-label"><%= __('form.client') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <input value="<%= form.client %>" type="text" placeholder="<%= __('form.client') %>..." name="client" class="uk-input <% if (errors?.client) { %> uk-input-danger <% } %>"/>
-                        <% if (errors?.client) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top" uk-alert>
-                                <p><%= __(errors?.client.message) %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-client" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
+       
                     </label>
                 </div>
                 <div class="block uk-margin-top">
@@ -51,11 +38,7 @@
                         <span class="uk-form-label"><%= __('form.description') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <textarea rows="5" type="textarea" placeholder="Opis projektu" name="description" class="uk-input <% if (errors?.description) { %> uk-input-danger <% } %>"><%= form.description %></textarea>
-                        <% if (errors?.description) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom" uk-alert>
-                                <p><%= __(errors?.description.message) %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-description" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
             </div>
@@ -65,27 +48,21 @@
                         <span class="uk-form-label"><%= __('form.tools') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <div class="uk-flex uk-flex-row">
-                            <input id="skillsInput" type="text" placeholder="<%= __('form.tools') %>..." name="skillsInput" class="uk-input" />
+                            <input id="skillsInput" type="text" placeholder="<%= __('form.tools') %>..." name="skillsInput" class="uk-input <% if (errors?.tools) { %> uk-input-danger <% } %>" />
                             <button type="button" class="uk-button uk-button-secondary uk-margin-left" id="skillsButton">
                                 DODAJ
                             </button>
                         </div>
                         <div class="uk-flex uk-margin-small-top uk-badges-container">
                         </div>
-                        <% if (errors?.tools) { %>
-                            <div class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom" uk-alert>
-                                <p><%= __(errors?.tools.message) %></p>
-                            </div>
-                        <% } %>
+                        <div id="alert-tools" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
                 <!-- INPUT FOR TOOLS DATA -->
                 <input id="toolsInput" type="hidden" name="tools" />
             </div>
             <div class="uk-card-box uk-margin-top">
-                <!-- <input type="file" name="photos" class="uk-input" multiple /> -->
-
-                <div class="js-upload uk-placeholder uk-text-center">
+                <div class="js-upload uk-placeholder uk-text-center <% if (errors?.files) { %>js-upload-error<% } %>">
                     <span class="material-symbols-outlined">file_upload</span>
                     <span class="uk-text-middle"><%= __('form.upload') %></span>
                     <div uk-form-custom>
@@ -93,8 +70,10 @@
                         <span class="uk-link"><%= __('form.uploadSelect') %></span>
                     </div>
                 </div>
+
+                <div id="alert-files" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                 
-                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+                <progress id="js-progressbar" class="uk-progress" value="0" max="100" accept="image/*" hidden></progress>
                 <div id="preview" class="images-preview" uk-sortable="handle: .image-handler; threshold: 1; animation: false"></div>
             </div>
             <button type="submit" class="uk-button uk-button-primary uk-margin-medium-bottom uk-margin-top" id="projectButton">
@@ -105,54 +84,188 @@
 
 <script>
 
-   const preview = document.querySelector('#preview');
-   const uploadBox = document.querySelector(".js-upload");
-   const files = document.querySelector('#photos').files;
-   const form = document.querySelector("#form");
-   const photosUrl = document.querySelector("#photosUrl");
-   let formData = new FormData();
-   let filesDone = 0
-   let filesToDo = 0
-   let progressBar = document.getElementById('js-progressbar');
-   let copyArray = [];
+    const preview = document.querySelector('#preview');
+    const rawData = document.querySelector('#rawData');
+    const uploadBox = document.querySelector(".js-upload");
+    const form = document.querySelector("#form");
+    let files = document.querySelector('#photos').files;
+    let formData = new FormData();
+    let filesDone = 0
+    let filesToDo = 0
+    let progressBar = document.getElementById('js-progressbar');
+    let copyArray = [];
 
-   function initializeProgress(numfiles) {
-       progressBar.removeAttribute('hidden')
-       progressBar.value = 0
-       filesDone = 0
-       filesToDo = numfiles
-   }
-   function progressDone() {
-       filesDone++
-       progressBar.value = filesDone / filesToDo * 100
-       if (progressBar.value === 100) {
-           setTimeout(() => {
-               progressBar.setAttribute('hidden', true)
-           }, 1000)
-       }
-   }
+    const skillsButton = document.querySelector('#skillsButton');
+    const skillsContainer = document.querySelector('.uk-badges-container');
+    const skillsInput = document.querySelector('#toolsInput');
 
-   function deletePhoto(ev) {
-       // Add images to array to send
-       formData.delete("photos");
-       ev.forEach((file) => {
-           formData.append("photos", file)
-       })
-       if (document.querySelectorAll('.image-preview-box').length < 1) {
-           preview.classList.remove('active');
-       }
-   }
+    // Send form
+    form.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+
+        const photos = formData.getAll("photos")
+        const names = [];
+        photos.forEach((e) => {
+            if (typeof e === "string") {
+                names.push(e)
+            } else { names.push(e.name); }
+        })
+
+        if (skillsArrayValues().length > 0) {
+            skillsInput.value = skillsArrayValues().join()
+        }
+
+        formData.delete('title')
+        formData.delete('slug')
+        formData.delete('client')
+        formData.delete('description')
+        formData.delete('rawData')
+        formData.delete('tools')
+
+        formData.append('title', document.querySelector("[name='title']").value)
+        formData.append('slug', document.querySelector("[name='slug']").value)
+        formData.append('client', document.querySelector("[name='client']").value)
+        formData.append('description', document.querySelector("[name='description']").value)
+        formData.append('rawData', names.join(','))
+
+        // Check tools field
+        const tools = document.querySelector("[name='tools']").value;
+        (tools.length > 0) && formData.append('tools', tools)
+
+        // const renewFields = async () => {
+        //     const fields = ['title', 'slug', 'client', 'description', 'tools', 'rawData'];
+        //     await fields.forEach((e) => {
+        //         return new Promise((resolve) => {
+        //             formData.delete(e)
+        //             resolve();
+        //         })
+        //     })
+        //     await fields.forEach((e) => {
+        //         if (e === 'rawData') {
+        //             return new Promise((resolve) => {
+        //                 formData.append('rawData', names.join(','))
+        //                 resolve();
+        //             })
+        //         } else if (e === 'tools') {
+        //             if (tools.length > 0) {
+        //                 return new Promise((resolve) => { 
+        //                     formData.append('tools', tools) 
+        //                     resolve();
+        //                 })
+        //             }
+        //         } else { 
+        //             return new Promise((resolve) => { 
+        //                 formData.append(e, document.querySelector(`[name='${e}']`).value)
+        //                 resolve();
+        //             })
+        //         }
+        //     })
+        //     console.log(formData.getAll("client"))
+        //     console.log(document.querySelector(`[name='${e}']`).value)
+        // }
+
+        // renewFields()
+
+        const showEachError = (e) => {
+            const fields = ['title', 'slug', 'client', 'description', 'tools', 'files'];
+            const errors = e.errors;
+            document.querySelector('#alert-form').classList.remove('uk-alert-hide')
+            fields.forEach((field, i) => {
+                const div = document.querySelector('#alert-' + field);
+                if (errors[field]) {
+                    div.innerHTML = '';
+                    div.classList.remove('uk-alert-hide');
+                    div.append(errors[field])
+                }
+                else {
+                    div.innerHTML = '';
+                    div.classList.add('uk-alert-hide');
+                }
+            })
+        }
+
+        fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson ? await response.json() : null;
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data) || response.status;
+                return Promise.reject(error);
+            } else { 
+                window.location.href = 'http://localhost:3000/<%- lang %>/';
+            }
+        })
+        .catch(error => {
+            showEachError(error)
+        });
+    })
+
+    function initializeProgress(numfiles) {
+        progressBar.removeAttribute('hidden')
+        progressBar.value = 0
+        filesDone = 0
+        filesToDo = numfiles
+    }
+    function progressDone() {
+        filesDone++
+        progressBar.value = filesDone / filesToDo * 100
+        if (progressBar.value === 100) {
+            setTimeout(() => {
+                progressBar.setAttribute('hidden', true)
+            }, 1000)
+        }
+    }
+
+    uploadBox.addEventListener("dragleave", (event) => {
+        uploadBox.classList.remove('active');
+    })
+    uploadBox.addEventListener("dragover", (event) => {
+        uploadBox.classList.add('active');
+        event.preventDefault();
+    })
+    
+    // Handler for drag and drop files
+    uploadBox.addEventListener("drop", (ev) => {
+        ev.preventDefault();
+        uploadBox.classList.remove('active');
+        validateImages([...ev.dataTransfer.files])
+    })
+
+    // Handler for input files
+    function filesFromInput() {
+        const files = document.querySelector('#photos').files;
+        if (files) {
+            validateImages([...files])
+        }
+    }
 
     // Set up photos from database
-   if ('<%= photos %>') {
-      const photosFromDatabase = '<%= photos %>'.split(',')
-      showPhotosFromDatabase(photosFromDatabase);
-   }
+    if ('<%= photos %>') {
+        const photosFromDatabase = '<%= photos %>'.split(',')
+        showPhotosFromDatabase(photosFromDatabase);
+    }
 
-   function showPhotosFromDatabase(ev) {
+    function deletePhoto(ev) {
+        // Add images to array to send
+        formData.delete("photos");
+        ev.forEach((file) => {
+            formData.append("photos", file)
+        })
+        if (document.querySelectorAll('.image-preview-box').length < 1) {
+            preview.classList.remove('active');
+        }
+    }
+
+    function showPhotosFromDatabase(ev) {
       preview.classList.add('active');
 
       let filesArray = ev;
+      const slug = document.querySelector("[name='slug']").value;
 
       // Show photos on view
       if (filesArray.length > 0) {
@@ -174,12 +287,13 @@
                icon.innerHTML = 'delete';
 
                icon.addEventListener("click", function() {
-                  div.remove();
-                  const arrays = formData.getAll("photos");
-                  const index = arrays.findIndex(x => x === div.dataset.name);
-                  arrays.splice(index, 1);
-                  console.log(arrays)
-                  deletePhoto(arrays)
+                    const arrays = formData.getAll("photos");
+                    const name = div.dataset.name;
+                    const slug = document.querySelector("[name='slug']").value;
+                    const index = arrays.findIndex(x => x === name.split('/uploads/'+slug+'/')[1]);
+                    arrays.splice(index, 1);
+                    deletePhoto(arrays)
+                    div.remove();
                })
 
                const iconContainer = document.createElement('div');
@@ -190,296 +304,235 @@
                div.appendChild(image);
                preview.appendChild(div);
                progressDone();
-               formData.append("photos", file)
+               formData.append("photos", file.split('/uploads/'+slug+'/')[1])
             })           
        }
    }
-
-   uploadBox.addEventListener("dragleave", (event) => {
-       uploadBox.classList.remove('active');
-   })
-   uploadBox.addEventListener("dragover", (event) => {
-       uploadBox.classList.add('active');
-       event.preventDefault();
-   })
-   
-   // Handler for drag and drop files
-   uploadBox.addEventListener("drop", (ev) => {
-       ev.preventDefault();
-       uploadBox.classList.remove('active');
-       validateImages([...ev.dataTransfer.files])
-   })
-   // Handler for input drop files
-   function filesFromInput() {
-       const files = document.querySelector('#photos').files;
-       if (files) {
-           validateImages([...files])
-       }
-   }
-   
-   function validateImages(ev) {
+    
+    function validateImages(ev) {
         let acceptFiles = [];
+
         ev.forEach((file) => {
             let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
             let maximumSize = 7;
 
             if (validExtensions.includes(file.type)) {
                 if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
-                    acceptFiles.push(file);
+                   acceptFiles.push(file);
                 }
             }
         })
         showPhotos(acceptFiles)
-   }
+    }
 
-   function reorganize(ev) {
-       const arrays = formData.getAll("photos");
-       const newArray = new Array(arrays.length).fill("")
-       const htmlTags = [...ev];
-       htmlTags.splice(htmlTags.length-1, 1)
-       htmlTags.forEach((e, i) => {
-            const index = arrays.findIndex(object => {
-                return object.name === e.dataset.name
-            });
-            if (index !== parseInt('-1')) {
-                newArray[i] = arrays[index]
-            }
-            const indexClear = arrays.findIndex(object => {
-                return object === e.dataset.name
-            });
-            if (indexClear !== parseInt('-1')) {
-                newArray[i] = arrays[indexClear]
-            }
-       })
-       formData.delete("photos");
-       newArray.forEach((file) => {
-           formData.append("photos", file)
-       })
-   }
-
-   UIkit.util.on('#preview', 'moved', function (item) {
-       reorganize(document.querySelectorAll('.image-preview-box'))
-   });
-
-   function showPhotos(ev) {        
-       preview.classList.add('active');
-
-       let filesArray = ev;
-       let listCount = formData.getAll('photos').length;
-
-       // Show photos on view
-       if (filesArray.length > 0) {
-           // Initialize progress bar
-           initializeProgress(filesArray.length)
-           // Show each image on page  
-           filesArray.forEach((file, i) => {
-                   let fileReader = new FileReader();
-                   fileReader.onload = () => {
-                       let fileUrl = fileReader.result;
-                       
-                       const image = new Image();
-                       image.className = 'image-preview';
-                       image.title = file.name;
-                       image.src = fileUrl;
-   
-                       const div = document.createElement('div');
-                       // div.dataset.id = listCount + i;
-                       div.dataset.name = file.name;
-                       div.className = 'image-preview-box image-handler';
-   
-                       const icon = document.createElement('span');
-                       icon.className = 'material-symbols-outlined';
-                       icon.innerHTML = 'delete';
-
-                       icon.addEventListener("click", function() {
-                           div.remove();
-                           const arrays = formData.getAll("photos");
-                           const index = arrays.findIndex(x => x.name === div.dataset.name);
-                           arrays.splice(index, 1);
-                           deletePhoto(arrays)
-                       })
-   
-                       const iconContainer = document.createElement('div');
-                       iconContainer.className = 'image-preview-icon-container';
-
-                       iconContainer.appendChild(icon);
-                       div.appendChild(iconContainer);
-                       div.appendChild(image);
-                       preview.appendChild(div);
-                       progressDone();
-                   }
-                   fileReader.readAsDataURL(file);
-           });
-
-           // Add images to array to send
-           filesArray.forEach((file) => {
-               formData.append("photos", file)
-           })
-           
-       }
-   }
-
-       // Send form
-    form.addEventListener("submit", (ev) => {
-        ev.preventDefault();
-
-        const photos = formData.getAll("photos");
-        formData.delete("photos")
-
-        formData.append('title', document.querySelector("[name='title']").value)
-        formData.append('slug', document.querySelector("[name='slug']").value)
-        formData.append('client', document.querySelector("[name='client']").value)
-        formData.append('description', document.querySelector("[name='description']").value)
-        formData.append('tools', document.querySelector("[name='tools']").value)
-        formData.append('photosUrl', document.querySelector("[name='slug']").value);
-
-        photos.forEach((e) => {
-            formData.append("photos", e)
+    function reorganize(ev) {
+        const arrays = formData.getAll("photos");
+        const newArray = new Array(arrays.length).fill("")
+        const htmlTags = [...ev];
+        htmlTags.splice(htmlTags.length-1, 1)
+        htmlTags.forEach((e, i) => {
+                const index = arrays.findIndex(object => {
+                    return object.name === e.dataset.name
+                });
+                if (index !== parseInt('-1')) {
+                    newArray[i] = arrays[index]
+                }
+                const indexClear = arrays.findIndex(object => {
+                    const name = e.dataset.name;
+                    const slug = document.querySelector("[name='slug']").value;
+                    return object === name.split('/uploads/'+slug+'/')[1];
+                });
+                if (indexClear !== parseInt('-1')) {
+                    newArray[i] = arrays[indexClear]
+                }
         })
-
-        const rawData = []
-
-        formData.getAll("photos").forEach((e, i) => {
-            if (typeof e === 'string') {
-                formData.append("rawData", e)
-            } else {
-                formData.append("rawData", '/uploads/' + '<%= slug %>' + '/' + e.name)
-            }
+        formData.delete("photos");
+        newArray.forEach((file) => {
+            formData.append("photos", file)
         })
+    }
 
-        try {
-            fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
-                method: 'POST',
-                body: formData,
+    UIkit.util.on('#preview', 'moved', function (item) {
+        reorganize(document.querySelectorAll('.image-preview-box'))
+    });
+
+    function showPhotos(ev) {        
+        preview.classList.add('active');
+        // (previewBox.classList.contains('js-upload-error')) && previewBox.classList.remove('js-upload-error')
+
+        let filesArray = ev;
+        let listCount = formData.getAll('photos').length;
+
+        // Show photos on view
+        if (filesArray.length > 0) {
+            // Initialize progress bar
+            initializeProgress(filesArray.length)
+            // Show each image on page  
+            filesArray.forEach((file, i) => {
+                    let count = listCount;
+                    let fileReader = new FileReader();
+                    fileReader.onload = () => {
+                        let fileUrl = fileReader.result;
+                        
+                        const image = new Image();
+                        image.className = 'image-preview';
+                        image.title = file.name;
+                        image.src = fileUrl;
+    
+                        const div = document.createElement('div');
+                        // div.dataset.id = listCount + i;
+                        div.dataset.name = file.name;
+                        div.className = 'image-preview-box image-handler';
+    
+                        const icon = document.createElement('span');
+                        icon.className = 'material-symbols-outlined';
+                        icon.innerHTML = 'delete';
+
+                        icon.addEventListener("click", function() {
+                            div.remove();
+                            const arrays = formData.getAll("photos");
+                            const name = div.dataset.name;
+                            const slug = document.querySelector("[name='slug']").value;
+                            const index = arrays.findIndex(x => x.name === name);
+                            arrays.splice(index, 1);
+                            deletePhoto(arrays)
+                        })
+    
+                        const iconContainer = document.createElement('div');
+                        iconContainer.className = 'image-preview-icon-container';
+
+                        iconContainer.appendChild(icon);
+                        div.appendChild(iconContainer);
+                        div.appendChild(image);
+                        preview.appendChild(div);
+                        progressDone();
+                    }
+                    fileReader.readAsDataURL(file);
             });
-            window.location.href = 'http://localhost:3000/<%- lang %>/';
-        } catch(e) {
-            console.log(e);
+
+            // Add images to array to send
+            filesArray.forEach((file) => {
+                formData.append("photos", file)
+            })
+            
         }
-   }) 
-   
-</script>
+    }
 
-<script>
+    //
+    //
+    //
+    //
+    // TOOLS
 
-   const skillsButton = document.querySelector('#skillsButton');
-   const skillsContainer = document.querySelector('.uk-badges-container');
-   const skillsInput = document.querySelector('#toolsInput');
+    function useState(defaultValue) {
+        let value = defaultValue;
+        function getValue() {
+            return value;
+        }
+        function setValue(newValue) {
+            value = newValue;
+            addToInput();
+        }
+        return [getValue, setValue];
+    }
 
-   function useState(defaultValue) {
-       // 👆🏻We create a function useState with a default value
-       let value = defaultValue;
-       // 👆🏻We create a local variable value = defaultValue
-       function getValue() {
-           // 👆🏻We create a function getValue to get the value that return the value
-           return value;
-       }
-       function setValue(newValue) {
-           // 👆🏻We create a function to set the value with parameter newValue
-           value = newValue; // 👈🏻 We change the value for newValue
-           addToInput(); // 👈🏻We run the render function on our app
-       }
-       return [getValue, setValue];
-   }
+    const [skillsArrayValues, setSkillsArrayValues] = useState([]);
+    const [skillsArray, setSkillsArray] = useState([]);
 
-   const [skillsArrayValues, setSkillsArrayValues] = useState([]);
-   const [skillsArray, setSkillsArray] = useState([]);
+    document.querySelector('#skillsInput').addEventListener("keydown", function(event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            addSkill();
+        }
+    })
 
-   document.querySelector('#skillsInput').addEventListener("keydown", function(event) {
-       if (event.which === 13) {
-           event.preventDefault();
-           addSkill();
-       }
-   })
+    skillsButton.addEventListener('click', function(e) {
+        addSkill();
+    })
 
-   skillsButton.addEventListener('click', function(e) {
-       addSkill();
-   })
+    const addSkill = () => {
+        let skillsInput = document.querySelector('#skillsInput').value;
+        // Add input value to array's
+        if (skillsInput.length > 0) 
+        {
+            setSkillsArrayValues([...skillsArrayValues(), skillsInput]);
+            // Create new badge and push to badges array
+            newBadge(skillsInput);
+            // Add badge to input value
+            addDestroyButton();
+            document.querySelector('#skillsInput').value = "";
+        }
+    }
+    
+    const newBadge = (e) => {
+        // Create html badge item
+            // Create div
+            const badgeItem = document.createElement("div");
+            // Add classname
+            badgeItem.className = 'uk-badge-item';
+            badgeItem.setAttribute('id', e);
+            // Add value from input
+            const badgeText = document.createTextNode(e);
+            // Create destroy button
+            const destroyButton = document.createElement("span");
+            // Add classname to button
+            destroyButton.className = 'material-symbols-outlined';
+            destroyButton.setAttribute("id", "destroyButton");
+            // Add icon to button
+            const destroyText = document.createTextNode('cancel');
+            destroyButton.append(destroyText);
+            // Append text to badge
+            badgeItem.append(badgeText);
+            badgeItem.append(destroyButton);
+            // Push badge to array
+            setSkillsArray([...skillsArray(), {
+                "name": e,
+                "value": badgeItem
+            }]);
+            // Add badge to container to show in html
+            addToContainer(badgeItem);
+    }
 
-   const addSkill = () => {
-       let skillsInput = document.querySelector('#skillsInput').value;
-       // Add input value to array's
-       if (skillsInput.length > 0) 
-       {
-           setSkillsArrayValues([...skillsArrayValues(), skillsInput]);
-           // Create new badge and push to badges array
-           newBadge(skillsInput);
-           // Add badge to input value
-           addDestroyButton();
-           document.querySelector('#skillsInput').value = "";
-       }
-   }
-   
-   const newBadge = (e) => {
-       // Create html badge item
-           // Create div
-           const badgeItem = document.createElement("div");
-           // Add classname
-           badgeItem.className = 'uk-badge-item';
-           badgeItem.setAttribute('id', e);
-           // Add value from input
-           const badgeText = document.createTextNode(e);
-           // Create destroy button
-           const destroyButton = document.createElement("span");
-           // Add classname to button
-           destroyButton.className = 'material-symbols-outlined';
-           destroyButton.setAttribute("id", "destroyButton");
-           // Add icon to button
-           const destroyText = document.createTextNode('cancel');
-           destroyButton.append(destroyText);
-           // Append text to badge
-           badgeItem.append(badgeText);
-           badgeItem.append(destroyButton);
-           // Push badge to array
-           setSkillsArray([...skillsArray(), {
-               "name": e,
-               "value": badgeItem
-           }]);
-           // Add badge to container to show in html
-           addToContainer(badgeItem);
-   }
+    const addToContainer = (badgeItem) => {
+        skillsContainer.appendChild(badgeItem);
+    }
 
-   const addToContainer = (badgeItem) => {
-       skillsContainer.appendChild(badgeItem);
-   }
+    const addDestroyButton = () => {
+        const skillsDestroyButton = document.querySelectorAll("#destroyButton")
+        skillsDestroyButton.forEach((e) => {
+            e.addEventListener('click', function(event) {
+                // Get id of clicked element
+                const element = event.target.parentNode;
+                const elementid = element.getAttribute('id');
 
-   const addDestroyButton = () => {
-       const skillsDestroyButton = document.querySelectorAll("#destroyButton")
-       skillsDestroyButton.forEach((e) => {
-           e.addEventListener('click', function(event) {
-               // Get id of clicked element
-               const element = event.target.parentNode;
-               const elementid = element.getAttribute('id');
+                // Find element in array and remove it
+                for (let i=0;i<skillsArray().length;i++) {
+                    if (skillsArray()[i].name == elementid) {
+                        skillsArray()[i].value.remove();
+                        skillsArray().splice(i, 1)
+                        setSkillsArray(skillsArray());
+                        skillsArrayValues().splice(i, 1)
+                        setSkillsArrayValues(skillsArrayValues());
+                    }
+                }
+            })
+        })
+    }
 
-               // Find element in array and remove it
-               for (let i=0;i<skillsArray().length;i++) {
-                   if (skillsArray()[i].name == elementid) {
-                       skillsArray()[i].value.remove();
-                       skillsArray().splice(i, 1)
-                       setSkillsArray(skillsArray());
-                       skillsArrayValues().splice(i, 1)
-                       setSkillsArrayValues(skillsArrayValues());
-                   }
-               }
-           })
-       })
-   }
-
-   const addToInput = () => {
+    const addToInput = () => {
        if (skillsArrayValues().length > 0) {
            skillsInput.value = skillsArrayValues().join()
        }
-   }
+    }
 
-   // Set up tools from database
-   if ('<%= tools %>') {
-      '<%= tools %>'.split(',').forEach((e) => {
-         setSkillsArrayValues([...skillsArrayValues(), e]);
-         newBadge(e);
-         addToInput();
-         addDestroyButton();
-      })
-   }
-
-
+    // Set up tools from database
+    if ('<%= tools %>') {
+        '<%= tools %>'.split(',').forEach((e) => {
+            setSkillsArrayValues([...skillsArrayValues(), e]);
+            newBadge(e);
+            addToInput();
+            addDestroyButton();
+        })
+    }
+    
 </script>

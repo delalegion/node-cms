@@ -18,7 +18,8 @@
 			},
 			"slug": {
 				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required"
+				"required": "The above field is required",
+				"validate": "Slug value can't contain special characters and white spaces"
 			},
 			"password": {
 				"minLength": "The minimum number of characters is 7...",
@@ -35,7 +36,8 @@
 			},
 			"slug": {
 				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required"
+				"required": "The above field is required",
+				"validate": "Slug value can't contain special characters and white spaces"
 			},
 			"client": {
 				"minLength": "The minimum number of characters is 4...",
@@ -125,5 +127,10 @@
 			"message+": "+errors[i].properties.message+"
 		}
 	},
-	"${aha}": "${aha}"
+	"${aha}": "${aha}",
+	"Wrong files...": "Wrong files...",
+	"to samo": "to samo",
+	"taki email": "taki email",
+	"AHAAA": "AHAAA",
+	"Duplicated": "Duplicated"
 }

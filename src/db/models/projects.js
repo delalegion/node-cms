@@ -9,7 +9,15 @@ const projectsSchema = new Schema(
             lowercase: true,
             unique: true,
             minlength: [4, 'errors.projects.slug.minLength'],
-            required: [true, 'errors.projects.slug.required']
+            required: [true, 'errors.projects.slug.required'],
+            validate: [(value => {
+                const slugRegex = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/;
+                const slugRegexTest = slugRegex.test(value);
+                const slugSpaceRegexTest = /\s/g.test(value);
+                if (slugSpaceRegexTest || slugRegexTest) {
+                    return false;
+                }
+            }), 'errors.projects.slug.validate']
         },
         title: {
             type: String,

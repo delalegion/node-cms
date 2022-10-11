@@ -76,6 +76,7 @@ router.get("/:locale/edit/projects/:slug", [localeMiddleware], ProjectsControlle
 router.post("/:locale/edit/projects/:slug", [localeMiddleware, uploadMiddleware], ProjectsController.editProjects)
 router.get("/:locale/create/project", [localeMiddleware], ProjectsController.showCreateProjects)
 router.post("/:locale/create/project", [localeMiddleware, uploadMiddleware], ProjectsController.createProjects)
+router.get("/:locale/projects", [localeMiddleware], ProjectsController.showProjects)
 
 // Profiles
 router.get("/:locale/profiles", [localeMiddleware], UserController.showUsers)

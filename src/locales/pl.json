@@ -18,7 +18,8 @@
 			},
 			"slug": {
 				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required"
+				"required": "The above field is required",
+				"validate": "Slug value can't contain special characters and white spaces"
 			},
 			"password": {
 				"minLength": "The minimum number of characters is 7...",
@@ -35,7 +36,8 @@
 			},
 			"slug": {
 				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required PL"
+				"required": "The above field is required PL",
+				"validate": "Slug value can't contain special characters and white spaces"
 			},
 			"client": {
 				"minLength": "The minimum number of characters is 4...",

@@ -3,7 +3,6 @@ const Users = require("../db/models/users");
 class UserController {
 
     async showUsers(req, res) {
-
         const { q, sort } = req.query;
         let query = Users.find({ name: { $regex: q || '', $options: 'i' } });
 
@@ -36,6 +35,19 @@ class UserController {
         res.render('pages/auth/register', {title: "Create new user!"});
     }
     async createUser(req, res) {
+        let customErrors = {};
+        const fields = ['name', 'email', 'slug'];
+
+        let allUsers = await Users.find();
+
+        [...fields.slice(1)].forEach((e) => {
+            allUsers.forEach((u) => {
+                if (u[e] === req.body[e]) {
+                    customErrors[e] = { message: "errors.users.unique" }
+                }
+            })
+        })
+
         try {
             await Users.create({
                 name: req.body.name,
@@ -45,7 +57,8 @@ class UserController {
             })
             res.redirect("/" + req.params.locale + '/auth/login')
         } catch(e) {
-            res.render('pages/auth/register', {title: "Something goes wrong!", errors: e.errors, form: req.body});
+            const concatErrors = Object.assign(customErrors, e.errors);
+            res.render('pages/auth/register', {title: "Something goes wrong!", errors: concatErrors, form: req.body});
         }
     }
     async showLogin(req, res) {
@@ -79,18 +92,34 @@ class UserController {
         } else { res.render('pages/profiles/edit', {title: "Edit user data", form: data}); }
     }
     async editUser(req, res) {
-        try {
-            let user = await Users.findOne({ slug: req.params.slug });
-            let data = { name: req.body.name,
-                email: req.body.email }
-            if (user.slug !== req.body.slug) {
-                data.slug = req.body.slug
+        let user = await Users.findOne({ slug: req.params.slug });
+        let data = {}
+        let customErrors = {};
+        const fields = ['name', 'email', 'slug'];
+
+        fields.forEach((e) => {
+            if (user[e] !== req.body[e]) {
+                data[e] = req.body[e]
             }
-            await Users.updateOne({ slug: req.params.slug }, data, { runValidators: true })
+        })
+
+        let allUsers = await Users.find();
+        [...fields.slice(1)].forEach((e) => {
+            allUsers.forEach((u) => {
+                if (user[e] !== req.body[e]) {
+                    if (u[e] === req.body[e]) {
+                        customErrors[e] = { message: "errors.users.unique" }
+                    }
+                }
+            })
+        })
+
+        try {
+            await Users.updateOne({slug: req.params.slug}, { $set: data }, { runValidators: true });
             res.redirect('/' + req.params.locale + '/');
         } catch(e) {
-            console.log(e);
-            res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: e.errors, form: req.body});
+            const concatErrors = Object.assign(customErrors, e.errors);
+            res.render('pages/profiles/edit', {title: "Something goes wrong!", errors: concatErrors, form: req.body});
         }
     }
     async deleteUser(req, res) {
