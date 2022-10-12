@@ -111,60 +111,39 @@
             } else { names.push(e.name); }
         })
 
+
         if (skillsArrayValues().length > 0) {
             skillsInput.value = skillsArrayValues().join()
         }
 
-        formData.delete('title')
-        formData.delete('slug')
-        formData.delete('client')
-        formData.delete('description')
-        formData.delete('rawData')
-        formData.delete('tools')
+        const fields = ['title', 'slug', 'client', 'description', 'tools', 'rawData'];
+        const toolsInput = skillsInput.value;
+        const tools = toolsInput.split(',')
 
-        formData.append('title', document.querySelector("[name='title']").value)
-        formData.append('slug', document.querySelector("[name='slug']").value)
-        formData.append('client', document.querySelector("[name='client']").value)
-        formData.append('description', document.querySelector("[name='description']").value)
-        formData.append('rawData', names.join(','))
-
-        // Check tools field
-        const tools = document.querySelector("[name='tools']").value;
-        (tools.length > 0) && formData.append('tools', tools)
-
-        // const renewFields = async () => {
-        //     const fields = ['title', 'slug', 'client', 'description', 'tools', 'rawData'];
-        //     await fields.forEach((e) => {
-        //         return new Promise((resolve) => {
-        //             formData.delete(e)
-        //             resolve();
-        //         })
-        //     })
-        //     await fields.forEach((e) => {
-        //         if (e === 'rawData') {
-        //             return new Promise((resolve) => {
-        //                 formData.append('rawData', names.join(','))
-        //                 resolve();
-        //             })
-        //         } else if (e === 'tools') {
-        //             if (tools.length > 0) {
-        //                 return new Promise((resolve) => { 
-        //                     formData.append('tools', tools) 
-        //                     resolve();
-        //                 })
-        //             }
-        //         } else { 
-        //             return new Promise((resolve) => { 
-        //                 formData.append(e, document.querySelector(`[name='${e}']`).value)
-        //                 resolve();
-        //             })
-        //         }
-        //     })
-        //     console.log(formData.getAll("client"))
-        //     console.log(document.querySelector(`[name='${e}']`).value)
-        // }
-
-        // renewFields()
+        const deleteFormData = () => {
+            return new Promise((resolve) => {
+                fields.forEach((e) => {
+                    formData.delete(e)
+                })
+                resolve();
+            })
+        }
+        const insertNewFormData = () => {
+            return new Promise((resolve) => {
+                fields.forEach((e) => {
+                    if (e === 'rawData') {
+                        formData.append('rawData', names.join(','))
+                    } else if (e === 'tools') {
+                        if (tools.length > 0) {
+                            formData.append('tools', tools)
+                        }
+                    } else { 
+                        formData.append(e, document.querySelector(`[name='${e}']`).value)
+                    }
+                })
+                resolve();
+            })
+        }
 
         const showEachError = (e) => {
             const fields = ['title', 'slug', 'client', 'description', 'tools', 'files'];
@@ -184,25 +163,33 @@
             })
         }
 
-        fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
-            method: 'POST',
-            body: formData
-        })
-        .then(async response => {
-            const isJson = response.headers.get('content-type')?.includes('application/json');
-            const data = isJson ? await response.json() : null;
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = (data) || response.status;
-                return Promise.reject(error);
-            } else { 
-                window.location.href = 'http://localhost:3000/<%- lang %>/';
-            }
-        })
-        .catch(error => {
-            showEachError(error)
-        });
+        const sendData = () => {
+            return fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
+                method: 'POST',
+                body: formData
+            })
+        }
+
+        (async () => {
+            await deleteFormData();
+            await insertNewFormData();
+            await sendData().then(async response => {
+                const isJson = response.headers.get('content-type')?.includes('application/json');
+                const data = isJson ? await response.json() : null;
+                // check for error response
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = (data) || response.status;
+                    return Promise.reject(error);
+                } else { 
+                    window.location.href = 'http://localhost:3000/<%- lang %>/';
+                }
+            })
+            .catch(error => {
+                showEachError(error)
+            });
+        })()
+
     })
 
     function initializeProgress(numfiles) {
@@ -311,14 +298,23 @@
     
     function validateImages(ev) {
         let acceptFiles = [];
+        const photos = formData.getAll("photos");
+        const names = [];
+        photos.forEach((e) => {
+            if (typeof e === "string") {
+                names.push(e)
+            } else { names.push(e.name); }
+        })
 
         ev.forEach((file) => {
             let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
             let maximumSize = 7;
 
             if (validExtensions.includes(file.type)) {
-                if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
-                   acceptFiles.push(file);
+                if (!names.includes(file.name)) {
+                    if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
+                        acceptFiles.push(file);
+                    }
                 }
             }
         })
@@ -520,9 +516,7 @@
     }
 
     const addToInput = () => {
-       if (skillsArrayValues().length > 0) {
-           skillsInput.value = skillsArrayValues().join()
-       }
+        skillsInput.value = skillsArrayValues().join()
     }
 
     // Set up tools from database

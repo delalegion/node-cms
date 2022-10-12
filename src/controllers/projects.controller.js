@@ -94,7 +94,7 @@ class ProjectsController {
     async editProjects(req, res) {
         const images = req.body.rawData;
         const files = req.files;
-
+        
         const upload = () => {
             return new Promise((resolve) => {
                 setTimeout(() => {
@@ -170,7 +170,6 @@ class ProjectsController {
             await upload();
             res.redirect("/" + req.params.locale + '/projects')
         } catch(e) {
-            console.log(e)
             if (req.fileValidationError) {
                 e.errors.files = { properties: { message: res.__('errors.projects.files'), path: 'files' } };
             }

@@ -42,7 +42,6 @@ const projectsSchema = new Schema(
         },
         tools: {
             type: String,
-            minlength: [6, 'errors.projects.tools.minLength']
         },
         photos: {
             type: String

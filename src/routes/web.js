@@ -54,7 +54,6 @@ const uploadMiddleware = (req,res,next)=>{
        const err = new Error('Server Error')
        next(err)
      }
-
     // Everything went fine.
     next()
   })
