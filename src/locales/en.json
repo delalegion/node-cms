@@ -109,28 +109,15 @@
 		"apply": "Apply",
 		"details": "Details",
 		"edit": "Edit",
-		"editUser": "Edit user"
+		"editUser": "Edit user",
+		"delete": "Delete",
+		"deleteUser": "Delete user"
 	},
-	"Cast to string failed for value \"[ 'okokokok', 'okokokok' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'okokokok', 'okokokok' ]\" (type Array) at path \"client\"",
-	"Cast to string failed for value \"[ 'okokokokok', 'okokokokok' ]\" (type Array) at path \"description\"": "Cast to string failed for value \"[ 'okokokokok', 'okokokokok' ]\" (type Array) at path \"description\"",
-	"Cast to string failed for value \"[ 'okokokokokok', 'okokokokokok' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'okokokokokok', 'okokokokokok' ]\" (type Array) at path \"tools\"",
-	"Cast to string failed for value \"[ 'nieironicznanieironiczna', '2nieironicznanieironiczna' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', '2nieironicznanieironiczna' ]\" (type Array) at path \"client\"",
-	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna2' ]\" (type Array) at path \"description\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna2' ]\" (type Array) at path \"description\"",
-	"Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'nieironicznanieironiczna', 'nieironicznanieironiczna' ]\" (type Array) at path \"tools\"",
-	"${errors[i]": {
-		"properties": {
-			"message}": "${errors[i].properties.message}"
-		}
-	},
-	"+errors[i]": {
-		"properties": {
-			"message+": "+errors[i].properties.message+"
-		}
-	},
-	"${aha}": "${aha}",
-	"Wrong files...": "Wrong files...",
-	"to samo": "to samo",
-	"taki email": "taki email",
-	"AHAAA": "AHAAA",
-	"Duplicated": "Duplicated"
+	"projects": {
+		"searchProject": "Search project",
+		"projectSearchError": "No projects were found matched to searching queries",
+		"edit": "Edit project",
+		"delete": "Delete",
+		"deleteProject": "Delete project"
+	}
 }

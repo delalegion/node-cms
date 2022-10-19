@@ -1,7 +1,7 @@
 <%- contentFor('content') %>
 
 <div class="uk-container uk-container-xsmall">
-    <h3 class="uk-margin-medium-top"><%= __('navbar.projectsAdd') %></h3>
+    <h3 class="uk-margin-medium-top"><%= __('projects.edit') %></h3>
         <div id="alert-form" class="uk-alert-danger uk-margin-top uk-alert-hide" uk-alert>
             <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
             <p><%= __('form.error') %></p>
@@ -12,7 +12,7 @@
                     <label>
                         <span class="uk-form-label"><%= __('form.title') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
-                        <input value="<%= form.title %>" type="text" placeholder="<%= __('form.title') %>..." name="title" class="uk-input <% if (errors?.title) { %> uk-input-danger <% } %>"/>
+                        <input value="<%= form.title %>" type="text" placeholder="<%= __('form.title') %>..." name="title" class="uk-input alert-title"/>
                         <div id="alert-title" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
@@ -20,7 +20,7 @@
                     <label>
                         <span class="uk-form-label"><%= __('form.slug') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
-                        <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input <% if (errors?.slug) { %> uk-input-danger <% } %>"/>
+                        <input value="<%= form.slug %>" type="text" placeholder="<%= __('form.slug') %>..." name="slug" class="uk-input alert-slug"/>
                         <div id="alert-slug" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
@@ -28,7 +28,7 @@
                     <label>
                         <span class="uk-form-label"><%= __('form.client') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
-                        <input value="<%= form.client %>" type="text" placeholder="<%= __('form.client') %>..." name="client" class="uk-input <% if (errors?.client) { %> uk-input-danger <% } %>"/>
+                        <input value="<%= form.client %>" type="text" placeholder="<%= __('form.client') %>..." name="client" class="uk-input alert-client"/>
                         <div id="alert-client" class="uk-alert-danger uk-margin-remove-top uk-alert-hide" uk-alert></div>
        
                     </label>
@@ -37,7 +37,7 @@
                     <label>
                         <span class="uk-form-label"><%= __('form.description') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
-                        <textarea rows="5" type="textarea" placeholder="Opis projektu" name="description" class="uk-input <% if (errors?.description) { %> uk-input-danger <% } %>"><%= form.description %></textarea>
+                        <textarea rows="5" type="textarea" placeholder="Opis projektu" name="description" class="uk-input alert-description"><%= form.description %></textarea>
                         <div id="alert-description" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                     </label>
                 </div>
@@ -48,7 +48,7 @@
                         <span class="uk-form-label"><%= __('form.tools') %></span>
                         <!-- Using form state modifers, the classes can be identical for every input -->
                         <div class="uk-flex uk-flex-row">
-                            <input id="skillsInput" type="text" placeholder="<%= __('form.tools') %>..." name="skillsInput" class="uk-input <% if (errors?.tools) { %> uk-input-danger <% } %>" />
+                            <input id="skillsInput" type="text" placeholder="<%= __('form.tools') %>..." name="skillsInput" class="uk-input alert-tools" />
                             <button type="button" class="uk-button uk-button-secondary uk-margin-left" id="skillsButton">
                                 DODAJ
                             </button>
@@ -76,10 +76,24 @@
                 <progress id="js-progressbar" class="uk-progress" value="0" max="100" accept="image/*" hidden></progress>
                 <div id="preview" class="images-preview" uk-sortable="handle: .image-handler; threshold: 1; animation: false"></div>
             </div>
-            <button type="submit" class="uk-button uk-button-primary uk-margin-medium-bottom uk-margin-top" id="projectButton">
-                <%= __('navbar.projectsAdd') %>
-            </button>
+            <div class="uk-flex uk-flex-middle uk-margin-top  uk-margin-medium-bottom">
+                <button type="submit" class="uk-button uk-button-primary" id="projectButton">
+                    <%= __('projects.edit') %>
+                    <div class="spinner" uk-spinner></div>
+                </button>
+                <a href="#confirm-modal" class="uk-button uk-button-default uk-margin-small-left uk-flex" uk-toggle><%= __('projects.deleteProject') %></a>
+            </div>
         </form>    
+</div>
+
+<div id="confirm-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Czy napewno chcesz usunąć projekt?</h2>
+        <div class="uk-flex uk-flex-middle uk-margin-top"></div>
+            <a href="/<%- lang %>/delete/project/<%= form.slug %>" class="uk-button uk-button-small uk-button-primary uk-flex"><%= __('projects.delete') %></a>
+            <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button">Cancel</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -144,19 +158,21 @@
                 resolve();
             })
         }
-
         const showEachError = (e) => {
             const fields = ['title', 'slug', 'client', 'description', 'tools', 'files'];
             const errors = e.errors;
             document.querySelector('#alert-form').classList.remove('uk-alert-hide')
             fields.forEach((field, i) => {
                 const div = document.querySelector('#alert-' + field);
+                const input = document.querySelector('.alert-' + field);
                 if (errors[field]) {
                     div.innerHTML = '';
                     div.classList.remove('uk-alert-hide');
+                    input.classList.add('uk-input-danger');
                     div.append(errors[field])
                 }
                 else {
+                    input.classList.remove('uk-input-danger');
                     div.innerHTML = '';
                     div.classList.add('uk-alert-hide');
                 }
@@ -164,7 +180,8 @@
         }
 
         const sendData = () => {
-            return fetch('http://localhost:3000/<%- lang %>/edit/projects/<%= slug %>', {
+            const spinner = document.querySelector('.spinner').classList.add('show');
+            return fetch('http://localhost:3000/<%- lang %>/edit/project/<%= slug %>', {
                 method: 'POST',
                 body: formData
             })
@@ -186,6 +203,8 @@
                 }
             })
             .catch(error => {
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+                const spinner = document.querySelector('.spinner').classList.remove('show');
                 showEachError(error)
             });
         })()
@@ -221,6 +240,7 @@
         ev.preventDefault();
         uploadBox.classList.remove('active');
         validateImages([...ev.dataTransfer.files])
+        ev.dataTransfer.files = '';
     })
 
     // Handler for input files
@@ -229,6 +249,7 @@
         if (files) {
             validateImages([...files])
         }
+        document.querySelector('#photos').value = '';
     }
 
     // Set up photos from database
@@ -299,6 +320,7 @@
     function validateImages(ev) {
         let acceptFiles = [];
         const photos = formData.getAll("photos");
+        
         const names = [];
         photos.forEach((e) => {
             if (typeof e === "string") {
@@ -314,8 +336,29 @@
                 if (!names.includes(file.name)) {
                     if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
                         acceptFiles.push(file);
+                    } else {
+                        UIkit.notification({
+                            message: '<div class="uk-flex uk-flex-middle"><div class="alert-icon alert-icon-danger uk-margin-small-right"><span class="material-symbols-outlined">error</span></div> Plik nie moze byc większy niz 7 mb.</div>',
+                            status: 'danger',
+                            pos: 'bottom-right',
+                            timeout: 5000
+                        });
                     }
+                } else {
+                    UIkit.notification({
+                        message: '<div class="uk-flex uk-flex-middle"><div class="alert-icon alert-icon-danger uk-margin-small-right"><span class="material-symbols-outlined">error</span></div> Nie mozna dołączyć dwóch plików o tej samej nazwie.</div>',
+                        status: 'danger',
+                        pos: 'bottom-right',
+                        timeout: 5000
+                    });
                 }
+            } else {
+                UIkit.notification({
+                    message: '<div class="uk-flex uk-flex-middle"><div class="alert-icon alert-icon-danger uk-margin-small-right"><span class="material-symbols-outlined">error</span></div> Plik nie jest posiada rozszerzenia: .png, .jpg, .jpeg lub .webp</div>',
+                    status: 'danger',
+                    pos: 'bottom-right',
+                    timeout: 5000
+                }); 
             }
         })
         showPhotos(acceptFiles)

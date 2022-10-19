@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const http = require('http');
-const server = http.createServer(app);
 const ejslayout = require('express-ejs-layouts');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -10,7 +8,6 @@ const session = require('express-session');
 const { sessionKeySecret } = require('./config');
 
 const { I18n } = require('i18n');
-const { Router } = require('express');
 
 /**
  * create a new instance with it's configuration

@@ -4,18 +4,27 @@ const fs = require('fs');
 
 class ProjectsController {
 
+    async deleteProject(req, res) {
+        try {
+            await Projects.deleteOne({ slug: req.params.slug })
+            res.redirect('/' + req.params.locale + '/');
+        } catch(e) {
+            console.log(e.errors);
+        }
+    }
     async showProjects(req, res) {
         const { q, sort } = req.query;
-        let query = Projects.find({ name: { $regex: q || '', $options: 'i' } });
+        let query = Projects.find({ title: { $regex: q || '', $options: 'i' } });
 
         const page = req.query.page || 1;
-        const limitPerPage = 9;
+        const limitPerPage = 12;
 
-        const count = await Projects.find({ name: { $regex: q || '', $options: 'i' } }).count();
+        const count = await Projects.find({ title: { $regex: q || '', $options: 'i' } }).count();
         const pagesCount = count / limitPerPage;
 
         query = query.skip((page-1) * limitPerPage); 
         query = query.limit(limitPerPage);
+        query = query.sort({ 'createdAt': 'desc' })
 
         if (sort) {
             const a = sort.split('|');
@@ -36,15 +45,25 @@ class ProjectsController {
         const images = req.files;
 
         const createdir = () => {
-            const dir = path.join(__dirname, '../../public/uploads/' + req.body.slug);
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir);
-            }
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const dir = path.join(__dirname, '../../public/uploads/' + req.body.slug);
+                    if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir);
+                    }
+                    resolve()
+                }, 1000)
+            })
         }
         const upload = () => {
-            images.forEach((e) => {
-                const newpath = path.join(__dirname, '../../public/uploads/' + req.body.slug + '/' + e.originalname);
-                fs.writeFileSync(newpath, e.buffer);
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    images.forEach((e) => {
+                        const newpath = path.join(__dirname, '../../public/uploads/' + req.body.slug + '/' + e.originalname);
+                        fs.writeFileSync(newpath, e.buffer);
+                    })
+                    resolve()
+                }, 1000)
             })
         }
 
@@ -94,7 +113,7 @@ class ProjectsController {
     async editProjects(req, res) {
         const images = req.body.rawData;
         const files = req.files;
-        
+
         const upload = () => {
             return new Promise((resolve) => {
                 setTimeout(() => {
@@ -105,7 +124,7 @@ class ProjectsController {
                         }
                     })
                     resolve()
-                }, 1000)
+                }, 5000)
             })
         }
 

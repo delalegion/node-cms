@@ -46,6 +46,9 @@ const projectsSchema = new Schema(
         photos: {
             type: String
         }
+    },
+    {
+        timestamps: true
     }
 )
 

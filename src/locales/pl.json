@@ -109,22 +109,15 @@
 		"apply": "Zastosuj",
 		"details": "Szczegóły",
 		"edit": "Edytuj",
-		"editUser": "Edytuj użytkownika"
+		"editUser": "Edytuj użytkownika",
+		"delete": "Usuń",
+		"deleteUser": "Usuń użytkownika"
 	},
-	"Cast to string failed for value \"[ 'homar', 'homar' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'homar', 'homar' ]\" (type Array) at path \"client\"",
-	"Cast to string failed for value \"[ 'homarhomarhomar', 'homarhomarhomar' ]\" (type Array) at path \"description\"": "Cast to string failed for value \"[ 'homarhomarhomar', 'homarhomarhomar' ]\" (type Array) at path \"description\"",
-	"Cast to string failed for value \"[ 'homarhomar', 'homarhomar' ]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[ 'homarhomar', 'homarhomar' ]\" (type Array) at path \"tools\"",
-	"Cast to string failed for value \"[ 'nieironiczny klient', 'nieironiczny klient' ]\" (type Array) at path \"client\"": "Cast to string failed for value \"[ 'nieironiczny klient', 'nieironiczny klient' ]\" (type Array) at path \"client\"",
-	"Cast to string failed for value \"[\n  'nieironiczny opis projektu edit',\n  'nieironiczny opis projektu edit'\n]\" (type Array) at path \"description\"": "Cast to string failed for value \"[\n  'nieironiczny opis projektu edit',\n  'nieironiczny opis projektu edit'\n]\" (type Array) at path \"description\"",
-	"Cast to string failed for value \"[\n  'nieironiczny,nieironiczny projekt,nieironiczny naciąg słów',\n  'nieironiczny,nieironiczny projekt,nieironiczny naciąg słów'\n]\" (type Array) at path \"tools\"": "Cast to string failed for value \"[\n  'nieironiczny,nieironiczny projekt,nieironiczny naciąg słów',\n  'nieironiczny,nieironiczny projekt,nieironiczny naciąg słów'\n]\" (type Array) at path \"tools\"",
-	"Nieprawidłowe pliki": {
-		" Maksymalna wielkość pliku to": " 7 mb, oraz dozwolone rozszerzenia: png, jpg, jpeg, gif",
-		" Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia png, jpg, jpeg, gif": "Nieprawidłowe pliki. Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia png, jpg, jpeg, gif"
-	},
-	"Nieprawidłowe pliki Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia": " png, jpg, jpeg, gif",
-	"slug": "slug",
-	"title": "title",
-	"client": "client",
-	"description": "description",
-	"tools": "tools"
+	"projects": {
+		"searchProject": "Szukaj projektu",
+		"projectSearchError": "Nie znaleziono projektu zgodnego z frazą szukania",
+		"edit": "Edytuj projekt",
+		"delete": "Usuń",
+		"deleteProject": "Usuń projekt"
+	}
 }

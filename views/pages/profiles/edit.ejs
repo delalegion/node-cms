@@ -47,10 +47,23 @@
                     <% } %>
                 </label>
             </div>
-            <button type="submit" class="uk-button uk-button-primary uk-margin-top">
-                <%= __('profiles.editUser') %>
-            </button>
+            <div class="uk-flex uk-flex-middle uk-margin-top">
+                <button type="submit" class="uk-button uk-button-primary">
+                    <%= __('profiles.editUser') %>
+                </button>
+                <a href="#confirm-modal" class="uk-button uk-button-default uk-margin-small-left uk-flex" uk-toggle><%= __('profiles.deleteUser') %></a>
+            </div>
         </form>
     </div>
 
+</div>
+
+<div id="confirm-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Czy napewno chcesz usunąć uzytkownika?</h2>
+        <div class="uk-flex uk-flex-middle uk-margin-top"></div>
+            <a href="/<%- lang %>/delete/profile/<%= form.slug %>" class="uk-button uk-button-small uk-button-primary uk-flex"><%= __('profiles.delete') %></a>
+            <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button">Cancel</button>
+        </div>
+    </div>
 </div>

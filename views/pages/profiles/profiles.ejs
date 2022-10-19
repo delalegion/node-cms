@@ -5,7 +5,7 @@
         <div class="uk-card-box uk-margin-bottom">
             <div uk-grid>
                 <div class="uk-width-1-2">
-                    <%- include('search') %>
+                    <%- include('../search', { type: 'profiles' }) %>
                 </div>
                 <div class="uk-width-1-2">
                     <label for="sort" class="uk-form-label"><%= __('profiles.sort') %></label>
@@ -30,15 +30,15 @@
                 <p><%= __('profiles.userSearchError') %>.</p>
             </div>
         <% } %>
-        <div class="uk-child-width-1-1 uk-grid-small" uk-grid uk-height-match="target: > div > .uk-card">
+        <div class="uk-child-width-1-1 uk-grid-small" uk-grid>
             <% users.forEach((e) => { %>
                 <div>
                     <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover uk-flex uk-flex-between uk-flex-middle" data-id="<%- e.id %>">
                         <div>
                             <h5 class="uk-margin-remove-bottom"><%- e.name %></h5>
-                            <p class="uk-text-small uk-margin-remove uk-card-calendar"><span class="material-symbols-outlined">calendar_month</span><%- new Date(e.createdAt).toLocaleString((lang === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}); %></p>
+                            <p class="uk-text-small uk-margin-remove uk-card-calendar"><%- new Date(e.createdAt).toLocaleString((lang === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}); %></p>
                         </div>
-                        <div class="uk-flex uk-flex-middle">
+                        <div class="uk-flex uk-flex-middle" id="project-data">
                             <a href="#" class="uk-button uk-button-small uk-button-secondary uk-flex btn-details" uk-toggle="target: #user-modal" id="btn-details" data-id="<%- e.id %>"><%= __('profiles.details') %></a>
                             <a href="/<%- lang %>/edit/profile/<%- e.slug %>" class="uk-button uk-button-small uk-button-default uk-margin-small-left uk-flex"><%= __('profiles.edit') %></a>
                         </div>
@@ -48,7 +48,7 @@
             <% }) %>
         </div>
         <% if (pagesCount > 1) { %>
-            <ul class="uk-pagination uk-margin-top" uk-margin>
+            <ul class="uk-pagination uk-margin-top uk-margin-large-bottom" uk-margin>
                 <li><a href="#" id="li-previous" data-page="previous"><span uk-pagination-previous></span></a></li>
                 <% for (let i=0;i < pagesCount;i++) { %>
                     <li><a href="#" data-page="<%- i+1 %>"><%- i+1 %></a></li>
@@ -152,7 +152,7 @@
     if (currentPage == 1) {
         document.getElementById('li-previous').style.display = "none";
     }
-    if (currentPage == parseInt(Math.round('<%= pagesCount %>'))) {
+    if (currentPage == parseInt(Math.ceil('<%= pagesCount %>'))) {
         document.getElementById('li-next').style.display = "none";      
     }
     

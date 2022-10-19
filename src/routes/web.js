@@ -35,6 +35,9 @@ const uploadMiddleware = (req,res,next)=>{
   
   const uploader = multer({ storage: storage, limits: { fileSize: 482824824428427 },
     fileFilter: function(req,file,cb) {
+      file.originalname = Buffer.from(file.originalname, 'latin1').toString(
+        'utf8',
+      );
       if (!validExtensions.includes(file.mimetype)) {
         req.fileValidationError = 'goes wrong on the mimetype'; 
         return cb(null, false, new Error('goes wrong on the mimetype'));
@@ -71,18 +74,19 @@ router.get("/", (req, res) => {
 router.get("/:locale/", localeMiddleware, PagesController.home)
 
 // Projects
-router.get("/:locale/edit/projects/:slug", [localeMiddleware], ProjectsController.showEditProjects)
-router.post("/:locale/edit/projects/:slug", [localeMiddleware, uploadMiddleware], ProjectsController.editProjects)
+router.get("/:locale/edit/project/:slug", [localeMiddleware], ProjectsController.showEditProjects)
+router.post("/:locale/edit/project/:slug", [localeMiddleware, uploadMiddleware], ProjectsController.editProjects)
 router.get("/:locale/create/project", [localeMiddleware], ProjectsController.showCreateProjects)
 router.post("/:locale/create/project", [localeMiddleware, uploadMiddleware], ProjectsController.createProjects)
 router.get("/:locale/projects", [localeMiddleware], ProjectsController.showProjects)
+router.get("/:locale/delete/project/:slug", [localeMiddleware], ProjectsController.deleteProject)
 
 // Profiles
 router.get("/:locale/profiles", [localeMiddleware], UserController.showUsers)
 router.post("/:locale/profiles", [localeMiddleware], UserController.showUsersDetails)
 router.get("/:locale/edit/profile/:slug", [localeMiddleware], UserController.editShowUser)
 router.post("/:locale/edit/profile/:slug", [localeMiddleware], UserController.editUser)
-router.get("/:locale/delete/profile/:slug", [localeMiddleware, isAuth], UserController.deleteUser)
+router.get("/:locale/delete/profile/:slug", [localeMiddleware], UserController.deleteUser)
 
 //Auth
 router.get("/:locale/auth/login", [localeMiddleware, isAuthUnlogged], UserController.showLogin)

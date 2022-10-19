@@ -1,7 +1,13 @@
 <div class="uk-container uk-container-small">
     <div class="uk-flex-bottom block">
         <label>
-            <span class="uk-form-label"><%= __('profiles.searchUser') %></span>
+            <span class="uk-form-label">
+                <% if (type === 'profiles') { %>
+                    <%= __('profiles.searchUser') %>
+                <% } else { %>
+                    <%= __('projects.searchProject') %>
+                <% } %>
+            </span>
             <div class="uk-position-relative">
                 <input type="text" value="<%- query.q %>" placeholder="Wpisz szukaną frazę..." name="q" id="search" class="uk-input" />
                 <!-- <button type="submit" class="uk-button uk-button-small uk-button-primary search-button">

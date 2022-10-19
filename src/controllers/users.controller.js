@@ -125,7 +125,7 @@ class UserController {
     async deleteUser(req, res) {
         try {
             await Users.deleteOne({ slug: req.params.slug })
-            res.redirect('back');
+            res.redirect('/' + req.params.locale + '/');
         } catch(e) {
             console.log(e.errors);
         }

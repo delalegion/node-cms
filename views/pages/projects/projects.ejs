@@ -1,3 +1,114 @@
 <%- contentFor('content') %>
 
-<h1>Aha projekty</h1>
+<form method="GET">
+    <div class="uk-container uk-margin-top">
+        <div class="uk-card-box uk-margin-bottom">
+            <div uk-grid>
+                <div class="uk-width-1-2">
+                    <%- include('../search', { type: 'projects' }) %>
+                </div>
+                <div class="uk-width-1-2">
+                    <label for="sort" class="uk-form-label"><%= __('profiles.sort') %></label>
+                    <div class="uk-form-controls">
+                        <select name="sort" id="sort" class="uk-select">
+                            <option value=""><%= __('profiles.sortBy.default') %></option>
+                            <option value="title|asc" <%- query.sort === 'title|asc' ? 'selected' : '' %>>A-z</option>
+                            <option value="title|desc" <%- query.sort === 'title|desc' ? 'selected' : '' %>>Z-a</option>
+                            <option value="createdAt|asc" <%- query.sort === 'createdAt|asc' ? 'selected' : '' %>><%= __('profiles.sortBy.asc') %></option>
+                            <option value="createdAt|desc" <%- query.sort === 'createdAt|desc' ? 'selected' : '' %>><%= __('profiles.sortBy.desc') %></option>
+                        </select>
+                    </div>
+                </div>
+            </div>   
+            <button type="submit" class="uk-button uk-button-primary uk-margin-small-top" id="filter-submit">
+                <%= __('profiles.apply') %>
+            </button>           
+        </div>
+        <% if (projects.length === 0) { %>
+            <div class="uk-alert-danger" uk-alert>
+                <div class="alert-icon alert-icon-danger"><span class="material-symbols-outlined">error</span></div>
+                <p><%= __('projects.projectSearchError') %>.</p>
+            </div>
+        <% } %>
+        <div class="uk-grid-medium uk-child-width-1-3@s uk-grid-match" uk-height-match="target: > div > .uk-card" uk-grid>
+            <% projects.forEach((e) => { %>
+                <div>
+                     <div class="project-thumbnail">
+                        <% if (e.photos) { const thumb = e.photos.split(',')[0] %>
+                        <img src="<%= thumb %>" alt="<%= e.title %>" />
+                        <% } %>
+                     </div>
+                     <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover uk-flex uk-flex-column uk-flex-between" data-id="<%- e.id %>">
+                           <div>
+                              <h6 class="uk-margin-remove-bottom"><%- e.title %></h6>
+                              <p class="uk-text-small sub-2 uk-card-calendar uk-margin-small-top uk-margin-remove-bottom"><%- new Date(e.createdAt).toLocaleString((lang === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', year: 'numeric', month: 'long', day: 'numeric'}); %></p>
+                           </div>
+                           <div class="uk-flex uk-flex-middle uk-margin-top">
+                              <a href="/<%- lang %>/edit/project/<%- e.slug %>" class="uk-button uk-width-expand uk-button-small uk-button-secondary uk-flex btn-details" id="btn-details" data-id="<%- e.id %>"><%= __('profiles.edit') %></a>
+                           </div>
+                           <!-- <a href="/delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a> -->
+                     </div>
+                </div>
+            <% }) %>
+        </div>
+        <% if (pagesCount > 1) { %>
+            <ul class="uk-pagination uk-margin-top uk-margin-large-bottom" uk-margin>
+                <li><a href="#" id="li-previous" data-page="previous"><span uk-pagination-previous></span></a></li>
+                <% for (let i=0;i < pagesCount;i++) { %>
+                    <li><a href="#" data-page="<%- i+1 %>"><%- i+1 %></a></li>
+                <% } %>
+                <li><a href="#" id="li-next" data-page="next"><span uk-pagination-next></span></a></li>
+            </ul>
+        <% } %>
+        </div>
+    </div>
+</form>
+
+<script>
+    const urlScope = new URLSearchParams(window.location.search);
+    document.querySelector('#filter-submit').addEventListener("click", function(e) {
+        if (urlScope.get('q').length === 0 && urlScope.get('sort').length === 0) {
+            if (document.querySelector('#sort').value.length === 0 && document.querySelector('#search').value.length === 0) {
+                e.preventDefault();
+            }
+        }
+    })
+</script>
+
+<script>
+    const url = new URLSearchParams(window.location.search);
+    let currentPage = 1;
+
+    if (url.get('page')) {
+        currentPage = parseInt(url.get('page'));
+    } else {
+        currentPage = 1;
+    }
+
+    if (currentPage == 1) {
+        document.getElementById('li-previous').style.display = "none";
+    }
+    if (currentPage == parseInt(Math.ceil('<%= pagesCount %>'))) {
+        document.getElementById('li-next').style.display = "none";      
+    }
+    
+    const changePage = e => {
+        e.preventDefault();
+        let page = e.target.dataset.page;
+
+        if (page === 'next') {
+            page = currentPage + 1;
+            url.set('page', page)
+        } else { url.set('page', page) }
+        if (page === 'previous') {
+            page = currentPage - 1;
+            url.set('page', page)
+        } else { url.set('page', page) }
+
+        window.location.href = window.location.origin + window.location.pathname + '?' + url.toString();
+    }
+
+    document.querySelectorAll('.uk-pagination a').forEach(a => {
+        a.addEventListener("click", changePage);
+    })
+</script>
