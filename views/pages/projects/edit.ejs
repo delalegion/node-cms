@@ -70,7 +70,6 @@
                         <span class="uk-link"><%= __('form.uploadSelect') %></span>
                     </div>
                 </div>
-
                 <div id="alert-files" class="uk-alert-danger uk-margin-remove-top uk-margin-remove-bottom uk-alert-hide" uk-alert></div>
                 
                 <progress id="js-progressbar" class="uk-progress" value="0" max="100" accept="image/*" hidden></progress>
@@ -88,10 +87,10 @@
 
 <div id="confirm-modal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Czy napewno chcesz usunąć projekt?</h2>
+        <h2 class="uk-modal-title"><%= __('projects.modal.question') %></h2>
         <div class="uk-flex uk-flex-middle uk-margin-top"></div>
             <a href="/<%- lang %>/delete/project/<%= form.slug %>" class="uk-button uk-button-small uk-button-primary uk-flex"><%= __('projects.delete') %></a>
-            <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button">Cancel</button>
+            <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button"><%= __('projects.modal.cancel') %></button>
         </div>
     </div>
 </div>
@@ -258,17 +257,6 @@
         showPhotosFromDatabase(photosFromDatabase);
     }
 
-    function deletePhoto(ev) {
-        // Add images to array to send
-        formData.delete("photos");
-        ev.forEach((file) => {
-            formData.append("photos", file)
-        })
-        if (document.querySelectorAll('.image-preview-box').length < 1) {
-            preview.classList.remove('active');
-        }
-    }
-
     function showPhotosFromDatabase(ev) {
       preview.classList.add('active');
 
@@ -362,6 +350,18 @@
             }
         })
         showPhotos(acceptFiles)
+    }
+
+    function deletePhoto(ev) {
+        // Add images to array to send
+        formData.delete("photos");
+        ev.forEach((file) => {
+            formData.append("photos", file)
+        })
+        console.log(document.querySelectorAll('.image-preview-box').length);
+        if (document.querySelectorAll('.image-preview-box').length <= 1) {
+            preview.classList.remove('active');
+        }
     }
 
     function reorganize(ev) {

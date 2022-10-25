@@ -62,7 +62,7 @@
                 <input id="toolsInput" type="hidden" name="tools" />
             </div>
             <div class="uk-card-box uk-margin-top">
-                <div class="js-upload uk-placeholder uk-text-center <% if (errors?.files) { %>js-upload-error<% } %>">
+                <div class="js-upload uk-placeholder uk-text-center">
                     <span class="material-symbols-outlined">file_upload</span>
                     <span class="uk-text-middle"><%= __('form.upload') %></span>
                     <div uk-form-custom>
@@ -305,6 +305,7 @@
         ev.forEach((file) => {
             formData.append("photos", file)
         })
+        console.log(document.querySelectorAll('.image-preview-box').length);
         if (document.querySelectorAll('.image-preview-box').length < 1) {
             preview.classList.remove('active');
         }

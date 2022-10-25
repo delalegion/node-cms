@@ -111,13 +111,21 @@
 		"edit": "Edit",
 		"editUser": "Edit user",
 		"delete": "Delete",
-		"deleteUser": "Delete user"
+		"deleteUser": "Delete user",
+		"modal": {
+			"question": "Are you sure you want to delete user?",
+			"cancel": "Cancel"
+		}
 	},
 	"projects": {
 		"searchProject": "Search project",
 		"projectSearchError": "No projects were found matched to searching queries",
 		"edit": "Edit project",
 		"delete": "Delete",
-		"deleteProject": "Delete project"
+		"deleteProject": "Delete project",
+		"modal": {
+			"question": "Are you sure you want to delete project?",
+			"cancel": "Cancel"
+		}
 	}
 }

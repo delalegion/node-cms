@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const randomstring = require('randomstring')
 
 const usersSchema = new Schema(
     {
@@ -44,6 +45,9 @@ const usersSchema = new Schema(
                 return passwordRegex.test(value);
             }), "errors.users.password.validate"],
             minlength: [7, "errors.users.password.minLength"]
+        },
+        apiToken: {
+            type: String
         }
     },
     {
@@ -72,6 +76,15 @@ usersSchema.methods = {
         return bcrypt.compareSync(password, this.password);
     }
 }
+
+usersSchema.pre('save', function(next) {
+    const user = this;
+    if (user.isNew) {
+        user.apiToken = randomstring.generate(60)
+    }
+    next();
+})
+
 
 const Users = mongoose.model('users', usersSchema)
 

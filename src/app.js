@@ -50,6 +50,7 @@ app.use('/', require("./middleware/view.variables"));
 // app.use('/admin', require("./middleware/is.auth.logged"));
 
 // Routes
+app.use('/api/', require('./routes/api'));
 app.use(require('./routes/web'));
 
 module.exports = app;

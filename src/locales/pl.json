@@ -6,51 +6,51 @@
 	},
 	"errors": {
 		"users": {
-			"unique": "The specified data already exists in our database",
+			"unique": "Powyższe dane istnieją w naszej bazie danych",
 			"nameAndSurname": {
-				"minLength": "The minimum number of characters is 4...",
-				"maxLength": "The maximum number of characters is 30...",
-				"required": "The above field is required"
+				"minLength": "Minimalna ilość znaków to 4...",
+				"maxLength": "Maksymalna ilość znaków to 30...",
+				"required": "Powyższe pole jest wymagane"
 			},
 			"email": {
-				"required": "The above field is required",
-				"validate": "Please enter valid email"
+				"required": "Powyższe pole jest wymagane",
+				"validate": "Proszę wprowadzić prawidłowy email"
 			},
 			"slug": {
-				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required",
-				"validate": "Slug value can't contain special characters and white spaces"
+				"minLength": "Minimalna ilość znaków to 4...",
+				"required": "Powyższe pole jest wymagane",
+				"validate": "Powyższe pole nie może posiadać spacji oraz znaków specjalnych"
 			},
 			"password": {
-				"minLength": "The minimum number of characters is 7...",
-				"required": "The above field is required",
-				"validate": "The password must contain at least one special character, one number and should be between 7 and 16 characters long"
+				"minLength": "Minimalna ilość znaków to 7...",
+				"required": "Powyższe pole jest wymagane",
+				"validate": "Hasło musi zawierać przynajmniej jeden znak specjalny, jedną cyfre oraz zawierać pomiędzy 7 a 16 znaków"
 			}
 		},
 		"projects": {
-			"unique": "The specified data already exists in our database",
+			"unique": "Powyższe dane istnieją w naszej bazie danych",
 			"title": {
-				"minLength": "The minimum number of characters is 6...",
-				"maxLength": "The maximum number of characters is 30...",
-				"required": "The above field is required PL"
+				"minLength": "Minimalna ilość znaków to 6...",
+				"maxLength": "Maksymalna ilość znaków to 30...",
+				"required": "Powyższe pole jest wymagane"
 			},
 			"slug": {
-				"minLength": "The minimum number of characters is 4...",
-				"required": "The above field is required PL",
-				"validate": "Slug value can't contain special characters and white spaces"
+				"minLength": "Minimalna ilość znaków to 4...",
+				"required": "Powyższe pole jest wymagane",
+				"validate": "Powyższe pole nie może posiadać spacji oraz znaków specjalnych"
 			},
 			"client": {
-				"minLength": "The minimum number of characters is 4...",
-				"maxLength": "The maximum number of characters is 30...",
-				"required": "The above field is required PL"
+				"minLength": "Minimalna ilość znaków to 4...",
+				"maxLength": "Maksymalna ilość znaków to 30...",
+				"required": "Powyższe pole jest wymagane"
 			},
 			"description": {
-				"minLength": "The minimum number of characters is 12...",
-				"maxLength": "The maximum number of characters is 300...",
-				"required": "The above field is required PL"
+				"minLength": "Minimalna ilość znaków to 12...",
+				"maxLength": "Maksymalna ilość znaków to 300...",
+				"required": "Powyższe pole jest wymagane"
 			},
 			"tools": {
-				"minLength": "The minimum number of characters is 6..."
+				"minLength": "Minimalna ilość znaków to 6..."
 			},
 			"files": "Nieprawidłowe pliki. Maksymalna wielkość pliku to 7 mb, oraz dozwolone rozszerzenia png, jpg, jpeg, gif"
 		},
@@ -94,7 +94,7 @@
 		"logIn": "Posiadasz konto? Zaloguj się",
 		"signUp": "Nie posiadasz konta? Zarejestruj się",
 		"upload": "Dołącz pliki opuszczając je w tym miejscu lub",
-		"uploadSelect": "wybierz pliki z dysku"
+		"uploadSelect": "Wybierz pliki z dysku"
 	},
 	"profiles": {
 		"searchUser": "Szukaj użytkownika",
@@ -111,13 +111,21 @@
 		"edit": "Edytuj",
 		"editUser": "Edytuj użytkownika",
 		"delete": "Usuń",
-		"deleteUser": "Usuń użytkownika"
+		"deleteUser": "Usuń użytkownika",
+		"modal": {
+			"question": "Czy napewno chcesz usunąć uzytkownika?",
+			"cancel": "Anuluj"
+		}
 	},
 	"projects": {
 		"searchProject": "Szukaj projektu",
 		"projectSearchError": "Nie znaleziono projektu zgodnego z frazą szukania",
 		"edit": "Edytuj projekt",
 		"delete": "Usuń",
-		"deleteProject": "Usuń projekt"
+		"deleteProject": "Usuń projekt",
+		"modal": {
+			"question": "Czy napewno chcesz usunąć projekt?",
+			"cancel": "Anuluj"
+		}
 	}
 }

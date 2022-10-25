@@ -83,7 +83,7 @@ class ProjectsController {
                 client: req.body.client,
                 description: req.body.description,
                 tools: req.body.tools,
-                photos: modifyPaths(req.body.rawData)
+                photos: (req.body.rawData.length > 0) ? modifyPaths(req.body.rawData) : ''
             })
             await createdir();
             await upload();
@@ -104,9 +104,13 @@ class ProjectsController {
         try {
             const data = await Projects.findOne({ slug: req.params.slug });
             const tools = data.tools.split(',');
-            const photos = data.photos.split(',');
+            let photos = ''; 
+            if (data.photos) {
+                photos = data.photos.split(',');
+            }
             res.render('pages/projects/edit', {title: "Edit user data", form: data, tools, photos, slug: req.params.slug});
         } catch(e) {
+            console.log("errory ", e)
             res.render('pages/404', {title: "404 - Site no found", layout: 'layouts/minimal'});
         }
     }   
@@ -180,7 +184,7 @@ class ProjectsController {
         project.client = req.body.client
         project.description = req.body.description
         project.tools = req.body.tools
-        project.photos = modifyPaths(req.body.rawData);
+        project.photos = (req.body.rawData.length > 0) ? modifyPaths(req.body.rawData) : ''
 
         try {
             await project.save();

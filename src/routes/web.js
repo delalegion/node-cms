@@ -7,61 +7,7 @@ const PagesController = require("../controllers/pages.controller");
 const localeMiddleware = require("../middleware/locale")
 const isAuth = require("../middleware/is.auth.logged")
 const isAuthUnlogged = require("../middleware/is.auth.unlogged")
-
-const path = require('path');
-const fs = require('fs');
-
-// Multer to upload photos
-const multer = require('multer');
-const storagec = multer.diskStorage({
-    destination: function (req, file, cb) {
-      const dir = path.join(__dirname, '../../public/uploads/' + req.body.photosUrl);
-      if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir);
-      }
-      cb(null, 'public/uploads/' + req.body.photosUrl)
-    },
-    filename: function (req, file, cb) {
-      // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      // cb(null, '-' + uniqueSuffix + path.extname(file.originalname))
-      cb(null, file.originalname)
-    }
-})
-const storage = multer.memoryStorage();
-const uploadMiddleware = (req,res,next)=>{
-
-  let maxSize = (1*1024*1024).toFixed(2);
-  let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
-  
-  const uploader = multer({ storage: storage, limits: { fileSize: 482824824428427 },
-    fileFilter: function(req,file,cb) {
-      file.originalname = Buffer.from(file.originalname, 'latin1').toString(
-        'utf8',
-      );
-      if (!validExtensions.includes(file.mimetype)) {
-        req.fileValidationError = 'goes wrong on the mimetype'; 
-        return cb(null, false, new Error('goes wrong on the mimetype'));
-      }
-      cb(null, true);
-    }
-  }).array('photos', 15);
-
-  // Here call the upload middleware of multer
-  uploader(req, res, function (err) {
-     if (err instanceof multer.MulterError) {
-       // A Multer error occurred when uploading.
-       const err = new Error('Multer error');
-       next(err)
-       } else if (err) {
-       // An unknown error occurred when uploading.
-       const err = new Error('Server Error')
-       next(err)
-     }
-    // Everything went fine.
-    next()
-  })
-
-}
+const uploadMiddleware = require("../middleware/uploader");
 
 // Home
 router.get("/", (req, res) => {

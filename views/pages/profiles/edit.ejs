@@ -60,10 +60,10 @@
 
 <div id="confirm-modal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Czy napewno chcesz usunąć uzytkownika?</h2>
+        <h2 class="uk-modal-title"><%= __('profiles.modal.question') %></h2>
         <div class="uk-flex uk-flex-middle uk-margin-top"></div>
             <a href="/<%- lang %>/delete/profile/<%= form.slug %>" class="uk-button uk-button-small uk-button-primary uk-flex"><%= __('profiles.delete') %></a>
-            <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button">Cancel</button>
+            <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button"><%= __('profiles.modal.cancel') %></button>
         </div>
     </div>
 </div>

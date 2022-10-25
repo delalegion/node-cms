@@ -41,7 +41,7 @@ const projectsSchema = new Schema(
             required: [true, "errors.projects.description.required"]
         },
         tools: {
-            type: String,
+            type: String
         },
         photos: {
             type: String

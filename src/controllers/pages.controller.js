@@ -1,9 +1,7 @@
-const e = require("express");
 const Projects = require("../db/models/projects");
 const Users = require("../db/models/users");
 
 class PagesController {
-
     async home(req, res) {
         if (!req.getLocales().includes(req.params.locale))
         {
