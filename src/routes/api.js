@@ -8,7 +8,7 @@ const uploadMiddleware = require("../middleware/uploader");
 const authApiMiddleware = require("../middleware/is.auth.api.logged");
 
 //Projects api
-router.get('/projects', ProjectsController.show);
+router.get('/projects', authApiMiddleware, ProjectsController.show);
 router.post('/projects', [uploadMiddleware, authApiMiddleware], ProjectsController.create);
 router.put('/projects/:slug', [uploadMiddleware, authApiMiddleware], ProjectsController.update);
 

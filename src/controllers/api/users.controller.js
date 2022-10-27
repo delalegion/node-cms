@@ -2,6 +2,7 @@ const Users = require("../../db/models/users");
 
 class UserController {
     async loginUser(req, res) {
+        console.log(req.body)
         try {
             const user = await Users.findOne({ email: req.body.email })
             if (!user) {

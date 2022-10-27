@@ -370,20 +370,20 @@
         const htmlTags = [...ev];
         htmlTags.splice(htmlTags.length-1, 1)
         htmlTags.forEach((e, i) => {
-                const index = arrays.findIndex(object => {
-                    return object.name === e.dataset.name
-                });
-                if (index !== parseInt('-1')) {
-                    newArray[i] = arrays[index]
-                }
-                const indexClear = arrays.findIndex(object => {
-                    const name = e.dataset.name;
-                    const slug = document.querySelector("[name='slug']").value;
-                    return object === name.split('/uploads/'+slug+'/')[1];
-                });
-                if (indexClear !== parseInt('-1')) {
-                    newArray[i] = arrays[indexClear]
-                }
+            const index = arrays.findIndex(object => {
+                return object.name === e.dataset.name
+            });
+            if (index !== parseInt('-1')) {
+                newArray[i] = arrays[index]
+            }
+            const indexClear = arrays.findIndex(object => {
+                const name = e.dataset.name;
+                const slug = document.querySelector("[name='slug']").value;
+                return object === name.split('/uploads/'+slug+'/')[1];
+            });
+            if (indexClear !== parseInt('-1')) {
+                newArray[i] = arrays[indexClear]
+            }
         })
         formData.delete("photos");
         newArray.forEach((file) => {

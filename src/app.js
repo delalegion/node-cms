@@ -6,8 +6,16 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const { sessionKeySecret } = require('./config');
+const cors = require('cors');
 
 const { I18n } = require('i18n');
+
+app.use(cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}))
 
 /**
  * create a new instance with it's configuration

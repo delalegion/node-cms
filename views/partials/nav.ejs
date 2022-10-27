@@ -2,7 +2,7 @@
 
 <div class="uk-container">
     <div uk-grid>
-        <div class="uk-width-1-4">
+        <div class="uk-width-1-6@s uk-width-1-4@m">
             <nav class="uk-navbar-container" id="menu" uk-navbar>
                 <div class="login-logo uk-margin-bottom">
                     <img src="/img/cms-logo.svg" alt="Logo of KRUK CMS" />
@@ -12,12 +12,12 @@
                         <li>
                             <a href="/<%- lang %>/">
                                 <% if (checkUrl('') === true) { %><span class="circle-url"></span><% } %>
-                                <span class="material-symbols-outlined">dashboard</span> START</a>
+                                <span class="material-symbols-outlined">dashboard</span> <span class="uk-menu-text">START</span></a>
                         </li>
                         <li>
                             <a href="/<%- lang %>/projects">
                                 <% if (checkUrl('projects') === true) { %><span class="circle-url"></span><% } %>
-                                <span class="material-symbols-outlined">perm_media</span> <%= __('navbar.projects') %>
+                                <span class="material-symbols-outlined">perm_media</span> <span class="uk-menu-text"><%= __('navbar.projects') %></span>
                             </a>
                             <div class="uk-navbar-dropdown" uk-dropdown="pos: right-top">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -28,7 +28,7 @@
                         <li>
                             <a href="/<%- lang %>/profiles">
                                 <% if (checkUrl('profiles') === true) { %><span class="circle-url"></span><% } %>
-                                <span class="material-symbols-outlined">group</span> <%= __('navbar.users') %>
+                                <span class="material-symbols-outlined">group</span> <span class="uk-menu-text"><%= __('navbar.users') %></span>
                             </a>
                             <div class="uk-navbar-dropdown" uk-dropdown="pos: right-top">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -48,7 +48,7 @@
                         </li> -->
                     </ul>
                     <ul class="uk-navbar-nav">
-                        <li><a href="/<%- lang %>/auth/logout"><span class="material-symbols-outlined">logout</span> <%= __('navbar.logout') %></a></li>
+                        <li><a href="/<%- lang %>/auth/logout"><span class="material-symbols-outlined">logout</span> <span class="uk-menu-text"><%= __('navbar.logout') %></span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -56,7 +56,7 @@
                  <span style="color: #8C8780;">Version: 0.1</span><span style="color: #8C8780;">2022 © Kruk</span>
             </footer>  
         </div>
-        <div class="uk-width-3-4 uk-position-relative">
+        <div class="uk-width-6-6 uk-width-5-6@s uk-width-3-4@m uk-position-relative">
             <div class="lang-box">
                 <button class="uk-button uk-button-small uk-button-dropdown" type="button"><span class="material-symbols-outlined">language</span><%- lang %></button>
                 <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; animate-out: true">

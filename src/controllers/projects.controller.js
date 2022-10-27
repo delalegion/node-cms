@@ -7,9 +7,13 @@ class ProjectsController {
     async deleteProject(req, res) {
         try {
             await Projects.deleteOne({ slug: req.params.slug })
+            const dir = path.join(__dirname, '../../public/uploads/' + req.params.slug);
+            if (fs.existsSync(dir)) {
+                fs.rmdirSync(dir, { recursive: true })
+            }
             res.redirect('/' + req.params.locale + '/');
         } catch(e) {
-            console.log(e.errors);
+            res.redirect('/' + req.params.locale + '/');
         }
     }
     async showProjects(req, res) {
@@ -96,7 +100,6 @@ class ProjectsController {
             for (let i in e.errors) {
                 newErrorsInstance[e.errors[i].properties.path] = res.__(e.errors[i].properties.message)
             }
-            // res.render('pages/projects/projects', {title: "Error occured. Check entered data.", form: req.body, errors: e.errors});
             res.status(404).json({ errors: newErrorsInstance })
         }
     }
@@ -110,7 +113,6 @@ class ProjectsController {
             }
             res.render('pages/projects/edit', {title: "Edit user data", form: data, tools, photos, slug: req.params.slug});
         } catch(e) {
-            console.log("errory ", e)
             res.render('pages/404', {title: "404 - Site no found", layout: 'layouts/minimal'});
         }
     }   
@@ -128,7 +130,7 @@ class ProjectsController {
                         }
                     })
                     resolve()
-                }, 5000)
+                }, 1000)
             })
         }
 
@@ -142,7 +144,10 @@ class ProjectsController {
         }
 
         const oldProject = await Projects.findOne({ slug: req.params.slug })
-        const projectPhotos = oldProject.photos.split(',');
+        let projectPhotos = '';
+        if (oldProject.photos) {
+            projectPhotos = oldProject.photos.split(',');
+        }
 
         const deletePreviousImages = () => {
             return new Promise((resolve) => {
@@ -152,7 +157,6 @@ class ProjectsController {
                         projectPhotos.forEach((image) => {
                             if(!imagesArray.includes(image.split('/uploads/'+oldProject.slug+'/')[1])) {
                                 const dir = path.join(__dirname, '../../public/' + image);
-                                console.log(dir, " usunieto")
                                 fs.unlinkSync(dir)
                                 return Promise.resolve();
                             }

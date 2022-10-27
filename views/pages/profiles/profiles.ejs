@@ -4,10 +4,10 @@
     <div class="uk-container uk-margin-top">
         <div class="uk-card-box uk-margin-bottom">
             <div uk-grid>
-                <div class="uk-width-1-2">
+                <div class="uk-width-1-2@s">
                     <%- include('../search', { type: 'profiles' }) %>
                 </div>
-                <div class="uk-width-1-2">
+                <div class="uk-width-1-2@s">
                     <label for="sort" class="uk-form-label"><%= __('profiles.sort') %></label>
                     <div class="uk-form-controls">
                         <select name="sort" id="sort" class="uk-select">
@@ -33,7 +33,7 @@
         <div class="uk-child-width-1-1 uk-grid-small" uk-grid>
             <% users.forEach((e) => { %>
                 <div>
-                    <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover uk-flex uk-flex-between uk-flex-middle" data-id="<%- e.id %>">
+                    <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover uk-flex uk-flex-between uk-flex-middle user-box" data-id="<%- e.id %>">
                         <div>
                             <h5 class="uk-margin-remove-bottom"><%- e.name %></h5>
                             <p class="uk-text-small uk-margin-remove uk-card-calendar"><%- new Date(e.createdAt).toLocaleString((lang === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}); %></p>
