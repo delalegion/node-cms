@@ -75,7 +75,7 @@
                 <progress id="js-progressbar" class="uk-progress" value="0" max="100" accept="image/*" hidden></progress>
                 <div id="preview" class="images-preview" uk-sortable="handle: .image-handler; threshold: 1; animation: false"></div>
             </div>
-            <div class="uk-flex uk-flex-middle uk-margin-top  uk-margin-medium-bottom">
+            <div class="uk-flex uk-flex-middle uk-margin-top uk-margin-medium-bottom uk-flex-wrap">
                 <button type="submit" class="uk-button uk-button-primary" id="projectButton">
                     <%= __('projects.edit') %>
                     <div class="spinner" uk-spinner></div>
@@ -88,7 +88,7 @@
 <div id="confirm-modal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <h2 class="uk-modal-title"><%= __('projects.modal.question') %></h2>
-        <div class="uk-flex uk-flex-middle uk-margin-top"></div>
+        <div class="uk-flex uk-flex-middle uk-margin-top">
             <a href="/<%- lang %>/delete/project/<%= form.slug %>" class="uk-button uk-button-small uk-button-primary uk-flex"><%= __('projects.delete') %></a>
             <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button"><%= __('projects.modal.cancel') %></button>
         </div>

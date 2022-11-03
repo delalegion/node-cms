@@ -4,10 +4,10 @@
     <div class="uk-container uk-margin-top">
         <div class="uk-card-box uk-margin-bottom">
             <div uk-grid>
-                <div class="uk-width-1-2">
+                <div class="uk-width-1-2@s">
                     <%- include('../search', { type: 'projects' }) %>
                 </div>
-                <div class="uk-width-1-2">
+                <div class="uk-width-1-2@s">
                     <label for="sort" class="uk-form-label"><%= __('profiles.sort') %></label>
                     <div class="uk-form-controls">
                         <select name="sort" id="sort" class="uk-select">
@@ -30,7 +30,7 @@
                 <p><%= __('projects.projectSearchError') %>.</p>
             </div>
         <% } %>
-        <div class="uk-grid-medium uk-child-width-1-3@s uk-grid-match" uk-height-match="target: > div > .uk-card" uk-grid>
+        <div class="uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match" uk-height-match="target: > div > .uk-card" uk-grid>
             <% projects.forEach((e) => { %>
                 <div>
                      <div class="project-thumbnail">

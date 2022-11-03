@@ -903,6 +903,15 @@ footer.footer {
   top: -75px;
 }
 
+.menu-box {
+  display: none;
+  visibility: hidden;
+  position: absolute;
+  top: -75px;
+  right: 0;
+  text-transform: uppercase;
+}
+
 .uk-card-icon {
   width: 76px;
   height: 76px;
@@ -1207,10 +1216,15 @@ footer.footer {
 .project-thumbnail {
   height: 230px;
   border-radius: 20px;
-  -o-object-fit: cover;
-     object-fit: cover;
   overflow: hidden;
   margin-bottom: 10px;
+}
+
+.project-thumbnail img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .spinner {
@@ -1232,8 +1246,8 @@ footer.footer {
 }
 
 @media screen and (max-width: 960px) {
-  header.header {
-    height: 120px;
+  .uk-navbar {
+    height: 100%;
   }
   .uk-container {
     padding-left: 20px;
@@ -1300,7 +1314,71 @@ footer.footer {
   }
 }
 
+@media screen and (max-width: 425px) {
+  h3 {
+    font-size: 10vw;
+  }
+  .uk-modal-title {
+    font-size: 7vw;
+  }
+}
+
 @media screen and (max-width: 640px) {
+  .menu-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    visibility: visible;
+  }
+  .uk-card-box .uk-flex-wrap .uk-button,
+  .uk-flex-wrap .uk-button {
+    width: 100%;
+  }
+  .uk-card-box .uk-flex-wrap .uk-button:last-child,
+  .uk-flex-wrap .uk-button:last-child {
+    margin-top: 5px;
+    margin-left: 0px !important;
+  }
+  .uk-alert {
+    padding: 5px;
+    font-size: 12px;
+  }
+  .alert-icon {
+    min-width: 40px;
+    height: 40px;
+    margin-right: 8px;
+  }
+  .material-symbols-outlined {
+    font-size: 22px;
+  }
+  .uk-badge-item {
+    padding: 8px 13px;
+  }
+  .uk-placeholder {
+    padding: 20px 20px;
+    font-size: 14px;
+  }
+  .uk-badges-container {
+    gap: 5px;
+  }
+  .alert-tools + button {
+    margin-left: 10px !important;
+  }
+  .images-preview {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .image-preview {
+    padding: 5px;
+  }
+  .uk-card-small .uk-card-body, .uk-card-small.uk-card-body, section.boxes .box-menu, .uk-card-box {
+    padding: 15px 15px;
+  }
+  header.header {
+    height: 120px;
+  }
   .uk-modal-body {
     padding: 20px 20px;
   }
@@ -1343,11 +1421,20 @@ footer.footer {
         -ms-flex-direction: column;
             flex-direction: column;
   }
+  .user-box h5 {
+    font-size: 20px;
+  }
+  .user-box p {
+    font-size: .775rem;
+  }
   .boxes > div:nth-child(2) {
     margin-top: 15px;
   }
   * + .uk-grid-margin, .uk-grid + .uk-grid, .uk-grid > .uk-grid-margin {
     margin-top: 15px;
+  }
+  * + .uk-grid-margin:last-child .uk-card, .uk-grid + .uk-grid:last-child .uk-card, .uk-grid > .uk-grid-margin:last-child .uk-card {
+    margin-bottom: 20px;
   }
   footer.footer, nav.uk-navbar {
     display: none;

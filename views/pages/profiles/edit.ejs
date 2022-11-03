@@ -1,6 +1,6 @@
 <%- contentFor('content') %>
 
-<div class="uk-container uk-container-xsmall uk-margin-top">
+<div class="uk-container uk-container-xsmall uk-margin-top uk-margin-bottom">
 
     <% if (errors) { %>
         <div class="uk-alert-danger" uk-alert>
@@ -47,7 +47,7 @@
                     <% } %>
                 </label>
             </div>
-            <div class="uk-flex uk-flex-middle uk-margin-top">
+            <div class="uk-flex uk-flex-middle uk-margin-top uk-flex-wrap">
                 <button type="submit" class="uk-button uk-button-primary">
                     <%= __('profiles.editUser') %>
                 </button>
@@ -61,7 +61,7 @@
 <div id="confirm-modal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <h2 class="uk-modal-title"><%= __('profiles.modal.question') %></h2>
-        <div class="uk-flex uk-flex-middle uk-margin-top"></div>
+        <div class="uk-flex uk-flex-middle uk-margin-top">
             <a href="/<%- lang %>/delete/profile/<%= form.slug %>" class="uk-button uk-button-small uk-button-primary uk-flex"><%= __('profiles.delete') %></a>
             <button class="uk-button uk-button-small uk-button-default uk-modal-close uk-margin-small-left" type="button"><%= __('profiles.modal.cancel') %></button>
         </div>

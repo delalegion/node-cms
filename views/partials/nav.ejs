@@ -66,6 +66,16 @@
                     </ul>
                 </div>
             </div>
+            <div class="menu-box">
+                <button class="uk-button uk-button-small uk-button-dropdown" type="button"><span class="material-symbols-outlined">widgets</span> MENU</button>
+                <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; animate-out: true">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a href="/<%- lang %>/">START</a></li>
+                        <li><a href="/<%- lang %>/projects"><%= __('navbar.projects') %></a></li>
+                        <li><a href="/<%- lang %>/profiles"><%= __('navbar.users') %></a></li>
+                    </ul>
+                </div>
+            </div>
             <%- defineContent('content') %>
         </div>
     </div>
