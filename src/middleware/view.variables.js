@@ -1,4 +1,3 @@
-const io = require('socket.io');
 const { I18n } = require('i18n');
 
 module.exports = function (req, res, next) {
@@ -7,7 +6,6 @@ module.exports = function (req, res, next) {
     res.locals.errors = null;
     res.locals.form = {};
     res.locals.query = req.query;
-    res.locals.socket = io;
     res.locals.changeLanguage = (lang) => {
         if (req.url !== '/favicon.ico') {
             const split = req.url.split("/");

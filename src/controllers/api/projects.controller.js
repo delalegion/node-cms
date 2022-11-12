@@ -6,7 +6,7 @@ class ProjectsController {
 
     async show(req, res) {
         const projects = await Projects.find({});
-        res.status(201).json(projects)
+        res.status(201).json(projects);
     }
     async create(req, res) {
         const project = new Projects({

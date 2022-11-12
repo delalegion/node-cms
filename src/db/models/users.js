@@ -46,7 +46,7 @@ const usersSchema = new Schema(
             }), "errors.users.password.validate"],
             minlength: [7, "errors.users.password.minLength"]
         },
-        apiToken: {
+        refreshToken: {
             type: String
         }
     },
@@ -77,13 +77,13 @@ usersSchema.methods = {
     }
 }
 
-usersSchema.pre('save', function(next) {
-    const user = this;
-    if (user.isNew) {
-        user.apiToken = randomstring.generate(60)
-    }
-    next();
-})
+// usersSchema.pre('save', function(next) {
+//     const user = this;
+//     if (user.isNew) {
+//         user.apiToken = randomstring.generate(60)
+//     }
+//     next();
+// })
 
 
 const Users = mongoose.model('users', usersSchema)

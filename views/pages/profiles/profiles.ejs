@@ -1,7 +1,7 @@
 <%- contentFor('content') %>
 
 <form method="GET">
-    <div class="uk-container uk-margin-top">
+    <div class="uk-container uk-margin-top uk-margin-bottom">
         <div class="uk-card-box uk-margin-bottom">
             <div uk-grid>
                 <div class="uk-width-1-2@s">
@@ -40,9 +40,8 @@
                         </div>
                         <div class="uk-flex uk-flex-middle" id="project-data">
                             <a href="#" class="uk-button uk-button-small uk-button-secondary uk-flex btn-details" uk-toggle="target: #user-modal" id="btn-details" data-id="<%- e.id %>"><%= __('profiles.details') %></a>
-                            <a href="/<%- lang %>/edit/profile/<%- e.slug %>" class="uk-button uk-button-small uk-button-default uk-margin-small-left@s uk-flex"><%= __('profiles.edit') %></a>
+                            <a href="/<%- lang %>/edit/profile/<%- e.slug %>" class="uk-button uk-button-small uk-button-default uk-margin-small-left uk-flex"><%= __('profiles.edit') %></a>
                         </div>
-                        <!-- <a href="/delete/profile/<%- e.slug %>" class="uk-button uk-button-danger uk-margin-small-top uk-flex" onclick="return confirm('are you sure?')"">Delete</a> -->
                     </div>
                 </div>
             <% }) %>

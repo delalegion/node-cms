@@ -5,7 +5,8 @@
         <div class="uk-width-1-6@s uk-width-1-4@m">
             <nav class="uk-navbar-container" id="menu" uk-navbar>
                 <div class="login-logo uk-margin-bottom">
-                    <img src="/img/cms-logo.svg" alt="Logo of KRUK CMS" />
+                    <img src="/img/cms-logo.svg" alt="Logo of KRUK CMS" class="logo" />
+                    <img src="/img/cms-logo-small.svg" alt="Logo of KRUK CMS" class="logo-small" />
                 </div>
                 <div class="uk-navbar-left uk-flex uk-flex-wrap-between uk-height-1-1">
                     <ul class="uk-navbar-nav">
@@ -68,11 +69,13 @@
             </div>
             <div class="menu-box">
                 <button class="uk-button uk-button-small uk-button-dropdown" type="button"><span class="material-symbols-outlined">widgets</span> MENU</button>
-                <div class="uk-navbar-dropdown" uk-dropdown="animation: uk-animation-slide-top-small; animate-out: true">
+                <div class="uk-navbar-dropdown dropdown-full" uk-dropdown="animation: uk-animation-slide-top-small; animate-out: true">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <li><a href="/<%- lang %>/">START</a></li>
                         <li><a href="/<%- lang %>/projects"><%= __('navbar.projects') %></a></li>
+                        <li class="dropdown-second"><a href="/<%- lang %>/create/project"><%= __('navbar.projectsAdd') %></a></li>
                         <li><a href="/<%- lang %>/profiles"><%= __('navbar.users') %></a></li>
+                        <li class="dropdown-second"><a href="/<%- lang %>/auth/register"><%= __('navbar.register') %></a></li>
                     </ul>
                 </div>
             </div>

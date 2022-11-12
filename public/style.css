@@ -264,6 +264,10 @@ a:hover {
   padding: 15px 20px;
 }
 
+.dropdown-full {
+  width: 300px !important;
+}
+
 .uk-button-dropdown {
   background: transparent;
   color: black;
@@ -734,6 +738,20 @@ header.header {
   display: -ms-flexbox;
   display: flex;
   background: #F7434E;
+}
+
+.logo-small {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
 
 section.boxes .box-menu {
@@ -1246,9 +1264,6 @@ footer.footer {
 }
 
 @media screen and (max-width: 960px) {
-  .uk-navbar {
-    height: 100%;
-  }
   .uk-container {
     padding-left: 20px;
     padding-right: 20px;
@@ -1314,16 +1329,35 @@ footer.footer {
   }
 }
 
-@media screen and (max-width: 425px) {
-  h3 {
-    font-size: 10vw;
+@media screen and (max-width: 1024px) {
+  .uk-navbar .login-logo {
+    padding: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
-  .uk-modal-title {
-    font-size: 7vw;
+  .logo {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .logo-small {
+    height: 8vw;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 1;
+    visibility: visible;
   }
 }
 
 @media screen and (max-width: 640px) {
+  h2 {
+    font-size: 36px;
+  }
   .menu-box {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1402,6 +1436,7 @@ footer.footer {
   }
   .uk-card-body > :last-child a:nth-child(2), .uk-card-footer > :last-child a:nth-child(2), .uk-card-header > :last-child a:nth-child(2) {
     margin-top: 5px;
+    margin-left: 0px !important;
   }
   .user-box {
     display: -webkit-box;
@@ -1440,6 +1475,19 @@ footer.footer {
     display: none;
     opacity: 0;
     visibility: hidden;
+  }
+  .uk-navbar-dropdown-nav li.dropdown-second a {
+    font-size: .820rem;
+    color: #F7434E;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  h3, h2 {
+    font-size: 10vw;
+  }
+  .uk-modal-title {
+    font-size: 7vw;
   }
 }
 /*# sourceMappingURL=style.css.map */

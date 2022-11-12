@@ -17,28 +17,28 @@ router.get("/", (req, res) => {
     };
     res.redirect('/' + homeRedirect);
 })
-router.get("/:locale/", localeMiddleware, PagesController.home)
+router.get("/:locale/", [localeMiddleware, isAuth], PagesController.home)
 
 // Projects
-router.get("/:locale/edit/project/:slug", [localeMiddleware], ProjectsController.showEditProjects)
-router.post("/:locale/edit/project/:slug", [localeMiddleware, uploadMiddleware], ProjectsController.editProjects)
-router.get("/:locale/create/project", [localeMiddleware], ProjectsController.showCreateProjects)
-router.post("/:locale/create/project", [localeMiddleware, uploadMiddleware], ProjectsController.createProjects)
-router.get("/:locale/projects", [localeMiddleware], ProjectsController.showProjects)
-router.get("/:locale/delete/project/:slug", [localeMiddleware], ProjectsController.deleteProject)
+router.get("/:locale/edit/project/:slug", [localeMiddleware, isAuth], ProjectsController.showEditProjects)
+router.post("/:locale/edit/project/:slug", [localeMiddleware, isAuth, uploadMiddleware], ProjectsController.editProjects)
+router.get("/:locale/create/project", [localeMiddleware, isAuth], ProjectsController.showCreateProjects)
+router.post("/:locale/create/project", [localeMiddleware, isAuth, uploadMiddleware], ProjectsController.createProjects)
+router.get("/:locale/projects", [localeMiddleware, isAuth], ProjectsController.showProjects)
+router.get("/:locale/delete/project/:slug", [localeMiddleware, isAuth], ProjectsController.deleteProject)
 
 // Profiles
-router.get("/:locale/profiles", [localeMiddleware], UserController.showUsers)
-router.post("/:locale/profiles", [localeMiddleware], UserController.showUsersDetails)
-router.get("/:locale/edit/profile/:slug", [localeMiddleware], UserController.editShowUser)
-router.post("/:locale/edit/profile/:slug", [localeMiddleware], UserController.editUser)
-router.get("/:locale/delete/profile/:slug", [localeMiddleware], UserController.deleteUser)
+router.get("/:locale/profiles", [localeMiddleware, isAuth], UserController.showUsers)
+router.post("/:locale/profiles", [localeMiddleware, isAuth], UserController.showUsersDetails)
+router.get("/:locale/edit/profile/:slug", [localeMiddleware, isAuth], UserController.editShowUser)
+router.post("/:locale/edit/profile/:slug", [localeMiddleware, isAuth], UserController.editUser)
+router.get("/:locale/delete/profile/:slug", [localeMiddleware, isAuth], UserController.deleteUser)
 
 //Auth
 router.get("/:locale/auth/login", [localeMiddleware, isAuthUnlogged], UserController.showLogin)
 router.post("/:locale/auth/login", [localeMiddleware, isAuthUnlogged], UserController.loginUser)
-router.get("/:locale/auth/register", [localeMiddleware], UserController.showCreateUser)
-router.post("/:locale/auth/register", [localeMiddleware], UserController.createUser)
+router.get("/:locale/auth/register", [localeMiddleware, isAuth], UserController.showCreateUser)
+router.post("/:locale/auth/register", [localeMiddleware, isAuth], UserController.createUser)
 router.get("/:locale/auth/logout", [localeMiddleware, isAuth], UserController.logout)
 
 // 404
