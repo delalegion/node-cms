@@ -17,6 +17,7 @@ module.exports = function (req, res, next) {
     res.locals.user = req.session.user;
     res.locals.checkUrl = (url) => {
         const cutUrl = req.url.split('?')[0];
+
         if (req.params.locale) {
             if (url.length > 0) {
                 if (cutUrl === '/' + req.params.locale + '/' + url || cutUrl === '/' + req.params.locale + '/' + url + '/') {
@@ -29,5 +30,17 @@ module.exports = function (req, res, next) {
             }
         } else { return false; }
     };
+    res.locals.checkUrlInclude = (url) => {
+        const cutUrl = req.url.split('?')[0];
+
+        if (req.params.locale) {
+            if (url.length > 0) {
+                if (cutUrl.includes(url)) {
+                    return true;
+                } else { return false; }
+            }
+        }
+        return false;
+    }
     next();
 }

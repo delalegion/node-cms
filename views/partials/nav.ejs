@@ -17,7 +17,7 @@
                         </li>
                         <li>
                             <a href="/<%- lang %>/projects">
-                                <% if (checkUrl('projects') === true) { %><span class="circle-url"></span><% } %>
+                                <% if (checkUrlInclude('project') === true) { %><span class="circle-url"></span><% } %>
                                 <span class="material-symbols-outlined">perm_media</span> <span class="uk-menu-text"><%= __('navbar.projects') %></span>
                             </a>
                             <div class="uk-navbar-dropdown" uk-dropdown="pos: right-top">
@@ -28,7 +28,7 @@
                         </li>
                         <li>
                             <a href="/<%- lang %>/profiles">
-                                <% if (checkUrl('profiles') === true) { %><span class="circle-url"></span><% } %>
+                                <% if (checkUrlInclude('profile') === true) { %><span class="circle-url"></span><% } %>
                                 <span class="material-symbols-outlined">group</span> <span class="uk-menu-text"><%= __('navbar.users') %></span>
                             </a>
                             <div class="uk-navbar-dropdown" uk-dropdown="pos: right-top">
@@ -41,12 +41,6 @@
                                 </ul>
                             </div>
                         </li>
-                        <!-- <li>
-                            <a href="/<%- lang %>/help">
-                                <% if (checkUrl('help') === true) { %><span class="circle-url"></span><% } %>
-                                <span class="material-symbols-outlined">help</span> <%= __('navbar.help') %>
-                            </a>
-                        </li> -->
                     </ul>
                     <ul class="uk-navbar-nav">
                         <li><a href="/<%- lang %>/auth/logout"><span class="material-symbols-outlined">logout</span> <span class="uk-menu-text"><%= __('navbar.logout') %></span></a></li>

@@ -10,6 +10,7 @@ const cors = require('cors');
 
 const { I18n } = require('i18n');
 
+// CORS
 app.use(cors({
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",

@@ -1,0 +1,392 @@
+<script>
+const preview = document.querySelector('#preview');
+const rawData = document.querySelector('#rawData');
+const uploadBox = document.querySelector(".js-upload");
+const form = document.querySelector("#form");
+let files = document.querySelector('#photos').files;
+let formData = new FormData();
+let filesDone = 0
+let filesToDo = 0
+let progressBar = document.getElementById('js-progressbar');
+let copyArray = [];
+
+const skillsButton = document.querySelector('#skillsButton');
+const skillsContainer = document.querySelector('.uk-badges-container');
+const skillsInput = document.querySelector('#toolsInput');
+
+function useState(defaultValue) {
+    let value = defaultValue;
+    function getValue() {
+        return value;
+    }
+    function setValue(newValue) {
+        value = newValue;
+    }
+    return [getValue, setValue];
+}
+
+const [skillsArrayValues, setSkillsArrayValues] = useState([]);
+const [skillsArray, setSkillsArray] = useState([]);
+
+// Send form
+form.addEventListener("submit", (ev) => {
+    ev.preventDefault();
+
+    const photos = formData.getAll("photos")
+    const names = [];
+    photos.forEach((e) => {
+        if (typeof e === "string") {
+            names.push(e)
+        } else { names.push(e.name); }
+    })
+
+    if (skillsArrayValues().length > 0) {
+        skillsInput.value = skillsArrayValues().join()
+    }
+
+    const fields = ['title', 'slug', 'client', 'description', 'tools', 'rawData'];
+    const toolsInput = skillsInput.value;
+    const tools = toolsInput.split(',')
+
+    const deleteFormData = () => {
+        return new Promise((resolve) => {
+            fields.forEach((e) => {
+                formData.delete(e)
+            })
+            resolve();
+        })
+    }
+    const insertNewFormData = () => {
+        return new Promise((resolve) => {
+            fields.forEach((e) => {
+                if (e === 'rawData') {
+                    formData.append('rawData', names.join(','))
+                } else if (e === 'tools') {
+                    if (tools.length > 0) {
+                        formData.append('tools', tools)
+                    }
+                } else { 
+                    formData.append(e, document.querySelector(`[name='${e}']`).value)
+                }
+            })
+            resolve();
+        })
+    }
+
+    const showEachError = (e) => {
+        const fields = ['title', 'slug', 'client', 'description', 'tools', 'files'];
+        const errors = e.errors;
+        document.querySelector('#alert-form').classList.remove('uk-alert-hide')
+        fields.forEach((field, i) => {
+            const div = document.querySelector('#alert-' + field);
+            const input = document.querySelector('.alert-' + field);
+            if (errors[field]) {
+                div.innerHTML = '';
+                div.classList.remove('uk-alert-hide');
+                input.classList.add('uk-input-danger');
+                div.append(errors[field])
+            }
+            else {
+                input.classList.remove('uk-input-danger');
+                div.innerHTML = '';
+                div.classList.add('uk-alert-hide');
+            }
+        })
+    }
+
+    const sendData = () => {
+        const spinner = document.querySelector('.spinner').classList.add('show');
+        return fetch('http://localhost:3000/<%- lang %>/create/project', {
+            method: 'POST',
+            body: formData
+        })
+    }
+
+    (async () => {
+        await deleteFormData();
+        await insertNewFormData();
+        await sendData().then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson ? await response.json() : null;
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data) || response.status;
+                return Promise.reject(error);
+            } else { 
+                window.location.href = 'http://localhost:3000/<%- lang %>/';
+            }
+        })
+        .catch(error => {
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+            const spinner = document.querySelector('.spinner').classList.remove('show');
+            showEachError(error)
+        });
+    })()
+
+})
+
+function initializeProgress(numfiles) {
+    progressBar.removeAttribute('hidden')
+    progressBar.value = 0
+    filesDone = 0
+    filesToDo = numfiles
+}
+function progressDone() {
+    filesDone++
+    progressBar.value = filesDone / filesToDo * 100
+    if (progressBar.value === 100) {
+        setTimeout(() => {
+            progressBar.setAttribute('hidden', true)
+        }, 1000)
+    }
+}
+
+uploadBox.addEventListener("dragleave", (event) => {
+    uploadBox.classList.remove('active');
+})
+uploadBox.addEventListener("dragover", (event) => {
+    uploadBox.classList.add('active');
+    event.preventDefault();
+})
+
+// Handler for drag and drop files
+uploadBox.addEventListener("drop", (ev) => {
+    ev.preventDefault();
+    uploadBox.classList.remove('active');
+    validateImages([...ev.dataTransfer.files])
+    ev.dataTransfer.files = '';
+})
+// Handler for input files
+function filesFromInput() {
+    const files = document.querySelector('#photos').files;
+    if (files) {
+        validateImages([...files])
+    }
+    document.querySelector('#photos').value = '';
+}
+
+function validateImages(ev) {
+    let acceptFiles = [];
+    const photos = formData.getAll("photos");
+    
+    const names = [];
+    photos.forEach((e) => {
+        if (typeof e === "string") {
+            names.push(e)
+        } else { names.push(e.name); }
+    })
+
+    ev.forEach((file) => {
+        let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+        let maximumSize = 7;
+
+        if (validExtensions.includes(file.type)) {
+            if (!names.includes(file.name)) {
+                if ( (file.size / (1024*1024)).toFixed(2) < maximumSize ) {
+                    acceptFiles.push(file);
+                } else {
+                    UIkit.notification({
+                        message: '<div class="uk-flex uk-flex-middle"><div class="alert-icon alert-icon-danger uk-margin-small-right"><span class="material-symbols-outlined">error</span></div> Plik nie moze byc większy niz 7 mb.</div>',
+                        status: 'danger',
+                        pos: 'bottom-right',
+                        timeout: 5000
+                    });
+                }
+            } else {
+                UIkit.notification({
+                    message: '<div class="uk-flex uk-flex-middle"><div class="alert-icon alert-icon-danger uk-margin-small-right"><span class="material-symbols-outlined">error</span></div> Nie mozna dołączyć dwóch plików o tej samej nazwie.</div>',
+                    status: 'danger',
+                    pos: 'bottom-right',
+                    timeout: 5000
+                });
+            }
+        } else {
+            UIkit.notification({
+                message: '<div class="uk-flex uk-flex-middle"><div class="alert-icon alert-icon-danger uk-margin-small-right"><span class="material-symbols-outlined">error</span></div> Plik nie jest posiada rozszerzenia: .png, .jpg, .jpeg lub .webp</div>',
+                status: 'danger',
+                pos: 'bottom-right',
+                timeout: 5000
+            }); 
+        }
+    })
+    showPhotos(acceptFiles)
+}
+
+function deletePhoto(ev) {
+    // Add images to array to send
+    formData.delete("photos");
+    ev.forEach((file) => {
+        formData.append("photos", file)
+    })
+    console.log(document.querySelectorAll('.image-preview-box').length);
+    if (document.querySelectorAll('.image-preview-box').length < 1) {
+        preview.classList.remove('active');
+    }
+}
+
+function reorganize(ev) {
+    const arrays = formData.getAll("photos");
+    const newArray = new Array(arrays.length).fill("")
+    ev.forEach((e, i) => {
+        e.dataset.name
+        const index = arrays.findIndex(x => x.name === e.dataset.name);
+        newArray[i] = arrays[index];
+    })
+    newArray.splice(ev.length-1, 1);
+    formData.delete("photos");
+    newArray.forEach((file) => {
+        formData.append("photos", file)
+    })
+}
+
+UIkit.util.on('#preview', 'moved', function (item) {
+    reorganize(document.querySelectorAll('.image-preview-box'))
+});
+
+function showPhotos(ev) {        
+    preview.classList.add('active');
+    // (previewBox.classList.contains('js-upload-error')) && previewBox.classList.remove('js-upload-error')
+
+    let filesArray = ev;
+    let listCount = formData.getAll('photos').length;
+
+    // Show photos on view
+    if (filesArray.length > 0) {
+        // Initialize progress bar
+        initializeProgress(filesArray.length)
+        // Show each image on page  
+        filesArray.forEach((file, i) => {
+                let count = listCount;
+                let fileReader = new FileReader();
+                fileReader.onload = () => {
+                    let fileUrl = fileReader.result;
+                    
+                    const image = new Image();
+                    image.className = 'image-preview';
+                    image.title = file.name;
+                    image.src = fileUrl;
+
+                    const div = document.createElement('div');
+                    // div.dataset.id = listCount + i;
+                    div.dataset.name = file.name;
+                    div.className = 'image-preview-box image-handler';
+
+                    const icon = document.createElement('span');
+                    icon.className = 'material-symbols-outlined';
+                    icon.innerHTML = 'delete';
+
+                    icon.addEventListener("click", function() {
+                        div.remove();
+                        const arrays = formData.getAll("photos");
+                        const index = arrays.findIndex(x => x.name === div.dataset.name);
+                        arrays.splice(index, 1);
+                        deletePhoto(arrays)
+                    })
+
+                    const iconContainer = document.createElement('div');
+                    iconContainer.className = 'image-preview-icon-container';
+
+                    iconContainer.appendChild(icon);
+                    div.appendChild(iconContainer);
+                    div.appendChild(image);
+                    preview.appendChild(div);
+                    progressDone();
+                }
+                fileReader.readAsDataURL(file);
+        });
+
+        // Add images to array to send
+        filesArray.forEach((file) => {
+            formData.append("photos", file)
+        })
+        
+    }
+}
+
+//
+//
+//
+//
+// TOOLS
+
+document.querySelector('#skillsInput').addEventListener("keydown", function(event) {
+    if (event.which === 13) {
+        event.preventDefault();
+        addSkill();
+    }
+})
+
+skillsButton.addEventListener('click', function(e) {
+    addSkill();
+})
+
+const addSkill = () => {
+    let skillsInput = document.querySelector('#skillsInput').value;
+    // Add input value to array's
+    if (skillsInput.length > 0) 
+    {
+        setSkillsArrayValues([...skillsArrayValues(), skillsInput]);
+        // Create new badge and push to badges array
+        newBadge(skillsInput);
+        // Add badge to input value
+        addDestroyButton();
+        document.querySelector('#skillsInput').value = "";
+    }
+}
+
+const newBadge = (e) => {
+    // Create html badge item
+        // Create div
+        const badgeItem = document.createElement("div");
+        // Add classname
+        badgeItem.className = 'uk-badge-item';
+        badgeItem.setAttribute('id', e);
+        // Add value from input
+        const badgeText = document.createTextNode(e);
+        // Create destroy button
+        const destroyButton = document.createElement("span");
+        // Add classname to button
+        destroyButton.className = 'material-symbols-outlined';
+        destroyButton.setAttribute("id", "destroyButton");
+        // Add icon to button
+        const destroyText = document.createTextNode('cancel');
+        destroyButton.append(destroyText);
+        // Append text to badge
+        badgeItem.append(badgeText);
+        badgeItem.append(destroyButton);
+        // Push badge to array
+        setSkillsArray([...skillsArray(), {
+            "name": e,
+            "value": badgeItem
+        }]);
+        // Add badge to container to show in html
+        addToContainer(badgeItem);
+}
+
+const addToContainer = (badgeItem) => {
+    skillsContainer.appendChild(badgeItem);
+}
+
+const addDestroyButton = () => {
+    const skillsDestroyButton = document.querySelectorAll("#destroyButton")
+    skillsDestroyButton.forEach((e) => {
+        e.addEventListener('click', function(event) {
+            // Get id of clicked element
+            const element = event.target.parentNode;
+            const elementid = element.getAttribute('id');
+
+            // Find element in array and remove it
+            for (let i=0;i<skillsArray().length;i++) {
+                if (skillsArray()[i].name == elementid) {
+                    skillsArray()[i].value.remove();
+                    skillsArray().splice(i, 1)
+                    setSkillsArray(skillsArray());
+                    skillsArrayValues().splice(i, 1)
+                    setSkillsArrayValues(skillsArrayValues());
+                }
+            }
+        })
+    })
+}
+</script>

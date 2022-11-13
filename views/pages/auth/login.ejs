@@ -49,18 +49,3 @@
     </div>
    
 </div>
-
-<script>
-    $(".password-toggler").click(function() {
-
-    $(this).text(function(i, oldText) {
-        return oldText === 'visibility' ? 'visibility_off' : 'visibility';
-    });
-    const input = $($(this).attr("toggle"));
-    if (input.attr("type") == "password") {
-        input.attr("type", "text");
-    } else {
-        input.attr("type", "password");
-    }
-    });
-</script>

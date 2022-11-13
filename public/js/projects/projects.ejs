@@ -1,0 +1,50 @@
+<script>
+const urlScope = new URLSearchParams(window.location.search);
+
+document.querySelector('#filter-submit').addEventListener("click", function(e) {
+    if (urlScope.get('q').length === 0 && urlScope.get('sort').length === 0) {
+        if (document.querySelector('#sort').value.length === 0 && document.querySelector('#search').value.length === 0) {
+            e.preventDefault();
+        }
+    }
+})
+
+const url = new URLSearchParams(window.location.search);
+const pagesCount = document.querySelectorAll('.pagination-page').length;
+console.log(pagesCount)
+
+let currentPage = 1;
+
+if (url.get('page')) {
+    currentPage = parseInt(url.get('page'));
+} else {
+    currentPage = 1;
+}
+
+if (currentPage == 1) {
+    document.getElementById('li-previous').style.display = "none";
+}
+if (currentPage == pagesCount) {
+    document.getElementById('li-next').style.display = "none";      
+}
+
+const changePage = e => {
+    e.preventDefault();
+    let page = e.target.dataset.page;
+
+    if (page === 'next') {
+        page = currentPage + 1;
+        url.set('page', page)
+    } else { url.set('page', page) }
+    if (page === 'previous') {
+        page = currentPage - 1;
+        url.set('page', page)
+    } else { url.set('page', page) }
+
+    window.location.href = window.location.origin + window.location.pathname + '?' + url.toString();
+}
+
+document.querySelectorAll('.uk-pagination a').forEach(a => {
+    a.addEventListener("click", changePage);
+})
+</script>
