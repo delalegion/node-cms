@@ -8,6 +8,7 @@ const session = require('express-session');
 const { sessionKeySecret } = require('./config');
 const cors = require('cors');
 
+// I18n translations
 const { I18n } = require('i18n');
 
 // CORS

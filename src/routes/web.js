@@ -8,6 +8,7 @@ const localeMiddleware = require("../middleware/locale")
 const isAuth = require("../middleware/is.auth.logged")
 const isAuthUnlogged = require("../middleware/is.auth.unlogged")
 const uploadMiddleware = require("../middleware/uploader");
+const rateLimiterMiddleware = require('../middleware/rate-limiter');
 
 // Home
 router.get("/", (req, res) => {
@@ -35,10 +36,10 @@ router.post("/:locale/edit/profile/:slug", [localeMiddleware, isAuth], UserContr
 router.get("/:locale/delete/profile/:slug", [localeMiddleware, isAuth], UserController.deleteUser)
 
 //Auth
-router.get("/:locale/auth/login", [localeMiddleware, isAuthUnlogged], UserController.showLogin)
-router.post("/:locale/auth/login", [localeMiddleware, isAuthUnlogged], UserController.loginUser)
-router.get("/:locale/auth/register", [localeMiddleware, isAuth], UserController.showCreateUser)
-router.post("/:locale/auth/register", [localeMiddleware, isAuth], UserController.createUser)
+router.get("/:locale/auth/login", [localeMiddleware, isAuthUnlogged, rateLimiterMiddleware], UserController.showLogin)
+router.post("/:locale/auth/login", [localeMiddleware, isAuthUnlogged, rateLimiterMiddleware], UserController.loginUser)
+router.get("/:locale/auth/register", [localeMiddleware], UserController.showCreateUser)
+router.post("/:locale/auth/register", [localeMiddleware], UserController.createUser)
 router.get("/:locale/auth/logout", [localeMiddleware, isAuth], UserController.logout)
 
 // 404

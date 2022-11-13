@@ -35,7 +35,7 @@
                 <div>
                     <div class="uk-card uk-card-default uk-card-small uk-card-body uk-card-hover uk-flex uk-flex-between uk-flex-middle user-box" data-id="<%- e.id %>">
                         <div>
-                            <h5 class="uk-margin-remove-bottom"><%- e.name %></h5>
+                            <h5 class="uk-margin-remove-bottom"><%= e.name %></h5>
                             <p class="uk-text-small uk-margin-remove uk-card-calendar"><%- new Date(e.createdAt).toLocaleString((lang === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}); %></p>
                         </div>
                         <div class="uk-flex uk-flex-middle" id="project-data">
