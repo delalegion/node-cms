@@ -4,7 +4,7 @@ const path = require('path');
 const ejslayout = require('express-ejs-layouts');
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const session = require('express-session');
+const session = require('cookie-session');
 const { sessionKeySecret } = require('./config');
 const cors = require('cors');
 
