@@ -9,5 +9,4 @@ module.exports = async function (req, res, next) {
    if (!token) {
       res.status(403).json({ message: "Authorization failed." });
    }
-   next();
 }

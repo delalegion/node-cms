@@ -872,6 +872,21 @@ footer.footer {
   background: #ECE8E3;
   margin: 0;
   margin-bottom: 5px;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.user-modal-text span {
+  margin-right: 10px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #F7434E;
+}
+
+.user-modal-text.show {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -882,15 +897,8 @@ footer.footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.user-modal-text span {
-  margin-right: 10px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  color: #F7434E;
+  opacity: 1;
+  visibility: visible;
 }
 
 .uk-card-calendar {
@@ -1253,6 +1261,19 @@ footer.footer {
 }
 
 .spinner.show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 1;
+}
+
+.spinner-large {
+  width: 32px;
+  display: none;
+  opacity: 0;
+}
+
+.spinner-large.show {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

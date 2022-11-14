@@ -38,8 +38,8 @@ router.get("/:locale/delete/profile/:slug", [localeMiddleware, isAuth], UserCont
 //Auth
 router.get("/:locale/auth/login", [localeMiddleware, isAuthUnlogged, rateLimiterMiddleware], UserController.showLogin)
 router.post("/:locale/auth/login", [localeMiddleware, isAuthUnlogged, rateLimiterMiddleware], UserController.loginUser)
-router.get("/:locale/auth/register", [localeMiddleware], UserController.showCreateUser)
-router.post("/:locale/auth/register", [localeMiddleware], UserController.createUser)
+router.get("/:locale/auth/register", [localeMiddleware, isAuth], UserController.showCreateUser)
+router.post("/:locale/auth/register", [localeMiddleware, isAuth], UserController.createUser)
 router.get("/:locale/auth/logout", [localeMiddleware, isAuth], UserController.logout)
 
 // 404

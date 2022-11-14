@@ -29,7 +29,9 @@ class UserController {
     }
     async showUsersDetails(req, res) {
         const data = await Users.findOne({ _id: req.body.id });
-        res.send(data);
+        console.log(req.body)
+        console.log(data)
+        res.status(200).json(data);
     }
     showCreateUser(req, res) {
         res.render('pages/auth/register', {title: "Create new user!"});

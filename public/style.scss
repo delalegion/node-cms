@@ -668,14 +668,21 @@ footer.footer {
     background: $light-secondary;
     margin: 0;
     margin-bottom: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
 
     span {
         margin-right: 10px;
         user-select: none;
         color: $primary;
+    }
+    &.show {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        opacity: 1;
+        visibility: visible
     }
 }
 .uk-card-calendar {
@@ -939,6 +946,15 @@ footer.footer {
     display: flex;
     opacity: 1;
 }
+.spinner-large {
+    width: 32px;
+    display: none;
+    opacity: 0;
+}
+.spinner-large.show {
+    display: flex;
+    opacity: 1;
+} 
 .uk-spinner>*>* {
     stroke-width: 2;
 }
