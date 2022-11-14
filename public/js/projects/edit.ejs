@@ -82,7 +82,7 @@ form.addEventListener("submit", (ev) => {
 
     const sendData = () => {
         const spinner = document.querySelector('.spinner').classList.add('show');
-        return fetch('http://localhost:3000/<%- lang %>/edit/project/<%= slug %>', {
+        return fetch('https://node-cms.vercel.app/<%- lang %>/edit/project/<%= slug %>', {
             method: 'POST',
             body: formData
         })
@@ -100,7 +100,7 @@ form.addEventListener("submit", (ev) => {
                 const error = (data) || response.status;
                 return Promise.reject(error);
             } else { 
-                window.location.href = 'http://localhost:3000/<%- lang %>/';
+                window.location.href = 'https://node-cms.vercel.app/<%- lang %>/';
             }
         })
         .catch(error => {

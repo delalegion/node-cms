@@ -18,7 +18,7 @@ document.querySelectorAll('.btn-details').forEach((btn) => {
             user_id.innerHTML = '';
             user_date.innerHTML = '';
             title.innerHTML = '';
-            return fetch('http://localhost:3000/pl/profiles', {
+            return fetch('https://node-cms.vercel.app/'+path+'/profiles', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
