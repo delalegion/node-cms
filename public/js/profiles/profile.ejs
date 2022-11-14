@@ -1,45 +1,55 @@
 <script>
 document.querySelectorAll('.btn-details').forEach((btn) => {
    btn.addEventListener("click", (e) => {
-      const title = document.querySelector('.user-modal-title');
-      const user_email = document.querySelector('.user-modal-email');
-      const user_id = document.querySelector('.user-modal-id');
-      const user_date = document.querySelector('.user-modal-date');
-      const path = window.location.pathname.split('/')[1];
+        const title = document.querySelector('.user-modal-title');
+        const user_email = document.querySelector('.user-modal-email');
+        const user_id = document.querySelector('.user-modal-id');
+        const user_date = document.querySelector('.user-modal-date');
+        const path = window.location.pathname.split('/')[1];
+        const btn = document.querySelector('.btn-details');
+        const modal_text = document.querySelectorAll('.user-modal-text');
 
-      $.ajax({  
-            url: "http://localhost:3000/"+path+"/profiles",  
-            method: 'post',  
-            data: {
-               id: btn.getAttribute("data-id")
-            },
-            dataType: "text",
-            beforeSend: function() {
-               $('.user-modal-text').hide();
-               user_email.innerHTML = '';
-               user_id.innerHTML = '';
-               user_date.innerHTML = '';
-               title.innerHTML = '';
-               $('#spinner').show();
-            },
-            success: function(response){  
-               const data = $.parseJSON(response);
-               const dateTime = new Date(data.createdAt).toLocaleString((path === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
-               setTimeout(() => {
-                  $('.user-modal-text').show();
-                  $('#spinner').hide();
-                  user_email.innerHTML = data.email;
-                  user_id.innerHTML = data._id;
-                  user_date.innerHTML = dateTime;
-                  title.innerHTML = data.name;
-               }, 1000)
-            },  
-            error: function(xhr, status, error){  
-               const err = JSON.parse(xhr.responseText)
-               console.log(err)
-            }  
-      });
-   })
+        const sendData = () => {
+            document.querySelector('#spinner').classList.add('show');
+            modal_text.forEach((e) => {
+                e.classList.remove("show")
+            })
+            user_email.innerHTML = '';
+            user_id.innerHTML = '';
+            user_date.innerHTML = '';
+            title.innerHTML = '';
+            return fetch('http://localhost:3000/pl/profiles', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: btn.getAttribute("data-id") })
+            })
+        }
+
+        (async () => {
+            await sendData().then(async response => {
+                const isJson = response.headers.get('content-type')?.includes('application/json');
+                const data = isJson ? await response.json() : null;
+
+                const dateTime = new Date(data.createdAt).toLocaleString((path === 'pl') ? 'pl-PL' : 'en-US', { hour: 'numeric', minute: 'numeric', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+                setTimeout(() => {
+                    document.querySelector('#spinner').classList.remove('show');
+                    modal_text.forEach((e) => {
+                        e.classList.add("show")
+                    })
+                    user_email.innerHTML = data.email;
+                    user_id.innerHTML = data._id;
+                    user_date.innerHTML = dateTime;
+                    title.innerHTML = data.name;
+                }, 1000)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        })()
+    })
 })
 
 const urlScope = new URLSearchParams(window.location.search);
@@ -61,10 +71,14 @@ if (url.get('page')) {
 }
 
 if (currentPage == 1) {
-    document.getElementById('li-previous').style.display = "none";
+    if (document.getElementById('li-previous')) {
+        document.getElementById('li-previous').style.display = "none";
+    }
 }
 if (currentPage == parseInt(Math.ceil('<%= pagesCount %>'))) {
-    document.getElementById('li-next').style.display = "none";      
+    if (    document.getElementById('li-next')) {
+        document.getElementById('li-next').style.display = "none";     
+    } 
 }
 
 const changePage = e => {

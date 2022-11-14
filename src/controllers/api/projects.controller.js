@@ -5,7 +5,7 @@ const fs = require('fs');
 class ProjectsController {
 
     async show(req, res) {
-        const projects = await Projects.find({});
+        const projects = await Projects.find();
         res.status(201).json(projects);
     }
     async create(req, res) {
